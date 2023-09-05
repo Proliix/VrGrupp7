@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Lucas Demo.unity
+    guid: 99695e5bfd796f1418f385b03df25e81
+  - enabled: 1
     path: Assets/Samples/XR Interaction Toolkit/2.3.2/Starter Assets/DemoScene.unity
     guid: 319dafa5c80f29f428dc1e0d03f04177
   - enabled: 1
