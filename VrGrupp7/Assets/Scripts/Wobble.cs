@@ -7,7 +7,7 @@ public class Wobble : MonoBehaviour
     Renderer rend;
     Vector3 lastPos;
     Vector3 velocity;
-    Vector3 lastRot;  
+    Vector3 lastRot;
     Vector3 angularVelocity;
     public float MaxWobble = 0.03f;
     public float WobbleSpeed = 1f;
@@ -18,11 +18,15 @@ public class Wobble : MonoBehaviour
     float wobbleAmountToAddZ;
     float pulse;
     float time = 0.5f;
-    
+
+    Transform parent;
+
     // Use this for initialization
     void Start()
     {
         rend = GetComponent<Renderer>();
+        parent = transform.parent;
+
     }
     private void Update()
     {
@@ -39,6 +43,7 @@ public class Wobble : MonoBehaviour
         // send it to the shader
         rend.material.SetFloat("_WobbleX", wobbleAmountX);
         rend.material.SetFloat("_WobbleZ", wobbleAmountZ);
+
 
         // velocity
         velocity = (lastPos - transform.position) / Time.deltaTime;
