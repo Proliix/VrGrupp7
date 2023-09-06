@@ -2,5 +2,5 @@ Hello! Welcome to our tutorial!
 This is message 2, is it working?
 Ah good! We have been expecting a couple of bugs
 This is my final message, good bye!
-You can find me in /assets/resources/tutorial.txt
+You can find me in assets >resources >tutorial.txt
 this is a temporary solution

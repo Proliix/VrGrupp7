@@ -16,21 +16,12 @@ public class TextDisplayer : MonoBehaviour
     public string[] messages;
     int messageIndex = 0;
 
-    public string displayText = "";
-
-    // Start is called before the first frame update
     void Start()
     {
         var temp = Resources.Load<TextAsset>("Tutorial");
         messages = temp.text.Split('\n');
 
         WriteText();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        tmpDisplayText.text = displayText;
     }
 
     public void Next()
@@ -90,12 +81,12 @@ public class TextDisplayer : MonoBehaviour
 
         while (text.Length > index && !skipText)
         {
-            displayText = text.Substring(0, index);
+            tmpDisplayText.text = text.Substring(0, index);
             yield return new WaitForSeconds(0.1f / textSpeed);
             index++;
         }
 
-        displayText = text;
+        tmpDisplayText.text = text;
         skipText = false;
         isWritingText = false;
     }
