@@ -10,6 +10,7 @@ public class HandheldScanner : MonoBehaviour
     void Start()
     {
         scannerDisplay = Instantiate(scannerDisplay);
+        scannerDisplay.SetActive(false);
     }
 
     public string GetScanData(Transform transform)
@@ -46,25 +47,40 @@ public class HandheldScanner : MonoBehaviour
 
     public void OnHoverEntered(HoverEnterEventArgs args)
     {
-        scannerDisplay.SetActive(true);
-
         Transform interactableTransform = args.interactableObject.transform;
+
+        if(!CheckIfScannable(interactableTransform))
+        {
+            return;
+        }
 
         string scanData = GetScanData(interactableTransform);
 
         SetDisplayText(scanData);
         SetDisplayTransform(interactableTransform);
 
+        scannerDisplay.SetActive(true);
 
         //Debug.Log($"{args.interactorObject} hovered over {args.interactableObject}", this);
     }
 
     public void OnHoverExited(HoverExitEventArgs args)
     {
-        scannerDisplay.SetActive(false);
+        if (!CheckIfScannable(args.interactableObject.transform))
+        {
+            return;
+        }
+
+        if(scannerDisplay != null)
+            scannerDisplay.SetActive(false);
 
         //Debug.Log($"{args.interactorObject} stopped hovering over {args.interactableObject}", this);
 
         //SetDisplayText("Waiting for input...");
+    }
+
+    private bool CheckIfScannable(Transform transform)
+    {
+        return transform.TryGetComponent<IScannable>(out _);
     }
 }
