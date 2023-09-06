@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CustomGravity : MonoBehaviour
+public class CustomGravity : MonoBehaviour, IScannable
 {
     // Gravity Scale editable on the inspector
     // providing a gravity scale per object
@@ -42,5 +42,10 @@ public class CustomGravity : MonoBehaviour
         }
 
         gravityScale = percentage;
+    }
+
+    public string GetScanInformation()
+    {
+        return "Custom Gravity: " + (gravityScale * 100) + "%";
     }
 }

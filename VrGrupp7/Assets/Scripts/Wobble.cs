@@ -19,14 +19,10 @@ public class Wobble : MonoBehaviour
     float pulse;
     float time = 0.5f;
 
-    Transform parent;
-
     // Use this for initialization
     void Start()
     {
         rend = GetComponent<Renderer>();
-        parent = transform.parent;
-
     }
     private void Update()
     {
