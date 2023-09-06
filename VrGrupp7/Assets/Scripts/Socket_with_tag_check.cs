@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class Socket_with_tag_check : MonoBehaviour
+public class Socket_with_tag_check : XRSocketInteractor
 {
-    // Start is called before the first frame update
-    void Start()
+    public string targetTag = string.Empty;
+
+    [System.Obsolete]
+    public override bool CanHover(XRBaseInteractable interactable)
     {
-        
+        return base.CanHover(interactable) && MatchingUsingTag(interactable);
     }
 
-    // Update is called once per frame
-    void Update()
+    [System.Obsolete]
+    public override bool CanSelect(XRBaseInteractable interactable)
     {
-        
+        return base.CanSelect(interactable) && MatchingUsingTag(interactable);
     }
+
+    private bool MatchingUsingTag(XRBaseInteractable interactable)
+    {
+        return interactable.CompareTag(targetTag);
+    }
+
 }
