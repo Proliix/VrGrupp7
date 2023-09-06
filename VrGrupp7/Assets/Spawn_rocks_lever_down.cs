@@ -7,21 +7,23 @@ public class Spawn_rocks_lever_down : MonoBehaviour
     //GameObject pos ;
     //Vector3 maxpos = new Vector3(0f,0f,0f);
     public GameObject prefab_rock;
-    public GameObject spawn_pos;
-    public Transform spawn_pos1;
-    void Start()
-    {
+    public GameObject gameobject_spawn_pos;
+    public Vector3 spawn_pos;
 
-    }
-
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Invoke("Instantiat", 5.0f);
+        if (other.tag == "Collision_spawn_rocks")
+        {
+        spawn_pos = gameobject_spawn_pos.transform.position;
+        Instantiat();
+        }
     }
 
     void Instantiat()
     {
-        //Instantiate(prefab_rock, spawn_pos, Quaternion.identity);
+        Debug.Log("instansiate");
+        Debug.Log(spawn_pos);
+        Instantiate(prefab_rock, spawn_pos, Quaternion.identity);
     }
 }
 
