@@ -340,13 +340,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125873542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.718, y: 1.442, z: 0.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.0000004768371, z: 0, w: 1}
+  m_LocalPosition: {x: 0.68199986, y: -0.049229622, z: 0.040424213}
+  m_LocalScale: {x: 1, y: 1.0256176, z: 1.2373445}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_Father: {fileID: 130855457}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &130855453
 GameObject:
@@ -445,6 +445,9 @@ Transform:
   - {fileID: 1466619964}
   - {fileID: 682272117}
   - {fileID: 1650174492}
+  - {fileID: 298776781}
+  - {fileID: 924322513}
+  - {fileID: 125873543}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1445,13 +1448,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298776777}
-  m_LocalRotation: {x: -0, y: -0, z: -0.5234156, w: 0.85207754}
-  m_LocalPosition: {x: -2.802, y: 1.745, z: 0.9749}
-  m_LocalScale: {x: 1, y: -0.32, z: 1}
+  m_LocalRotation: {x: 0.000000249584, y: -0.00000040630218, z: -0.5234156, w: 0.85207754}
+  m_LocalPosition: {x: 0.5979995, y: 0.2615325, z: 0.38057014}
+  m_LocalScale: {x: 1.020276, y: -0.32164186, z: 1.2373445}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_Father: {fileID: 130855457}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -63.123}
 --- !u!114 &298776782
 MonoBehaviour:
@@ -1601,7 +1604,7 @@ GameObject:
   - component: {fileID: 352843972}
   - component: {fileID: 352843973}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Lever handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2282,7 +2285,7 @@ GameObject:
   - component: {fileID: 682272119}
   - component: {fileID: 682272118}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Fake hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3485,13 +3488,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924322509}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.803, y: 1.418, z: 0.936}
-  m_LocalScale: {x: 0.25808308, y: 0.25808308, z: 0.25808308}
+  m_LocalRotation: {x: -0, y: -0.0000004768371, z: 0, w: 1}
+  m_LocalPosition: {x: 0.59699965, y: -0.07384449, z: 0.33243743}
+  m_LocalScale: {x: 0.25808308, y: 0.26469454, z: 0.31933767}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_Father: {fileID: 130855457}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &967567311
 GameObject:
@@ -4506,7 +4509,7 @@ GameObject:
   - component: {fileID: 1466619966}
   - component: {fileID: 1466619965}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Platform for rocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
