@@ -1699,8 +1699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab_rock: {fileID: 7478408082653422085, guid: 49cf750d2e95c0e4d89cecace2079ae4,
     type: 3}
-  gameobject_spawn_pos: {fileID: 125873542}
-  spawn_pos: {x: 0, y: 0, z: 0}
+  gameobject_spawn_rocks: {fileID: 125873542}
 --- !u!65 &352843973
 BoxCollider:
   m_ObjectHideFlags: 0
