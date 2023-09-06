@@ -2,6 +2,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Socket_with_tag_check : XRSocketInteractor
 {
+    //Script description: Makes the Lever go upp automatically with out trying to get enything else 
     public string targetTag = string.Empty;
 
     [System.Obsolete]
