@@ -27,6 +27,11 @@ public class CustomGravity : MonoBehaviour, IScannable
         m_rb.useGravity = false;
     }
 
+    void OnDisable()
+    {
+        m_rb.useGravity = true;
+    }
+
     void FixedUpdate()
     {
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
