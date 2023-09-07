@@ -36,7 +36,6 @@ public class HandheldScanner : MonoBehaviour
     void SetDisplayText(string text)
     {
         scannerDisplay.GetComponent<ScannerDisplay>().SetText(text);
-
     }
 
     void SetDisplayTransform(Transform interactable)
