@@ -37,48 +37,57 @@ public class LiquidCatcher : MonoBehaviour
             fillAmount += 0.075f * Time.deltaTime;
             mat.SetFloat("_Fill", fillAmount);
         }
+    }
 
-        
+    void ChangeColor(LiquidContainer container)
+    {
+        if (lastContainer == null)
+        {
+            mat.SetColor("_SideColor", container.GetSideColor());
+            mat.SetColor("_TopColor", container.GetTopColor());
 
+            fadeColorSide = container.GetSideColor();
+            fadeColorTop = container.GetTopColor();
+
+        }
+        else if (container != lastContainer)
+        {
+            fadeT = 0;
+            oldSide = mat.GetColor("_SideColor");
+            oldTop = mat.GetColor("_TopColor");
+
+            fadeColorSide = mat.GetColor("_SideColor") + container.GetSideColor();
+            fadeColorTop = mat.GetColor("_TopColor") + container.GetTopColor();
+        }
+
+        if (mat.GetColor("_SideColor") != fadeColorSide)
+        {
+            mat.SetColor("_SideColor", Color.Lerp(oldSide, fadeColorSide, fadeT));
+            mat.SetColor("_TopColor", Color.Lerp(oldTop, fadeColorTop, fadeT));
+            fadeT += fadeSpeed * Time.deltaTime;
+        }
+    }
+
+    void AddAttributes(GameObject other)
+    {
+        IAttribute[] attributes = other.GetComponents<IAttribute>();
+
+        for (int i = 0; i < attributes.Length; i++)
+        {
+            attributes[i].AddToOther(transform);
+        }
     }
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("Is here");
-
         LiquidContainer container = other.GetComponentInParent<LiquidContainer>();
 
         if (container != null)
         {
-            if (lastContainer == null)
-            {
-                mat.SetColor("_SideColor", container.GetSideColor());
-                mat.SetColor("_TopColor", container.GetTopColor());
-
-                fadeColorSide = container.GetSideColor();
-                fadeColorTop = container.GetTopColor();
-
-            }
-            else if (container != lastContainer)
-            {
-                fadeT = 0;
-                oldSide = mat.GetColor("_SideColor");
-                oldTop = mat.GetColor("_TopColor");
-
-                fadeColorSide = mat.GetColor("_SideColor") + container.GetSideColor();
-                fadeColorTop = mat.GetColor("_TopColor") + container.GetTopColor();
-
-            }
-
-            if (mat.GetColor("_SideColor") != fadeColorSide)
-            {
-                mat.SetColor("_SideColor", Color.Lerp(oldSide, fadeColorSide, fadeT));
-                mat.SetColor("_TopColor", Color.Lerp(oldTop, fadeColorTop, fadeT));
-                fadeT += fadeSpeed * Time.deltaTime;
-            }
+            ChangeColor(container);
+            AddAttributes(other.transform.parent.gameObject);
 
             targetAmount += liquidAddAmount;
-
             lastContainer = container;
         }
     }

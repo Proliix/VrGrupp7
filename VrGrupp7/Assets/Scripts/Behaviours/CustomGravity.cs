@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CustomGravity : MonoBehaviour, IScannable
+public class CustomGravity : MonoBehaviour, IScannable, IAttribute
 {
     // Gravity Scale editable on the inspector
     // providing a gravity scale per object
@@ -40,7 +40,7 @@ public class CustomGravity : MonoBehaviour, IScannable
 
     void SetGravity(float percentage)
     {
-        if(TryGetComponent<XRGrabInteractable>(out XRGrabInteractable grabInteractable))
+        if (TryGetComponent<XRGrabInteractable>(out XRGrabInteractable grabInteractable))
         {
             grabInteractable.throwVelocityScale = 1f * percentage + 0.5f;
             grabInteractable.throwAngularVelocityScale = 1f * percentage;
@@ -52,5 +52,18 @@ public class CustomGravity : MonoBehaviour, IScannable
     public string GetScanInformation()
     {
         return "Custom Gravity: " + (gravityScale * 100) + "%";
+    }
+
+    public void AddEffect(float potency)
+    {
+        gravityScale = Mathf.MoveTowards(gravityScale, potency,  0.05f * Time.deltaTime);
+    }
+
+    public void AddToOther(Transform other)
+    {
+        CustomGravity otherGravity = other.GetComponent<CustomGravity>();
+        otherGravity = otherGravity == null ? other.gameObject.AddComponent<CustomGravity>() : otherGravity;
+
+        otherGravity.AddEffect(gravityScale);
     }
 }

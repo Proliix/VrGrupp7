@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Bouncy : MonoBehaviour, IScannable
+public class Bouncy : MonoBehaviour, IScannable,IAttribute
 {
-    [SerializeField] private float bouncyness = 1f;
+    public float bouncyness = 1f;
     Collider m_collider;
 
     // Start is called before the first frame update
@@ -32,5 +32,12 @@ public class Bouncy : MonoBehaviour, IScannable
     public string GetScanInformation()
     {
         return "Bouncy";
+    }
+
+    public void AddToOther(Transform other)
+    {
+        Bouncy otherBouncy = other.GetComponent<Bouncy>();
+        otherBouncy = otherBouncy == null ? other.gameObject.AddComponent<Bouncy>() : otherBouncy;
+        otherBouncy.bouncyness = bouncyness;
     }
 }
