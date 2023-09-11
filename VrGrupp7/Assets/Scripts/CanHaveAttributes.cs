@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 
 public class CanHaveAttributes : MonoBehaviour
 {
+    public UnityEvent onValueChanged;
+
     void AddAttributes(GameObject other)
     {
         IAttribute[] attributes = other.GetComponents<IAttribute>();
@@ -14,6 +17,8 @@ public class CanHaveAttributes : MonoBehaviour
         {
             attributes[i].AddToOther(transform);
         }
+
+        onValueChanged.Invoke();
     }
 
     private void OnParticleCollision(GameObject other)
