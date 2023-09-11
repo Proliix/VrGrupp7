@@ -57,7 +57,9 @@ public class LiquidCatcher : MonoBehaviour
             oldTop = mat.GetColor("_TopColor");
 
             fadeColorSide = mat.GetColor("_SideColor") + container.GetSideColor();
+            fadeColorSide.a = 1;
             fadeColorTop = mat.GetColor("_TopColor") + container.GetTopColor();
+            fadeColorTop.a = 1;
         }
 
         if (mat.GetColor("_SideColor") != fadeColorSide)

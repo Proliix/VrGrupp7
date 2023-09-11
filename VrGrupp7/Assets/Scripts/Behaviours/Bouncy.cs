@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Bouncy : MonoBehaviour, IScannable,IAttribute
+public class Bouncy : MonoBehaviour, IScannable, IAttribute
 {
     public float bouncyness = 1f;
-    Collider m_collider;
+    Collider[] m_colliders;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     void OnEnable()
     {
-        m_collider = GetComponent<Collider>();
+        m_colliders = GetComponents<Collider>();
+
         SetBouncyness(bouncyness);
     }
 
@@ -24,9 +25,12 @@ public class Bouncy : MonoBehaviour, IScannable,IAttribute
     {
         bouncyness = bouncy;
 
-        PhysicMaterial material = new PhysicMaterial();
-        material.bounciness = bouncy;
-        m_collider.material = material;
+        for (int i = 0; i < m_colliders.Length; i++)
+        {
+            PhysicMaterial material = new PhysicMaterial();
+            material.bounciness = bouncy;
+            m_colliders[i].material = material;
+        }
     }
 
     public string GetScanInformation()
