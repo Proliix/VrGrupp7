@@ -21,7 +21,7 @@ public class Spawn_rocks_lever_down : MonoBehaviour
         if (other.tag == "Collision_spawn_rocks" && max_rock_in_scene > current_rocks_in_scene)
         {
             Lever_audioSource.PlayOneShot(lever_sound);
-            rock_machin_audioSource.PlayOneShot(rock_machin_sound);
+            Invoke("Play_rock_machin_sound", 0.5f);
             Invoke("Instantiate_Rock", timer_takes_to_spawn_rock);
         }
     }
@@ -29,6 +29,10 @@ public class Spawn_rocks_lever_down : MonoBehaviour
     {
         current_rocks_in_scene += 1;
         Instantiate(prefab_rock, gameobject_spawn_rocks.transform.position, Quaternion.identity);
+    }
+    public void Play_rock_machin_sound()
+    {
+        rock_machin_audioSource.PlayOneShot(rock_machin_sound);
     }
 }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collision_spawn_rocks
   - Lever
+  - hammer
   layers:
   - Default
   - TransparentFX
