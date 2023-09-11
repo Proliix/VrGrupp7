@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Material))]
-public class Transparency : MonoBehaviour
+public class Transparency : MonoBehaviour, IScannable, IAttribute
 {
     [Range(0,1f)] public float transparency = 1;
 
     bool isTransparent = false;
-    [SerializeField] private Material transparent;
+    [SerializeField] private Material m_transparent;
     private Material oldMaterial;
 
     // Start is called before the first frame update
@@ -23,6 +23,8 @@ public class Transparency : MonoBehaviour
 
     void ChangeTransparency()
     {
+        if(m_transparent == null) { return; }
+
         Material material = new Material(GetComponent<Renderer>().material);
 
         if (!isTransparent)
@@ -40,7 +42,7 @@ public class Transparency : MonoBehaviour
     Material ChangeToTransparentMode(Material material)
     {
         oldMaterial = material;
-        Material newMaterial = new Material(transparent);
+        Material newMaterial = new Material(m_transparent);
         newMaterial.color = material.color;
         isTransparent = true;
 
@@ -55,5 +57,29 @@ public class Transparency : MonoBehaviour
         GetComponent<Renderer>().material = oldMaterial;
     }
 
+    public string GetScanInformation()
+    {
+        return "Transparency: " + ((int)(transparency * 100)) + "%";
+    }
+    public void AddEffect(float potency)
+    {
+        transparency = Mathf.MoveTowards(transparency, potency, 0.05f * Time.deltaTime);
+        ChangeTransparency();
+    }
 
+
+    public void AddToOther(Transform other)
+    {
+        Transparency otherTransparent = other.GetComponent<Transparency>();
+
+        if(otherTransparent == null)
+        {
+            otherTransparent = other.gameObject.AddComponent<Transparency>();
+            otherTransparent.m_transparent = m_transparent;
+        }
+
+        //otherTransparent = otherTransparent == null ? other.gameObject.AddComponent<Transparency>() : otherTransparent;
+
+        otherTransparent.AddEffect(transparency);
+    }
 }
