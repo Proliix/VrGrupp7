@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LiquidTest
+  m_Name: Beaker
   m_Shader: {fileID: -6465566751694194690, guid: 43e4afe4e1e4b2644a3770b4d6b1219e,
     type: 3}
   m_ValidKeywords: []
@@ -90,8 +90,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Extrafill: 0
-    - _Fill: 1
+    - _Extrafill: 15.41
+    - _Fill: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -117,12 +117,12 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FloatCap: {r: -0.1, g: 0.11, b: 0, a: 0}
-    - _SideColor: {r: 1, g: 0, b: 0, a: 1}
+    - _FloatCap: {r: -0.08, g: 0.07, b: 0, a: 0}
+    - _SideColor: {r: 0, g: 0.3757205, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Test: {r: 0, g: -0.02, b: 0, a: 0}
-    - _TopColor: {r: 1, g: 0.50377357, b: 0.50377357, a: 1}
-    - _Vector3: {r: 0, g: 0, b: 0, a: 0}
+    - _Test: {r: 0, g: 0, b: 0, a: 0}
+    - _TopColor: {r: 0.5019608, g: 0.66896796, b: 1, a: 1}
+    - _Vector3: {r: -43.31, g: 0.14, b: 0, a: 0}
     - _test: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7577213989382965667

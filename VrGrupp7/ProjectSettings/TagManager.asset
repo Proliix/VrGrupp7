@@ -6,7 +6,11 @@ TagManager:
   tags:
   - Collision_spawn_rocks
   - Lever
+<<<<<<< Updated upstream
   - hammer
+=======
+  - Cork
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
