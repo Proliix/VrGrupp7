@@ -152,16 +152,7 @@ public class LiquidContainer : MonoBehaviour
         topColors = new List<Color>();
     }
 
-    Color CombineColors(Color[] aColors)
-    {
-        Color result = new Color(0, 0, 0, 0);
-        foreach (Color c in aColors)
-        {
-            result += c;
-        }
-        result /= aColors.Length;
-        return result;
-    }
+
 
     public void AddColors(Color newTopColor, Color newSideColor)
     {
@@ -185,7 +176,9 @@ public class LiquidContainer : MonoBehaviour
 
 
             topColors.Add(newTopColor);
-            mixedTopColor = CombineColors(topColors.ToArray());
+            mixedTopColor = PotionColors.CombineColors(topColors.ToArray());
+            oldTopColor = GetTopColor();
+            mixedT = 0;
         }
         #endregion
 
@@ -209,12 +202,12 @@ public class LiquidContainer : MonoBehaviour
                 oldSideColor = newSideColor;
 
             sideColors.Add(newSideColor);
-            mixedSideColor = CombineColors(sideColors.ToArray());
+            mixedSideColor = PotionColors.CombineColors(sideColors.ToArray());
+            oldSideColor = GetSideColor();
+            mixedT = 0;
         }
         #endregion
 
-        oldSideColor = GetSideColor();
-        oldTopColor = GetTopColor();
     }
 
     public Color GetSideColor()

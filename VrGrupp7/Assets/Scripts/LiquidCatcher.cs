@@ -6,7 +6,6 @@ public class LiquidCatcher : MonoBehaviour
 {
     [SerializeField] GameObject liquidObj;
     [SerializeField] float liquidAddAmount = 0.1f;
-    [SerializeField] float speed = 0.01f;
 
     Material mat;
     float targetAmount;

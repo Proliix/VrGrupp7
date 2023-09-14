@@ -113,7 +113,6 @@ public class LiquidDispenser : MonoBehaviour
                     currentColor = PotionColors.BouncySide;
                     container.AddColors(PotionColors.BouncyTop, PotionColors.BouncySide);
                     currentAttribute = newBouncy;
-
                     break;
                 case DispensingType.Cloning:
                     Debug.Log("Clone");
