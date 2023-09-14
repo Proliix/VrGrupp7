@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class LiquidContainer : MonoBehaviour
 {
     [SerializeField] GameObject liquidObject;
     [SerializeField] ParticleSystem particles;
     [SerializeField] AnimationCurve flowRate;
+    [SerializeField] float fillSpeed = 0.3f;
 
     [Header("Tuneing")]
     [SerializeField] float minimumFillAmount = 0;
@@ -19,6 +21,16 @@ public class LiquidContainer : MonoBehaviour
     Vector3 wobblePos;
     Material mat;
 
+    //COLOR MIXING
+    List<Color> sideColors = new List<Color>();
+    List<Color> topColors = new List<Color>();
+    Color mixedSideColor;
+    Color mixedTopColor;
+    Color oldSideColor;
+    Color oldTopColor;
+    float mixedT;
+    float mixSpeed = 0.5f;
+
 
     float forceEmptyAmount = -10;
 
@@ -28,6 +40,8 @@ public class LiquidContainer : MonoBehaviour
         ParticleSystem.MainModule mainModule = particles.main;
         mat = liquidObject.GetComponent<MeshRenderer>().material;
         mainModule.startColor = mat.GetColor("_SideColor");
+
+        AddColors(mat.GetColor("_TopColor"), mat.GetColor("_SideColor"));
     }
 
     void StartParticles()
@@ -48,6 +62,8 @@ public class LiquidContainer : MonoBehaviour
             mat.SetFloat("_Fill", fillAmount - (emptySpeed * 3) * Time.deltaTime);
         else
             mat.SetFloat("_Fill", forceEmptyAmount);
+
+        RemoveAllAtributes();
     }
 
     // Update is called once per frame
@@ -84,6 +100,121 @@ public class LiquidContainer : MonoBehaviour
 
             ForceEmpty();
         }
+    }
+
+    public void AddLiquid()
+    {
+        if (Vector3.Angle(transform.up, Vector3.up) < 20f)
+        {
+            UpdateColor();
+
+            if (fillAmount < 0)
+                fillAmount = 0;
+
+            if (fillAmount < 1)
+            {
+                mat.SetFloat("_Fill", fillAmount + (fillSpeed * Time.deltaTime));
+            }
+            else
+                mat.SetFloat("_Fill", 1);
+        }
+    }
+
+    void UpdateColor()
+    {
+        if (GetSideColor() == mixedSideColor && GetTopColor() == mixedTopColor)
+            return;
+
+
+        mat.SetColor("_SideColor", Color.Lerp(oldSideColor, mixedSideColor, mixedT));
+        mat.SetColor("_TopColor", Color.Lerp(oldTopColor, mixedTopColor, mixedT));
+        mixedT += mixSpeed * Time.deltaTime;
+
+        ParticleSystem.MainModule mainModule = particles.main;
+        mainModule.startColor = mat.GetColor("_SideColor");
+
+    }
+
+    void RemoveAllAtributes()
+    {
+        IAttribute[] attributes = GetComponents<IAttribute>();
+        for (int i = attributes.Length - 1; i >= 0; i--)
+        {
+            Destroy(attributes[i] as Component);
+        }
+
+        ResetColors();
+    }
+
+    void ResetColors()
+    {
+        sideColors = new List<Color>();
+        topColors = new List<Color>();
+    }
+
+    Color CombineColors(Color[] aColors)
+    {
+        Color result = new Color(0, 0, 0, 0);
+        foreach (Color c in aColors)
+        {
+            result += c;
+        }
+        result /= aColors.Length;
+        return result;
+    }
+
+    public void AddColors(Color newTopColor, Color newSideColor)
+    {
+        bool hasColor = false;
+
+        #region topColor
+        //If color is already mixed in return
+        foreach (var item in topColors)
+        {
+            if (item == newTopColor)
+            {
+                hasColor = true;
+                break;
+            }
+        }
+
+        if (!hasColor)
+        {
+            if (topColors.Count == 0)
+                oldSideColor = newTopColor;
+
+
+            topColors.Add(newTopColor);
+            mixedTopColor = CombineColors(topColors.ToArray());
+        }
+        #endregion
+
+
+        #region sideColor
+        hasColor = false;
+
+        //check if it already has color
+        foreach (var item in sideColors)
+        {
+            if (item == newSideColor)
+            {
+                hasColor = true;
+                break;
+            }
+        }
+
+        if (!hasColor)
+        {
+            if (sideColors.Count == 0)
+                oldSideColor = newSideColor;
+
+            sideColors.Add(newSideColor);
+            mixedSideColor = CombineColors(sideColors.ToArray());
+        }
+        #endregion
+
+        oldSideColor = GetSideColor();
+        oldTopColor = GetTopColor();
     }
 
     public Color GetSideColor()
