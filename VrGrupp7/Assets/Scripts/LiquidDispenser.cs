@@ -18,11 +18,15 @@ public class LiquidDispenser : MonoBehaviour
     [SerializeField] Vector3 fillPos;
     [SerializeField] Vector3 fillhalfExstents;
     [SerializeField] Material transparacyMat;
+    [SerializeField] AudioClip startSound;
+    [SerializeField] AudioClip stopSound;
+    [SerializeField] AudioSource audioSource;
     public DispensingType type;
 
     Lever lever;
 
     IAttribute currentAttribute;
+
 
     bool isActive;
     Vector3 startPos;
@@ -35,6 +39,7 @@ public class LiquidDispenser : MonoBehaviour
         lever.onEnable.AddListener(StartDispensing);
         lever.onDisable.AddListener(StopDispensing);
         startPos = transform.position;
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
     }
 
     private void Update()
@@ -79,12 +84,22 @@ public class LiquidDispenser : MonoBehaviour
         ParticleSystem.MainModule mainModule = particle.main;
         mainModule.startColor = currentColor;
         particle.Play();
+        audioSource.PlayOneShot(startSound);
+        Invoke(nameof(StartLoopSound), startSound.length - 0.01f);
+    }
+
+    void StartLoopSound()
+    {
+        if (isActive)
+            audioSource.Play();
     }
 
     void StopDispensing()
     {
         isActive = false;
         particle.Stop();
+        audioSource.Stop();
+        audioSource.PlayOneShot(stopSound);
     }
 
     IAttribute GetAttribute(DispensingType newType)
