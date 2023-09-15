@@ -12,7 +12,8 @@ public static class PotionColors
     public static Color CloningTop = new Color(1, 0.5019608f, 0.995156f);
     public static Color TransparencySide = new Color(0, 0.3494084f, 1);
     public static Color TransparencyTop = new Color(0.5019608f, 0.6689681f, 1);
-
+    public static Color ExplosiveSide = new Color(1, 0.4757203f, 0);
+    public static Color ExplosiveTop = new Color(1, 0.6951825f, 0.5019608f);
     public static Color CombineColors(Color[] aColors)
     {
         Color result = new Color(0, 0, 0, 0);
