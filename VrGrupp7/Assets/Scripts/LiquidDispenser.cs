@@ -7,7 +7,8 @@ public enum DispensingType
 {
     Gravity,
     Bouncy,
-    Cloning
+    Cloning,
+    Transparancy
 }
 
 [RequireComponent(typeof(Lever))]
@@ -123,6 +124,16 @@ public class LiquidDispenser : MonoBehaviour
                     currentColor = PotionColors.CloningSide;
                     container.AddColors(PotionColors.CloningTop, PotionColors.CloningSide);
                     currentAttribute = newDuplicator;
+                    break;
+                case DispensingType.Transparancy:
+                    Transparency newTransparency;
+                    if (container.gameObject.TryGetComponent(out newTransparency) == false)
+                    {
+                        newTransparency = container.gameObject.AddComponent<Transparency>();
+                    }
+                    currentColor = PotionColors.TransparencySide;
+                    container.AddColors(PotionColors.TransparencyTop, PotionColors.TransparencySide);
+                    currentAttribute = newTransparency;
                     break;
                 default:
                     Debug.LogError("BECAME DEFAULT CASE");
