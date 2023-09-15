@@ -1,6 +1,9 @@
-Hello! Welcome to our tutorial!
-This is message 2, is it working?
-Ah good! We have been expecting a couple of bugs
-This is my final message, good bye!
-You can find me in assets >resources >tutorial.txt
-this is a temporary solution
+Hello! Welcome to our Playtest!
+Congratulations!!! You managed to press the button!
+Try using the dispensers to the right and make some potions!
+You can mix the potion by using another dispenser!
+You can also mix the liquids inside of the cube shaped beaker.
+Can you figure out what the different liquids do?
+Use the scanner on the table to see the contents of a beaker.
+Press the giant button to your right to reset the level.
+Don't forget to give us feedback :)
