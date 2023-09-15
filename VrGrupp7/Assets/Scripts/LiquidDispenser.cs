@@ -17,6 +17,7 @@ public class LiquidDispenser : MonoBehaviour
     [SerializeField] ParticleSystem particle;
     [SerializeField] Vector3 fillPos;
     [SerializeField] Vector3 fillhalfExstents;
+    [SerializeField] Material transparacyMat;
     public DispensingType type;
 
     Lever lever;
@@ -130,6 +131,8 @@ public class LiquidDispenser : MonoBehaviour
                     if (container.gameObject.TryGetComponent(out newTransparency) == false)
                     {
                         newTransparency = container.gameObject.AddComponent<Transparency>();
+                        newTransparency.AddTrasparentMat(transparacyMat);
+                        newTransparency.transparencyModifier = 0;
                     }
                     currentColor = PotionColors.TransparencySide;
                     container.AddColors(PotionColors.TransparencyTop, PotionColors.TransparencySide);

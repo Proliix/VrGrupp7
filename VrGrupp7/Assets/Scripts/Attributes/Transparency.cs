@@ -86,7 +86,11 @@ public class Transparency : MonoBehaviour, IScannable, IAttribute
         return "Transparency: " + ((int)(GetTransparency() * 100)) + "%";
     }
 
-
+    //Use when addcomponent is used
+    public void AddTrasparentMat(Material mat)
+    {
+        m_transparent = mat;
+    }
 
     public void AddToOther(Transform other)
     {
