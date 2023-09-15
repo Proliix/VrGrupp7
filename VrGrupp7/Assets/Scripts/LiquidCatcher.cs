@@ -13,8 +13,14 @@ public class LiquidCatcher : MonoBehaviour
 
     Color fadeColorSide;
     Color fadeColorTop;
-    Color oldSide;
-    Color oldTop;
+
+    Color mixedColorTop;
+    Color mixedColorSide;
+    Color oldSideColor;
+    Color oldTopColor;
+    List<Color> sideColors = new List<Color>();
+    List<Color> topColors = new List<Color>();
+
     float fadeT;
     float fadeSpeed = 0.75f;
 
@@ -38,35 +44,73 @@ public class LiquidCatcher : MonoBehaviour
         }
     }
 
-    void ChangeColor(LiquidContainer container)
+    void ChangeColor()
     {
-        if (lastContainer == null)
+        if (mat.GetColor("_SideColor") == mixedColorSide && mat.GetColor("_TopColor") == mixedColorTop)
+            return;
+
+
+        mat.SetColor("_SideColor", Color.Lerp(oldSideColor, mixedColorSide, fadeT));
+        mat.SetColor("_TopColor", Color.Lerp(oldTopColor, mixedColorTop, fadeT));
+        fadeT += fadeSpeed * Time.deltaTime;
+
+    }
+
+
+    public void AddColors(Color newTopColor, Color newSideColor)
+    {
+        bool hasColor = false;
+
+        #region topColor
+        //If color is already mixed in return
+        foreach (var item in topColors)
         {
-            mat.SetColor("_SideColor", container.GetSideColor());
-            mat.SetColor("_TopColor", container.GetTopColor());
-
-            fadeColorSide = container.GetSideColor();
-            fadeColorTop = container.GetTopColor();
-
+            if (item == newTopColor)
+            {
+                hasColor = true;
+                break;
+            }
         }
-        else if (container != lastContainer)
+
+        if (!hasColor)
         {
+            if (topColors.Count == 0)
+                oldSideColor = newTopColor;
+
+
+            topColors.Add(newTopColor);
+            mixedColorTop = PotionColors.CombineColors(topColors.ToArray());
+            oldTopColor = mat.GetColor("_TopColor");
             fadeT = 0;
-            oldSide = mat.GetColor("_SideColor");
-            oldTop = mat.GetColor("_TopColor");
-
-            fadeColorSide = mat.GetColor("_SideColor") + container.GetSideColor();
-            fadeColorSide.a = 1;
-            fadeColorTop = mat.GetColor("_TopColor") + container.GetTopColor();
-            fadeColorTop.a = 1;
         }
+        #endregion
 
-        if (mat.GetColor("_SideColor") != fadeColorSide)
+
+        #region sideColor
+        hasColor = false;
+
+        //check if it already has color
+        foreach (var item in sideColors)
         {
-            mat.SetColor("_SideColor", Color.Lerp(oldSide, fadeColorSide, fadeT));
-            mat.SetColor("_TopColor", Color.Lerp(oldTop, fadeColorTop, fadeT));
-            fadeT += fadeSpeed * Time.deltaTime;
+            if (item == newSideColor)
+            {
+                hasColor = true;
+                break;
+            }
         }
+
+        if (!hasColor)
+        {
+            if (sideColors.Count == 0)
+                oldSideColor = newSideColor;
+
+            sideColors.Add(newSideColor);
+            mixedColorSide = PotionColors.CombineColors(sideColors.ToArray());
+            oldSideColor = mat.GetColor("_SideColor");
+            fadeT = 0;
+        }
+        #endregion
+
     }
 
     void AddAttributes(GameObject other)
@@ -85,7 +129,8 @@ public class LiquidCatcher : MonoBehaviour
 
         if (container != null)
         {
-            ChangeColor(container);
+            AddColors(container.GetTopColor(), container.GetSideColor());
+            ChangeColor();
             AddAttributes(other.transform.parent.gameObject);
 
             targetAmount += liquidAddAmount;

@@ -121,6 +121,8 @@ public class LiquidDispenser : MonoBehaviour
                     Debug.LogError("BECAME DEFAULT CASE");
                     break;
             }
+            ParticleSystem.MainModule mainModule = particle.main;
+            mainModule.startColor = currentColor;
         }
         return currentAttribute;
     }
