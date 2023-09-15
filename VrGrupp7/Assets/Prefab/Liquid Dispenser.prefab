@@ -1113,6 +1113,8 @@ MonoBehaviour:
   fillPos: {x: 0.08, y: -0.13, z: -0.19}
   fillhalfExstents: {x: 0.1, y: 0.17, z: 0.11}
   transparacyMat: {fileID: 2100000, guid: a896caab547a8e4499b24ca9f0b14d08, type: 2}
+  explosion: {fileID: 7851832433244018377, guid: 2799a098789ecb54781506e458cd379a,
+    type: 3}
   startSound: {fileID: 8300000, guid: 38c2147c471ba2d41b47b934789bd68e, type: 3}
   stopSound: {fileID: 8300000, guid: a728d132d6b44bb4c8a7fd9186cb97e1, type: 3}
   audioSource: {fileID: 1667420171}

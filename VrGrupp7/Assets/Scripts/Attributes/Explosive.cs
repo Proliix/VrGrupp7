@@ -9,9 +9,9 @@ public class Explosive : MonoBehaviour, IScannable, IAttribute
     Rigidbody m_rb;
     [Range(0f, 20f)] public float maxForceRequiredToExplode = 20f;
 
-    [Range(0f, 1f)] private float potency = 0;
+    [Range(0f, 1f)] public float potency = 0;
 
-    [SerializeField] private GameObject explosion;
+    [SerializeField] public GameObject explosion;
 
     private void OnCollisionEnter(Collision other)
     {

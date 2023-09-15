@@ -8,7 +8,8 @@ public enum DispensingType
     Gravity,
     Bouncy,
     Cloning,
-    Transparancy
+    Transparancy,
+    Explosive
 }
 
 [RequireComponent(typeof(Lever))]
@@ -18,6 +19,7 @@ public class LiquidDispenser : MonoBehaviour
     [SerializeField] Vector3 fillPos;
     [SerializeField] Vector3 fillhalfExstents;
     [SerializeField] Material transparacyMat;
+    [SerializeField] GameObject explosion;
     [SerializeField] AudioClip startSound;
     [SerializeField] AudioClip stopSound;
     [SerializeField] AudioSource audioSource;
@@ -121,6 +123,7 @@ public class LiquidDispenser : MonoBehaviour
                     container.AddColors(PotionColors.GravityTop, PotionColors.GravitySide);
                     currentAttribute = newGravity;
                     break;
+
                 case DispensingType.Bouncy:
                     Bouncy newBouncy;
                     if (container.gameObject.TryGetComponent(out newBouncy) == false)
@@ -131,6 +134,7 @@ public class LiquidDispenser : MonoBehaviour
                     container.AddColors(PotionColors.BouncyTop, PotionColors.BouncySide);
                     currentAttribute = newBouncy;
                     break;
+
                 case DispensingType.Cloning:
                     Duplicator newDuplicator;
                     if (container.gameObject.TryGetComponent(out newDuplicator) == false)
@@ -141,6 +145,7 @@ public class LiquidDispenser : MonoBehaviour
                     container.AddColors(PotionColors.CloningTop, PotionColors.CloningSide);
                     currentAttribute = newDuplicator;
                     break;
+
                 case DispensingType.Transparancy:
                     Transparency newTransparency;
                     if (container.gameObject.TryGetComponent(out newTransparency) == false)
@@ -153,6 +158,21 @@ public class LiquidDispenser : MonoBehaviour
                     container.AddColors(PotionColors.TransparencyTop, PotionColors.TransparencySide);
                     currentAttribute = newTransparency;
                     break;
+
+                case DispensingType.Explosive:
+                    Explosive newExplosive;
+                    if (container.gameObject.TryGetComponent(out newExplosive) == false)
+                    {
+                        newExplosive = container.gameObject.AddComponent<Explosive>();
+                    }
+                    newExplosive.potency = 0.75f;
+                    newExplosive.explosion = explosion;
+
+                    currentColor = PotionColors.ExplosiveSide;
+                    container.AddColors(PotionColors.ExplosiveTop, PotionColors.ExplosiveSide);
+                    currentAttribute = newExplosive;
+                    break;
+
                 default:
                     Debug.LogError("BECAME DEFAULT CASE");
                     break;
