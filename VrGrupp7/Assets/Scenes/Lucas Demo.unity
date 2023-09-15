@@ -1198,7 +1198,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-429764
+  m_Name: pb_Mesh-524814
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1823,7 +1823,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2322
+  m_Name: pb_Mesh-429856
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3378,7 +3378,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-429736
+  m_Name: pb_Mesh177102
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4647,7 +4647,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-429778
+  m_Name: pb_Mesh-524828
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5492,7 +5492,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-429750
+  m_Name: pb_Mesh-524800
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6433,108 +6433,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1667420164 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7638955962124278981, guid: b704581836249a74c8d5301a217ca81f,
-    type: 3}
-  m_PrefabInstance: {fileID: 7638955962454445473}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1667420171
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667420164}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9170109e377e7104c9d9e0c70247c626, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.33
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &1674256524 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3127728407087826080, guid: 895f6f3c2d334633b5800312285058d2,
@@ -6553,7 +6451,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2296
+  m_Name: pb_Mesh-429830
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19533,7 +19431,7 @@ PrefabInstance:
     - target: {fileID: 2906287482382875597, guid: 9c12f2a224f4c534a8411ce0f8cce4d9,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1081
+      value: 1084
       objectReference: {fileID: 0}
     - target: {fileID: 2906287482382875598, guid: 9c12f2a224f4c534a8411ce0f8cce4d9,
         type: 3}
@@ -19598,7 +19496,7 @@ PrefabInstance:
     - target: {fileID: 2906287483299397217, guid: 9c12f2a224f4c534a8411ce0f8cce4d9,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1397
+      value: 1400
       objectReference: {fileID: 0}
     - target: {fileID: 2906287483299397221, guid: 9c12f2a224f4c534a8411ce0f8cce4d9,
         type: 3}
@@ -19793,7 +19691,7 @@ PrefabInstance:
     - target: {fileID: 7638955962124278984, guid: b704581836249a74c8d5301a217ca81f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 776
+      value: 779
       objectReference: {fileID: 0}
     - target: {fileID: 7638955962124278987, guid: b704581836249a74c8d5301a217ca81f,
         type: 3}
@@ -19868,28 +19766,13 @@ PrefabInstance:
     - target: {fileID: 7638955962669437451, guid: b704581836249a74c8d5301a217ca81f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1100
+      value: 1103
       objectReference: {fileID: 0}
     - target: {fileID: 7638955963234557174, guid: b704581836249a74c8d5301a217ca81f,
         type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1674256524}
-    - target: {fileID: 7638955963234557177, guid: b704581836249a74c8d5301a217ca81f,
-        type: 3}
-      propertyPath: stopSound
-      value: 
-      objectReference: {fileID: 8300000, guid: a728d132d6b44bb4c8a7fd9186cb97e1, type: 3}
-    - target: {fileID: 7638955963234557177, guid: b704581836249a74c8d5301a217ca81f,
-        type: 3}
-      propertyPath: startSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 38c2147c471ba2d41b47b934789bd68e, type: 3}
-    - target: {fileID: 7638955963234557177, guid: b704581836249a74c8d5301a217ca81f,
-        type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 1667420171}
     - target: {fileID: 7638955963256058242, guid: b704581836249a74c8d5301a217ca81f,
         type: 3}
       propertyPath: m_Mesh
@@ -19908,7 +19791,7 @@ PrefabInstance:
     - target: {fileID: 7638955963256058246, guid: b704581836249a74c8d5301a217ca81f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1103
+      value: 1106
       objectReference: {fileID: 0}
     - target: {fileID: 7638955963542758704, guid: b704581836249a74c8d5301a217ca81f,
         type: 3}
@@ -19928,7 +19811,7 @@ PrefabInstance:
     - target: {fileID: 7638955963542758709, guid: b704581836249a74c8d5301a217ca81f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 769
+      value: 772
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b704581836249a74c8d5301a217ca81f, type: 3}
@@ -38062,7 +37945,7 @@ PrefabInstance:
     - target: {fileID: 8001622873930675546, guid: 0e1779bff98fa7c4aa51a01a9b26b92c,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1081
+      value: 1084
       objectReference: {fileID: 0}
     - target: {fileID: 8001622875098722545, guid: 0e1779bff98fa7c4aa51a01a9b26b92c,
         type: 3}
@@ -38082,7 +37965,7 @@ PrefabInstance:
     - target: {fileID: 8001622875098722550, guid: 0e1779bff98fa7c4aa51a01a9b26b92c,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1397
+      value: 1400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e1779bff98fa7c4aa51a01a9b26b92c, type: 3}
