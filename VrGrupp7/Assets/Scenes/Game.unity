@@ -234,6 +234,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3127728407712097239, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3127728407712097246, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_TrackingStateInput.m_Action.m_Id
@@ -8980,7 +8985,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9900a4b230b0f204fb19128e2e37707b, type: 2}
+  - {fileID: 2100000, guid: 7fabe50b4cecb59459852566e8c7590a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
