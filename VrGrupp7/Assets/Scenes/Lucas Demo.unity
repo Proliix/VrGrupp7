@@ -12648,6 +12648,25 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &119834510186719540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1818314138244150807, guid: f998940c04db241439ba4d98492f4e30,
+    type: 3}
+  m_PrefabInstance: {fileID: 1770565328479182627}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &119834510186719552
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119834510186719540}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25, y: 0.25000006, z: 0.25000003}
+  m_Center: {x: 0, y: 0, z: 0.00000093877316}
 --- !u!1 &196977305468683332
 GameObject:
   m_ObjectHideFlags: 0
