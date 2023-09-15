@@ -8,7 +8,7 @@ public class LiquidCatcher : MonoBehaviour
     [SerializeField] float liquidAddAmount = 0.1f;
 
     Material mat;
-    float targetAmount;
+    float targetAmount = -10;
     float fillAmount;
 
     Color fadeColorSide;
@@ -132,6 +132,13 @@ public class LiquidCatcher : MonoBehaviour
             AddColors(container.GetTopColor(), container.GetSideColor());
             ChangeColor();
             AddAttributes(other.transform.parent.gameObject);
+
+            if (targetAmount < 0)
+            {
+                targetAmount = 0;
+                fillAmount = 0;
+                mat.SetFloat("_Fill", fillAmount);
+            }
 
             targetAmount += liquidAddAmount;
             lastContainer = container;

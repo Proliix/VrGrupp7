@@ -115,7 +115,14 @@ public class LiquidDispenser : MonoBehaviour
                     currentAttribute = newBouncy;
                     break;
                 case DispensingType.Cloning:
-                    Debug.Log("Clone");
+                    Duplicator newDuplicator;
+                    if (container.gameObject.TryGetComponent(out newDuplicator) == false)
+                    {
+                        newDuplicator = container.gameObject.AddComponent<Duplicator>();
+                    }
+                    currentColor = PotionColors.CloningSide;
+                    container.AddColors(PotionColors.CloningTop, PotionColors.CloningSide);
+                    currentAttribute = newDuplicator;
                     break;
                 default:
                     Debug.LogError("BECAME DEFAULT CASE");
