@@ -113,64 +113,56 @@ public class LiquidDispenser : MonoBehaviour
             switch (type)
             {
                 case DispensingType.Gravity:
-                    CustomGravity newGravity;
-                    if (container.gameObject.TryGetComponent(out newGravity) == false)
-                    {
-                        newGravity = container.gameObject.AddComponent<CustomGravity>();
-                        newGravity.gravityScale = 0;
-                    }
+                    CustomGravity gravity = GameObject.FindWithTag("GameController").GetComponent<CustomGravity>();
+
+                    if (gravity == null)
+                        Debug.LogError("DID NOT GET CUSTOMGRAVITY FROM GAMECONTROLLER", this);
+
                     currentColor = PotionColors.GravitySide;
                     container.AddColors(PotionColors.GravityTop, PotionColors.GravitySide);
-                    currentAttribute = newGravity;
+                    currentAttribute = gravity;
                     break;
 
                 case DispensingType.Bouncy:
-                    Bouncy newBouncy;
-                    if (container.gameObject.TryGetComponent(out newBouncy) == false)
-                    {
-                        newBouncy = container.gameObject.AddComponent<Bouncy>();
-                    }
+                    Bouncy bouncy = GameObject.FindWithTag("GameController").GetComponent<Bouncy>();
+
+                    if (bouncy == null)
+                        Debug.LogError("DID NOT GET BOUNCY FROM GAMECONTROLLER", this);
+
                     currentColor = PotionColors.BouncySide;
                     container.AddColors(PotionColors.BouncyTop, PotionColors.BouncySide);
-                    currentAttribute = newBouncy;
+                    currentAttribute = bouncy;
                     break;
-
                 case DispensingType.Cloning:
-                    Duplicator newDuplicator;
-                    if (container.gameObject.TryGetComponent(out newDuplicator) == false)
-                    {
-                        newDuplicator = container.gameObject.AddComponent<Duplicator>();
-                    }
+                    Duplicator duplicator = GameObject.FindWithTag("GameController").GetComponent<Duplicator>();
+
+                    if (duplicator == null)
+                        Debug.LogError("DID NOT GET DUPLICATOR FROM GAMECONTROLLER", this);
+
                     currentColor = PotionColors.CloningSide;
                     container.AddColors(PotionColors.CloningTop, PotionColors.CloningSide);
-                    currentAttribute = newDuplicator;
+                    currentAttribute = duplicator;
                     break;
 
                 case DispensingType.Transparancy:
-                    Transparency newTransparency;
-                    if (container.gameObject.TryGetComponent(out newTransparency) == false)
-                    {
-                        newTransparency = container.gameObject.AddComponent<Transparency>();
-                        newTransparency.AddTrasparentMat(transparacyMat);
-                        newTransparency.transparencyModifier = 0;
-                    }
+                    Transparency transparency = GameObject.FindWithTag("GameController").GetComponent<Transparency>();
+
+                    if (transparency == null)
+                        Debug.LogError("DID NOT GET TRANSPARANCY FROM GAMECONTROLLER", this);
+
                     currentColor = PotionColors.TransparencySide;
                     container.AddColors(PotionColors.TransparencyTop, PotionColors.TransparencySide);
-                    currentAttribute = newTransparency;
+                    currentAttribute = transparency;
                     break;
-
                 case DispensingType.Explosive:
-                    Explosive newExplosive;
-                    if (container.gameObject.TryGetComponent(out newExplosive) == false)
-                    {
-                        newExplosive = container.gameObject.AddComponent<Explosive>();
-                    }
-                    newExplosive.potency = 0.75f;
-                    newExplosive.explosion = explosion;
+                    Explosive explosive = GameObject.FindWithTag("GameController").GetComponent<Explosive>();
 
+                    if (explosive == null)
+                        Debug.LogError("DID NOT GET EXPLOSIVE FROM GAMECONTROLLER",this);
+                    
                     currentColor = PotionColors.ExplosiveSide;
                     container.AddColors(PotionColors.ExplosiveTop, PotionColors.ExplosiveSide);
-                    currentAttribute = newExplosive;
+                    currentAttribute = explosive;
                     break;
 
                 default:

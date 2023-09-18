@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(Rigidbody))]
+
+[AddComponentMenu("**Attributes**/CustomGravity")]
 public class CustomGravity : MonoBehaviour, IScannable, IAttribute
 {
     // Gravity Scale editable on the inspector

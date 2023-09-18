@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
+
+[AddComponentMenu("**Attributes**/Bouncy")]
 public class Bouncy : MonoBehaviour, IScannable, IAttribute
 {
     public float bouncyness = 1f;

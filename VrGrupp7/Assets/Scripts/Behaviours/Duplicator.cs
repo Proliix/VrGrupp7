@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[AddComponentMenu("**Attributes**/Duplicator")]
 public class Duplicator : MonoBehaviour, IScannable, IAttribute
 {
     [Range(0, 1)]

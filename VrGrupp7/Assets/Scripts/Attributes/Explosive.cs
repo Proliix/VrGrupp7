@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
+
+[AddComponentMenu("**Attributes**/Explosive")]
 public class Explosive : MonoBehaviour, IScannable, IAttribute
 {
 
