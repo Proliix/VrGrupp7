@@ -152,8 +152,6 @@ public class LiquidContainer : MonoBehaviour
         topColors = new List<Color>();
     }
 
-
-
     public void AddColors(Color newTopColor, Color newSideColor)
     {
         bool hasColor = false;
@@ -218,6 +216,35 @@ public class LiquidContainer : MonoBehaviour
     public Color GetTopColor()
     {
         return mat.GetColor("_TopColor");
+    }
+
+    void AddAttributes(GameObject other)
+    {
+        IAttribute[] attributes = other.GetComponents<IAttribute>();
+
+        for (int i = 0; i < attributes.Length; i++)
+        {
+            attributes[i].AddToOther(transform);
+        }
+
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.GetComponentInParent<LiquidContainer>() == this)
+            return;
+
+        if (Vector3.Angle(transform.up, Vector3.up) < 20f)
+        {
+            LiquidContainer container = other.GetComponentInParent<LiquidContainer>();
+
+            if (container != null)
+            {
+                AddColors(container.GetTopColor(), container.GetSideColor());
+                AddLiquid();
+                AddAttributes(other.transform.parent.gameObject);
+            }
+        }
     }
 
 }
