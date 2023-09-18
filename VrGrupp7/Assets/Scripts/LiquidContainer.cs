@@ -48,12 +48,25 @@ public class LiquidContainer : MonoBehaviour
     {
         hasParticles = true;
         particles.Play();
+
+        if(TryGetComponent(out PourLiquid pourLiquid))
+        {
+            Debug.Log("Pouring");
+            pourLiquid.Pour();
+        }
+
     }
 
     void StopParticles()
     {
         hasParticles = false;
         particles.Stop();
+
+        if (TryGetComponent(out PourLiquid pourLiquid))
+        {
+            Debug.Log("Stopping Pour");
+            pourLiquid.Stop();
+        }
     }
 
     void ForceEmpty()
