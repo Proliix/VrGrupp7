@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRSimpleInteractable))]
 [HelpURL("https://www.youtube.com/watch?v=ZaWu0YPmDJo")]
 public class Lever : MonoBehaviour
@@ -15,10 +14,11 @@ public class Lever : MonoBehaviour
     public UnityEvent onEnable;
     public UnityEvent onDisable;
 
+    [SerializeField] bool debugAngle;
+    [SerializeField] bool debugDot;
 
     Vector3 startPos;
     Quaternion startRot;
-    Rigidbody rbd;
     bool isActive;
     bool isGrabbed;
 
@@ -30,7 +30,6 @@ public class Lever : MonoBehaviour
     {
         startPos = transform.position;
         startRot = transform.rotation;
-        rbd = GetComponent<Rigidbody>();
         interactable = GetComponent<XRSimpleInteractable>();
         interactable.selectEntered.AddListener(GrabLever);
         interactable.selectExited.AddListener(ResetPos);
@@ -51,6 +50,9 @@ public class Lever : MonoBehaviour
             Vector3 dir = hand.transform.position - transform.position;
             float dot = Vector3.Dot(dir, dotDir);
 
+            if (debugDot)
+                Debug.Log(dot);
+
             if (dot > 0)
             {
                 transform.LookAt(new Vector3(hand.transform.position.x, hand.transform.position.y, transform.position.z));
@@ -58,6 +60,10 @@ public class Lever : MonoBehaviour
             }
 
         }
+
+        if (debugAngle)
+            Debug.Log(Vector3.Angle(transform.up, Vector3.left));
+
 
         if (Vector3.Angle(transform.up, Vector3.left) > angleForStart)
         {
@@ -86,6 +92,5 @@ public class Lever : MonoBehaviour
         isGrabbed = false;
         transform.position = startPos;
         transform.rotation = startRot;
-        rbd.velocity = Vector3.zero;
     }
 }
