@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1033388001244513603}
   - component: {fileID: 2455383403027422591}
   - component: {fileID: 1706075720073096792}
+  - component: {fileID: 7154085966840827604}
   m_Layer: 0
   m_Name: Rock
   m_TagString: rocks
@@ -265,7 +266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385d16f6147b3334692121d91dde6352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 3e0976de9fc2b8742891f40ba3c8e76a, type: 3}
+  clip_rockAgainstsrock: {fileID: 8300000, guid: 3e0976de9fc2b8742891f40ba3c8e76a,
+    type: 3}
+  clip_rockAgainstTable: {fileID: 8300000, guid: 384596f799a33fa4fb718dec09321172,
+    type: 3}
 --- !u!82 &1706075720073096792
 AudioSource:
   m_ObjectHideFlags: 0
@@ -362,3 +366,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &7154085966840827604
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186403747949819924}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6244591, y: 0.7751051, z: 1.3073207}
+  m_Center: {x: -0.02851799, y: 0.33535522, z: -0.018334059}

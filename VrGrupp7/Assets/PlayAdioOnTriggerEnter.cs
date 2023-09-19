@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayAdioOnTriggerEnter : MonoBehaviour
 {
-    public AudioClip clip;
+    public AudioClip clip_rockAgainstsrock;
+    public AudioClip clip_rockAgainstTable;
     private AudioSource source;
 
     void Start()
@@ -24,11 +25,18 @@ public class PlayAdioOnTriggerEnter : MonoBehaviour
     }
      void OnTriggerEnter(Collider other) 
     {
-        //if(other.tag == "hello")
-        //{
+        if(other.tag == "rocks")
+        {
             float volume = Calculate_velocity();
-            source.PlayOneShot(clip, volume);
-        //}
+            source.PlayOneShot(clip_rockAgainstsrock, volume);
+        }
+
+        if(other.tag == "Table")
+        {
+            float volume = Calculate_velocity();
+            volume -= 0.5f;
+            source.PlayOneShot(clip_rockAgainstTable, volume);
+        }
     }
 
 }
