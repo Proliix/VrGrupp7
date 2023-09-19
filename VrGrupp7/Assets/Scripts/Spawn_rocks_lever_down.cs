@@ -34,7 +34,6 @@ public class Spawn_rocks_lever_down : MonoBehaviour
     public void Instantiate_Rock()
     {
         Instantiate(prefab_rock, gameobject_spawn_rocks.transform.position, Quaternion.identity);
-        Debug.Log(number_of_rock_in_scene);
     }
     public void Play_rock_machin_sound()
     {

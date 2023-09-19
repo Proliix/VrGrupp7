@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 728017}
   - component: {fileID: 728016}
   - component: {fileID: 728015}
+  - component: {fileID: 728019}
   m_Layer: 0
   m_Name: Science table
   m_TagString: Untagged
@@ -220,6 +221,19 @@ Transform:
   m_Father: {fileID: 1392226145}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &728019
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728014}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 1, z: 0.99999994}
+  m_Center: {x: 0.00000023841858, y: 0.000000059604645, z: 0.000000029802322}
 --- !u!1 &82311009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,6 +1217,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
+--- !u!1 &225930440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1565887663814566040, guid: 3e07eccb5e6f459d886de95044adb1d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 208985960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &225930442
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225930440}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.705633, y: 0.88941145, z: 11.081177}
+  m_Center: {x: -0.48490715, y: -0.3514963, z: -0.37282753}
 --- !u!1 &227230610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,7 +1339,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1588
+  m_Name: pb_Mesh-1600
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4654,7 +4687,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29988
+  m_Name: pb_Mesh30038
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5060,6 +5093,7 @@ GameObject:
   - component: {fileID: 1557508863}
   - component: {fileID: 1557508862}
   - component: {fileID: 1557508861}
+  - component: {fileID: 1557508865}
   m_Layer: 0
   m_Name: Science table (1)
   m_TagString: Untagged
@@ -5145,6 +5179,19 @@ Transform:
   m_Father: {fileID: 1392226145}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!65 &1557508865
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557508860}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.000000059604645, z: 0.0000000018626451}
 --- !u!1 &1562138443
 GameObject:
   m_ObjectHideFlags: 0
@@ -6394,6 +6441,7 @@ GameObject:
   - component: {fileID: 1902900109}
   - component: {fileID: 1902900108}
   - component: {fileID: 1902900107}
+  - component: {fileID: 1902900111}
   m_Layer: 0
   m_Name: Science table (4)
   m_TagString: Untagged
@@ -6479,6 +6527,19 @@ Transform:
   m_Father: {fileID: 1392226145}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 178.955, z: 0}
+--- !u!65 &1902900111
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902900106}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000005, y: 1, z: 1.0000005}
+  m_Center: {x: 0, y: 0.000000059604645, z: -0.000000029802322}
 --- !u!1001 &2009329288
 PrefabInstance:
   m_ObjectHideFlags: 0
