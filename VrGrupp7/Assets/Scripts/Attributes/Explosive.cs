@@ -54,4 +54,8 @@ public class Explosive : MonoBehaviour, IScannable, IAttribute
         this.potency += potency * 0.01f;
     }
 
+    public float GetPotency()
+    {
+        return potency;
+    }
 }

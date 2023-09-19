@@ -59,7 +59,7 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
 
     public void AddEffect(float potency)
     {
-        gravityScale = Mathf.MoveTowards(gravityScale, potency, 0.05f * Time.deltaTime);
+        gravityScale = Mathf.MoveTowards(gravityScale, potency, 0.075f * Time.deltaTime);
     }
 
     public void AddToOther(Transform other)
@@ -70,4 +70,8 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
         otherGravity.AddEffect(gravityScale);
     }
 
+    public float GetPotency()
+    {
+        return gravityScale;
+    }
 }

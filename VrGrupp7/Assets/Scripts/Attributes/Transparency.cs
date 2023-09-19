@@ -113,5 +113,8 @@ public class Transparency : MonoBehaviour, IScannable, IAttribute
         ChangeTransparency();
     }
 
-
+    public float GetPotency()
+    {
+        return transparencyModifier;
+    }
 }

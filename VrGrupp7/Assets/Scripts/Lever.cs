@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRSimpleInteractable))]
 [HelpURL("https://www.youtube.com/watch?v=ZaWu0YPmDJo")]
 public class Lever : MonoBehaviour

@@ -46,4 +46,9 @@ public class Bouncy : MonoBehaviour, IScannable, IAttribute
         otherBouncy = otherBouncy == null ? other.gameObject.AddComponent<Bouncy>() : otherBouncy;
         otherBouncy.bouncyness = bouncyness;
     }
+
+    public float GetPotency()
+    {
+        return bouncyness;
+    }
 }

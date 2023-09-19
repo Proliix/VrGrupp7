@@ -46,4 +46,9 @@ public class Duplicator : MonoBehaviour, IScannable, IAttribute
     {
         return "Cloning: " + (progress * 100).ToString("F0") + "%";
     }
+
+    public float GetPotency()
+    {
+        return progress;
+    }
 }
