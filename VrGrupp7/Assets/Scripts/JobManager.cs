@@ -168,12 +168,14 @@ public class JobManager : MonoBehaviour
     void TurnInCorrect()
     {
         displayer.WriteText("Thank you so much");
+        CancelInvoke(nameof(NewBatchEditor));
         Invoke(nameof(NewBatchEditor), 10);
     }
 
     void TurnInIncorrect()
     {
         displayer.WriteText("This was not what i ordered!?!?");
+        CancelInvoke(nameof(WriteText));
         Invoke(nameof(WriteText), 10);
     }
     #endregion

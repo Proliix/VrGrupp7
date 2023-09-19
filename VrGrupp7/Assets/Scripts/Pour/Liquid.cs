@@ -170,6 +170,11 @@ public class Liquid : MonoBehaviour
 
     public void UpdateSpline()
     {
+        if (!flowWater)
+        {
+            return;
+        }
+
         Vector3[] points = pourLiquid.splineTrajectory;
 
         //If the spline trajectory is the shortest possible, start point and end point, we process it manually
