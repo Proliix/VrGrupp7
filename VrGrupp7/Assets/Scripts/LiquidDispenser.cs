@@ -191,9 +191,9 @@ public class LiquidDispenser : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         if (startPos != Vector3.zero)
-            Gizmos.DrawWireCube(startPos + fillPos, fillhalfExstents);
+            Gizmos.DrawWireCube(startPos + fillPos, fillhalfExstents * 2);
         else
-            Gizmos.DrawWireCube(transform.position + fillPos, fillhalfExstents);
+            Gizmos.DrawWireCube(transform.position + fillPos, fillhalfExstents * 2);
     }
 
 }

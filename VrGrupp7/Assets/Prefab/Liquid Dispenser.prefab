@@ -255,6 +255,8 @@ MonoBehaviour:
   onDisable:
     m_PersistentCalls:
       m_Calls: []
+  debugAngle: 0
+  debugDot: 0
 --- !u!114 &1930545385970377441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,8 +270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 7638955963467154488}
-  fillPos: {x: 0.12, y: -0.1, z: -0.19}
-  fillhalfExstents: {x: 0.1, y: 0.2, z: 0.11}
+  fillPos: {x: 0.115, y: -0.1, z: -0.19}
+  fillhalfExstents: {x: 0.07, y: 0.2, z: 0.07}
   transparacyMat: {fileID: 2100000, guid: a896caab547a8e4499b24ca9f0b14d08, type: 2}
   explosion: {fileID: 7851832433244018377, guid: 2799a098789ecb54781506e458cd379a,
     type: 3}

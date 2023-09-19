@@ -14,6 +14,9 @@ public class JobManager : MonoBehaviour
 {
     [SerializeField] TextDisplayer displayer;
     [SerializeField] int startBatch = 2;
+    [Header("Turn in area")]
+    [SerializeField] Vector3 turnInPos;
+    [SerializeField] Vector3 turnInSize;
 
 
     IAttribute[] allAttributes;
@@ -45,7 +48,7 @@ public class JobManager : MonoBehaviour
         }
 
         //Call write text to update textscreen
-        //Invoke(nameof(WriteText), 5);
+        Invoke(nameof(WriteText), 5);
     }
 
     void WriteText()
@@ -108,5 +111,76 @@ public class JobManager : MonoBehaviour
         return newJobString;
     }
 
+    #region Turn in logic
 
+    public void TurnIn()
+    {
+        bool[] isCompleted = new bool[wantedAtributes.Count];
+        Collider[] hitColliders = Physics.OverlapBox(turnInPos, turnInSize);
+        LiquidContainer container = null;
+
+        for (int i = 0; i < hitColliders.Length; i++)
+        {
+            if (hitColliders[i].gameObject.TryGetComponent(out container) == true)
+                break;
+        }
+
+        if (container == null)
+            return;
+
+        IAttribute[] containerAttributes = container.GetComponents<IAttribute>();
+
+        for (int i = 0; i < wantedAtributes.Count; i++)
+        {
+            for (int x = 0; x < containerAttributes.Length; x++)
+            {
+                if (wantedAtributes[i].Attribute.GetType() == containerAttributes[x].GetType())
+                {
+                    switch (wantedAtributes[i].wantGreater)
+                    {
+                        case true:
+                            if (wantedAtributes[i].potency >= containerAttributes[x].GetPotency())
+                                isCompleted[i] = true;
+                            break;
+                        case false:
+                            if (wantedAtributes[i].potency <= containerAttributes[x].GetPotency())
+                                isCompleted[i] = true;
+                            break;
+                    }
+                }
+            }
+        }
+
+
+        for (int i = 0; i < isCompleted.Length; i++)
+        {
+            if (!isCompleted[i])
+            {
+                TurnInIncorrect();
+                return;
+            }
+        }
+
+        TurnInCorrect();
+
+    }
+
+    void TurnInCorrect()
+    {
+        displayer.WriteText("Thank you so much");
+        Invoke(nameof(NewBatchEditor), 10);
+    }
+
+    void TurnInIncorrect()
+    {
+        displayer.WriteText("This was not what i ordered!?!?");
+        Invoke(nameof(WriteText), 10);
+    }
+    #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+
+        Gizmos.DrawWireCube(turnInPos, turnInSize * 2);
+    }
 }
