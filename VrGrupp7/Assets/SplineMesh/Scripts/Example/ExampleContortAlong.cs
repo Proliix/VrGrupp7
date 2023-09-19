@@ -15,7 +15,7 @@ namespace SplineMesh
     public class ExampleContortAlong : MonoBehaviour
     {
         private Spline spline;
-        private float rate = 0;
+        //private float rate = 0;
         public MeshBender MeshBender;
 
         [HideInInspector]

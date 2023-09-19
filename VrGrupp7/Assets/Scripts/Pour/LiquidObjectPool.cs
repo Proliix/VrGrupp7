@@ -25,7 +25,7 @@ public class LiquidObjectPool : MonoBehaviour
 
     private void Start()
     {
-
+        //Time.timeScale = 0.1f;
     }
 
     public void ReturnLiquid(Liquid liquid)

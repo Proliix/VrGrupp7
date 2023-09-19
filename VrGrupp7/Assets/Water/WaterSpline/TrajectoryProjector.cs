@@ -38,7 +38,7 @@ public class TrajectoryProjector : MonoBehaviour
     private Vector3 InitialLocalPosition;
     private Quaternion InitialRotation;
 
-    private bool IsGrenadeThrowAvailable = true;
+    //private bool IsGrenadeThrowAvailable = true;
     private LayerMask GrenadeCollisionMask;
 
     private void Awake()

@@ -41,7 +41,7 @@ public class Liquid : MonoBehaviour
 
     void Init()
     {
-        Debug.Log("Init");
+        //Debug.Log("Init");
         ConfigureSpline();
 
         contortAlong.Init();
@@ -62,10 +62,8 @@ public class Liquid : MonoBehaviour
 
     public void UpdateScale()
     {
-
-        Debug.Log("Update Scale");
-
-        float scaleFactor = spline.Length * (1f / 3f);
+        //Scale the mesh to the length of the spline
+        float scaleFactor = spline.Length * (1f / meshLength);
 
         //Debug.Log("Update Scale");
 
@@ -81,9 +79,10 @@ public class Liquid : MonoBehaviour
     {
         while (flowWater)
         {
-            //Debug.Log("L/meshL: = " + length + " / " + meshLength + " = " + (length / meshLength));
+            //Moves the mesh along the spline by scaling it, targetScale updates depending on the length of the spline
             contortAlong.ScaleMesh(Vector3.Lerp(startScale, targetScale, length / meshLength));
 
+            //Increments the lerp value if we haven't reached a lerp value of 1;
             if (length < meshLength)
             {
                 length += Time.deltaTime * localAnimSpeed * speedCurveLerp;
@@ -135,50 +134,75 @@ public class Liquid : MonoBehaviour
             spline.RemoveNode(nodes[i]);
         }
 
-        int pointCount = pourLiquid.pointCount;
+        UpdateSpline();
 
-        for (int i = 0; i < pointCount; i++)
-        {
+        //int pointCount = pourLiquid.pointCount;
+
+        //pointCount /= 2;
+
+        //int nodeCount = 0;
+
+        //for (int i = 0; i < pointCount; i += 2, nodeCount++)
+        //{
 
 
-            if (spline.nodes.Count <= i)
-            {
-                spline.AddNode(new SplineNode(Vector3.zero, Vector3.forward));
-            }
+        //    if (spline.nodes.Count <= nodeCount)
+        //    {
+        //        spline.AddNode(new SplineNode(Vector3.zero, Vector3.forward));
+        //    }
 
-            Vector3 pos = points[i];
-            Vector3 myAngle = Vector3.zero;
+        //    Vector3 pos = points[i];
+        //    Vector3 myAngle = Vector3.zero;
 
-            if (i == pointCount - 1)
-                myAngle = -(points[i] - points[i - 1]);
-            else
-                myAngle = points[i] - points[i + 1];
+        //    if (i == pointCount - 1)
+        //        myAngle = -(points[i] - points[i - 1]);
+        //    else
+        //        myAngle = points[i] - points[i + 1];
 
-            Vector3 normal = Quaternion.Euler(myAngle) * myAngle;
-            Vector3 direction = pos - (normal / 2f);
+        //    Vector3 normal = Quaternion.Euler(myAngle) * myAngle;
+        //    Vector3 direction = pos - (normal / 2f);
 
-            spline.nodes[i].Position = transform.InverseTransformPoint(pos);
-            spline.nodes[i].Direction = transform.InverseTransformPoint(direction);
+        //    spline.nodes[nodeCount].Position = transform.InverseTransformPoint(pos);
+        //    spline.nodes[nodeCount].Direction = transform.InverseTransformPoint(direction);
 
-        }
+        //}
     }
 
     public void UpdateSpline()
     {
         Vector3[] points = pourLiquid.splineTrajectory;
 
-        //LineRenderer line = TrajectoryProjector.instance.GetComponent<LineRenderer>();
+        //If the spline trajectory is the shortest possible, start point and end point, we process it manually
+        if(points[2] == Vector3.zero)
+        {
+            Vector3 point = points[0];
+            Vector3 myAngle = points[0] - points[1];
+
+            Vector3 normal = Quaternion.Euler(myAngle) * myAngle;
+            Vector3 direction = point - (normal / 3f);
+
+            spline.nodes[0].Position = transform.InverseTransformPoint(points[0]);
+            spline.nodes[0].Direction = transform.InverseTransformPoint(direction);
+
+            spline.nodes[1].Position = transform.InverseTransformPoint(points[1]);
+            spline.nodes[1].Direction = transform.InverseTransformPoint(direction);
+
+            RemoveUnusedSplines(2);
+
+            return;
+        }
 
         int maxPoints = pourLiquid.LinePoints;
+        int nodeCount = 0;
 
-        for (int i = 0; i < maxPoints; i++)
+        for (int i = 0; i < maxPoints; i += 2, nodeCount++)
         {
             Vector3 point = points[i];
 
             if (point == Vector3.zero)
                 break;
 
-            if (spline.nodes.Count <= i)
+            if (spline.nodes.Count <= nodeCount)
             {
                 spline.AddNode(new SplineNode(Vector3.zero, Vector3.forward));
             }
@@ -189,7 +213,7 @@ public class Liquid : MonoBehaviour
                 point += point - points[i - 2];
             }
 
-            Vector3 myAngle = Vector3.zero;
+            Vector3 myAngle;
 
             if (points[i + 1] == Vector3.zero && i > 0)
                 myAngle = -(points[i] - points[i - 1]);
@@ -199,17 +223,23 @@ public class Liquid : MonoBehaviour
             Vector3 normal = Quaternion.Euler(myAngle) * myAngle;
             Vector3 direction = point - (normal / 2f);
 
-            spline.nodes[i].Position = transform.InverseTransformPoint(point);
-            spline.nodes[i].Direction = transform.InverseTransformPoint(direction);
+
+            spline.nodes[nodeCount].Position = transform.InverseTransformPoint(point);
+            spline.nodes[nodeCount].Direction = transform.InverseTransformPoint(direction);
         }
 
-        for (int i = spline.nodes.Count - 1; i > pourLiquid.pointCount - 1; i--)
+        RemoveUnusedSplines(nodeCount);
+
+        UpdateScale();
+    }
+
+    void RemoveUnusedSplines(int nodeCount)
+    {
+        for (int i = spline.nodes.Count - 1; i > nodeCount - 1; i--)
         {
             spline.RemoveNode(spline.nodes[i]);
             //Debug.Log("points: " + line.positionCount);
             //Debug.Log("Removing node: " + i);
         }
-
-        UpdateScale();
     }
 }

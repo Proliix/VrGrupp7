@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pourLiquid: {fileID: 0}
-  scale: {x: 1, y: 0.2, z: 0.2}
+  scale: {x: 1, y: 0.025, z: 0.025}
   spline: {fileID: 8674352933280111883}
   contortAlong: {fileID: 8674352933280111880}
   speedDelta: 1.4
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MeshBender: {fileID: 0}
   generated: {fileID: 8674352933814174611}
-  mesh: {fileID: 7814459101124295239, guid: d3768a4fc97ed854bb35b0977e0618d8, type: 3}
+  mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: 845ae72f34775f444812bd1576bcc0ab, type: 2}
   rotation: {x: 0, y: 90, z: 0}
   scale: {x: 1, y: 0.2, z: 0.2}

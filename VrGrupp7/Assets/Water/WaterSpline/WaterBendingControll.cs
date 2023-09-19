@@ -179,8 +179,6 @@ public class WaterBendingControll : MonoBehaviour
                 _Spline.AddNode(new SplineNode(Vector3.zero, Vector3.forward));
             }
 
-            float angle = 0;
-
             Vector3 pos = line.GetPosition(i);
 
             Vector3 myAngle = line.GetPosition(i) - line.GetPosition(i + 1);

@@ -56,6 +56,8 @@ public class PourLiquid : MonoBehaviour
 
             if(liquid != null)
                 liquid.UpdateSpline();
+
+            //DrawDebugLines(splineTrajectory, Color.red, TimeBetweenPoints);
         }
 
         timer += Time.deltaTime * simulationSpeed;
@@ -112,7 +114,7 @@ public class PourLiquid : MonoBehaviour
                 (point - lastPosition).magnitude)) // Add collision mask?
             {
 
-                currentTrajectory[i] = point;
+                currentTrajectory[i] = hit.point;
                 i++;
 
                 pointCount = i;
@@ -123,6 +125,8 @@ public class PourLiquid : MonoBehaviour
                     currentTrajectory[i] = Vector3.zero;
                     i++;
                 }
+
+                //DrawDebugLines(currentTrajectory, Color.white, TimeBetweenPoints * 5);
 
                 return;
             }
@@ -142,5 +146,17 @@ public class PourLiquid : MonoBehaviour
         liquid.StopFlow();
         LiquidObjectPool.instance.ReturnLiquid(liquid);
         liquid = null;
+    }
+
+    void DrawDebugLines(Vector3[] points, Color color, float duration)
+    {
+        for (int i = 0; i < points.Length; i++)
+        {
+            if (points[i + 1] == Vector3.zero)
+                break;
+
+            Debug.DrawLine(points[i], points[i + 1], color, duration);
+
+        }
     }
 }
