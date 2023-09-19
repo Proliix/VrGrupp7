@@ -51,4 +51,9 @@ public class Bouncy : MonoBehaviour, IScannable, IAttribute
     {
         return bouncyness;
     }
+
+    public string GetName()
+    {
+        return "Bouncy";
+    }
 }

@@ -117,4 +117,9 @@ public class Transparency : MonoBehaviour, IScannable, IAttribute
     {
         return transparencyModifier;
     }
+
+    public string GetName()
+    {
+        return "Transparency";
+    }
 }

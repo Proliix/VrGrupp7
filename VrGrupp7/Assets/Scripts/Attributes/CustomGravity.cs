@@ -74,4 +74,9 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
     {
         return gravityScale;
     }
+
+    public string GetName()
+    {
+        return "Custom Gravity";
+    }
 }

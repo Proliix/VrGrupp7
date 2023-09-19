@@ -58,4 +58,9 @@ public class Explosive : MonoBehaviour, IScannable, IAttribute
     {
         return potency;
     }
+
+    public string GetName()
+    {
+        return "Explosive";
+    }
 }

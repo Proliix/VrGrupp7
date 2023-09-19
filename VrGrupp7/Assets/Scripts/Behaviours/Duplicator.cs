@@ -11,8 +11,8 @@ public class Duplicator : MonoBehaviour, IScannable, IAttribute
 
     float cloneSpeed = 0.3f;
     bool isDuping = false;
-    
-    
+
+
     public void AddToOther(Transform other)
     {
         Duplicator otherDuplicator = other.GetComponent<Duplicator>();
@@ -50,5 +50,10 @@ public class Duplicator : MonoBehaviour, IScannable, IAttribute
     public float GetPotency()
     {
         return progress;
+    }
+
+    public string GetName()
+    {
+        return "Cloning";
     }
 }

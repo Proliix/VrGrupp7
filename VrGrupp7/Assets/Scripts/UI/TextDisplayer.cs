@@ -8,13 +8,14 @@ public class TextDisplayer : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI tmpDisplayText;
     [SerializeField] private TextMeshProUGUI tmpMessageCounter;
-    [SerializeField][Range(0.5f, 2)] private float textSpeed = 1;
+    [SerializeField] [Range(0.5f, 2)] private float textSpeed = 1;
 
     [SerializeField] private AudioSource typeAudio;
     [SerializeField] private AudioClip typeSound;
 
     [SerializeField] private AudioSource buttonAudio;
     [SerializeField] private AudioClip buttonSound;
+    [SerializeField] private bool isTutorial;
 
     bool isWritingText = false;
     bool skipText = false;
@@ -24,20 +25,23 @@ public class TextDisplayer : MonoBehaviour
 
     void Start()
     {
-        var temp = Resources.Load<TextAsset>("Tutorial");
-        messages = temp.text.Split('\n');
+        if (isTutorial)
+        {
+            var temp = Resources.Load<TextAsset>("Tutorial");
+            messages = temp.text.Split('\n');
 
-        WriteText();
+            WriteText();
+        }
     }
 
     public void Next()
     {
         buttonAudio.PlayOneShot(buttonSound);
 
-        if (isWritingText) 
+        if (isWritingText)
         {
             skipText = true;
-            return; 
+            return;
         }
 
 
@@ -83,9 +87,18 @@ public class TextDisplayer : MonoBehaviour
         StartCoroutine(IE_WriteText(messages[messageIndex], textSpeed));
     }
 
+    public void WriteText(string Text)
+    {
+        if (isWritingText) { return; }
+
+        isWritingText = true;
+
+        StartCoroutine(IE_WriteText(Text, textSpeed));
+    }
+
     private void UpdateCounterText()
     {
-        tmpMessageCounter.text = "<mspace=0.8em>"+ (messageIndex + 1) + "/" + messages.Length + "</mspace>";
+        tmpMessageCounter.text = "<mspace=0.8em>" + (messageIndex + 1) + "/" + messages.Length + "</mspace>";
     }
 
     private IEnumerator IE_WriteText(string text, float textSpeed)
@@ -99,7 +112,7 @@ public class TextDisplayer : MonoBehaviour
 
         while (text.Length > index && !skipText)
         {
-            if(index % 2 == 0)
+            if (index % 2 == 0)
             {
                 typeAudio.pitch = 1 + Random.Range(-offset, offset);
                 typeAudio.volume = (1 - offset) + Random.Range(-offset, offset);
