@@ -34,6 +34,8 @@ public class LiquidContainer : MonoBehaviour
 
     float forceEmptyAmount = -10;
 
+    PourLiquid pourLiquid;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,10 +51,12 @@ public class LiquidContainer : MonoBehaviour
         hasParticles = true;
         particles.Play();
 
-        if(TryGetComponent(out PourLiquid pourLiquid))
+        if(TryGetComponent(out pourLiquid))
         {
             Debug.Log("Pouring");
-            pourLiquid.Pour();
+            pourLiquid.Pour(mat.GetColor("_SideColor"));
+
+            particles.gameObject.SetActive(false);
         }
 
     }
@@ -62,7 +66,7 @@ public class LiquidContainer : MonoBehaviour
         hasParticles = false;
         particles.Stop();
 
-        if (TryGetComponent(out PourLiquid pourLiquid))
+        if (TryGetComponent(out pourLiquid))
         {
             Debug.Log("Stopping Pour");
             pourLiquid.Stop();
@@ -95,11 +99,19 @@ public class LiquidContainer : MonoBehaviour
             //check if it is tilted enough for it to spill then start to remove liquid and check if the wobble would make it spill
             if (Vector3.Angle(transform.up + wobblePos, Vector3.up) >= angle)
             {
-                mat.SetFloat("_Fill", fillAmount - (emptySpeed * ((Vector3.Angle(transform.up, Vector3.up) / angle) * bigPourMultiplier)) * Time.deltaTime);
+
+                float tilt = Vector3.Angle(transform.up, Vector3.up) / angle;
+                Debug.Log(tilt);
+                float liquidLost = (emptySpeed * (tilt * bigPourMultiplier) * Time.deltaTime);
+
+                mat.SetFloat("_Fill", fillAmount - liquidLost);
                 if (!hasParticles)
                 {
                     StartParticles();
                 }
+                if(pourLiquid != null)
+                    pourLiquid.SetPourStrength(tilt);
+
             }
             else if (hasParticles)
             {

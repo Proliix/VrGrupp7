@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pourLiquid: {fileID: 0}
   scale: {x: 1, y: 0.025, z: 0.025}
+  material: {fileID: 2100000, guid: 845ae72f34775f444812bd1576bcc0ab, type: 2}
   spline: {fileID: 8674352933280111883}
   contortAlong: {fileID: 8674352933280111880}
   speedDelta: 1.4

@@ -14,11 +14,15 @@ public class PourLiquid : MonoBehaviour
     float timer = 0;
     [Range(0.5f, 2f)] public float simulationSpeed = 2f;
 
-
+    [Header("Pour Controls")]
     [SerializeField]
     public Transform pourPosition;
     [SerializeField]
-    [Range(1, 100)]
+    [Range(1, 10)]
+    private float pourStrengthGain = 3;
+    [SerializeField]
+    [Range(1, 5)]
+    private float maxPourStrength = 2;
     private float PourStrength = 2f;
     [Header("Display Controls")]
     [SerializeField]
@@ -29,6 +33,8 @@ public class PourLiquid : MonoBehaviour
     public float TimeBetweenPoints = 0.05f;
 
     public int pointCount;
+
+    float pourStrengthLimiter = 1;
 
     private LayerMask PourCollisionMask;
 
@@ -108,10 +114,9 @@ public class PourLiquid : MonoBehaviour
 
             Vector3 lastPosition = currentTrajectory[i - 1];
 
-            if (Physics.Raycast(lastPosition,
-                (point - lastPosition).normalized,
-                out RaycastHit hit,
-                (point - lastPosition).magnitude)) // Add collision mask?
+            bool collided = Physics.Raycast(lastPosition, point - lastPosition, out RaycastHit hit, (point - lastPosition).magnitude); //Add collision Mask?
+
+            if (collided && hit.collider.gameObject != gameObject)
             {
 
                 currentTrajectory[i] = hit.point;
@@ -133,12 +138,12 @@ public class PourLiquid : MonoBehaviour
         }
     }
 
-    public void Pour()
+    public void Pour(Color color)
     {
         liquid = LiquidObjectPool.instance.GetLiquid();
         liquid.pourLiquid = this;
 
-        liquid.StartFlow();
+        liquid.StartFlow(color);
     }
 
     public void Stop()
@@ -146,6 +151,8 @@ public class PourLiquid : MonoBehaviour
         liquid.StopFlow();
         LiquidObjectPool.instance.ReturnLiquid(liquid);
         liquid = null;
+
+        pourStrengthLimiter = 1;
     }
 
     void DrawDebugLines(Vector3[] points, Color color, float duration)
@@ -158,5 +165,12 @@ public class PourLiquid : MonoBehaviour
             Debug.DrawLine(points[i], points[i + 1], color, duration);
 
         }
+    }
+
+    public void SetPourStrength(float tilt)
+    {
+        pourStrengthLimiter -= Time.deltaTime;
+        //Magic numbers
+        PourStrength = Mathf.Clamp((tilt - 1) * pourStrengthGain, 0.1f, maxPourStrength - Mathf.Clamp01(pourStrengthLimiter)* (maxPourStrength / 3));
     }
 }

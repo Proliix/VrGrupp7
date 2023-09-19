@@ -9,6 +9,7 @@ public class Liquid : MonoBehaviour
 
     [SerializeField] Vector3 scale;
 
+    [SerializeField] Material material;
     [SerializeField] Spline spline;
     [SerializeField] ExampleContortAlong contortAlong;
 
@@ -25,10 +26,12 @@ public class Liquid : MonoBehaviour
     [SerializeField] private float maxSpeed = 10f;
     private bool flowWater = true;
 
-    public void StartFlow()
+    public void StartFlow(Color color)
     {
         StopAllCoroutines();
         flowWater = true;
+
+        SetColor(color);
         Init();
         StartCoroutine(Coroutine_WaterBend());
     }
@@ -246,5 +249,14 @@ public class Liquid : MonoBehaviour
             //Debug.Log("points: " + line.positionCount);
             //Debug.Log("Removing node: " + i);
         }
+    }
+
+    public void SetColor(Color color)
+    {
+        Material newMaterial = new Material(material);
+
+        newMaterial.SetColor("_Color", color);
+
+        contortAlong.material = newMaterial;
     }
 }
