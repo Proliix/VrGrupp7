@@ -11,6 +11,7 @@ public class ScannerDisplay : MonoBehaviour
     private Transform trackTransform;
 
     public Transform headTransform;
+    [SerializeField] bool followHead;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,9 @@ public class ScannerDisplay : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!followHead)
+            return;
+
         if (trackTransform == null) { return; }
 
         transform.position = trackTransform.position;
