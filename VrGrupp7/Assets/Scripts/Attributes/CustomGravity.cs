@@ -72,7 +72,7 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
 
     public float GetPotency()
     {
-        return gravityScale;
+        return 1 - gravityScale;
     }
 
     public string GetName()

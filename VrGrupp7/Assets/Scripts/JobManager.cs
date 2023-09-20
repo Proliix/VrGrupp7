@@ -86,12 +86,70 @@ public class JobManager : MonoBehaviour
             return;
         }
 
-        newWanted.Attribute = allAttributes[attributeNum];
-        bool wantGreater = Random.Range(0, 2) > 0;
-        newWanted.wantGreater = wantGreater;
-        float potency = Random.Range(wantGreater ? 0f : 0.1f, wantGreater ? 0.9f : 1f);
-        newWanted.potency = Mathf.Floor(Mathf.Round(potency * 100.0f)) * 0.01f;
-        wantedAtributes.Add(newWanted);
+        if (!CheckForException(allAttributes[attributeNum]))
+        {
+            newWanted.Attribute = allAttributes[attributeNum];
+            bool wantGreater = Random.Range(0, 2) > 0;
+            newWanted.wantGreater = wantGreater;
+            float potency = Random.Range(wantGreater ? 0f : 0.1f, wantGreater ? 0.9f : 1f);
+            newWanted.potency = Mathf.Floor(Mathf.Round(potency * 100.0f)) * 0.01f;
+            wantedAtributes.Add(newWanted);
+        }
+        else
+        {
+            CreateAttributeException(allAttributes[attributeNum]);
+        }
+    }
+    bool CheckForException(IAttribute wanted)
+    {
+        switch (wanted.GetType().ToString())
+        {
+            case nameof(PotionType.Bouncy):
+                return true;
+            case nameof(PotionType.Explosive):
+                return true;
+            default:
+                return false;
+        }
+    }
+
+
+    void CreateAttributeException(IAttribute attribute)
+    {
+        WantedAttribute wanted = new WantedAttribute();
+        switch (attribute.GetType().ToString())
+        {
+            case nameof(PotionType.Bouncy):
+                wanted.Attribute = attribute;
+                wanted.potency = 0;
+                wanted.wantGreater = true;
+                break;
+            case nameof(PotionType.Explosive):
+                wanted.Attribute = attribute;
+                wanted.potency = 0;
+                wanted.wantGreater = true;
+                break;
+            default:
+                Debug.LogError("TRIED TO CREATE EXEPTION FOR " + attribute.GetType().ToString() + " THAT IS NOT AN EXCEPTION OR NOT IS NOT CORRECTLY IMPLEMENTED", this);
+                break;
+        }
+
+        if (wanted != null)
+            wantedAtributes.Add(wanted);
+    }
+
+    string FormatExceptionString(IAttribute Exception)
+    {
+        switch (Exception.GetType().ToString())
+        {
+            case nameof(PotionType.Bouncy):
+                return "Bouncy";
+            case nameof(PotionType.Explosive):
+                return "Explosive";
+            default:
+                Debug.LogError("TRIED TO CREATE EXCEPTION STRING FOR " + Exception.GetType().ToString() + ". THERE IS NO EXCEPTION IMPLEMENTED FOR IT OR IT SHOULD NOT EAVEN HAVE GOTTEN HERE", this);
+                return "";
+        }
     }
 
     string FormatJobString()
@@ -104,8 +162,18 @@ public class JobManager : MonoBehaviour
             else if (i != 0)
                 newJobString += ", ";
 
-            newJobString += wantedAtributes[i].Attribute.GetName() + " with " + (wantedAtributes[i].wantGreater ? "more " : "less ") +
-                "than " + (wantedAtributes[i].potency * 100).ToString() + "% potency";
+            if (!CheckForException(wantedAtributes[i].Attribute))
+            {
+                newJobString += wantedAtributes[i].Attribute.GetName() + " with " + (wantedAtributes[i].wantGreater ? "more " : "less ") +
+                    "than " + (wantedAtributes[i].potency * 100).ToString() + "% potency";
+            }
+            else
+            {
+                if (i == wantedAtributes.Count - 1)
+                    newJobString += " is ";
+
+                newJobString += FormatExceptionString(wantedAtributes[i].Attribute);
+            }
         }
 
         return newJobString;

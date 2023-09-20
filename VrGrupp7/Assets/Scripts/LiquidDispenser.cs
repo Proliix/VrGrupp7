@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public enum DispensingType
+public enum PotionType
 {
     Gravity,
     Bouncy,
@@ -23,7 +23,7 @@ public class LiquidDispenser : MonoBehaviour
     [SerializeField] AudioClip startSound;
     [SerializeField] AudioClip stopSound;
     [SerializeField] AudioSource audioSource;
-    public DispensingType type;
+    public PotionType type;
 
     Lever lever;
 
@@ -104,7 +104,7 @@ public class LiquidDispenser : MonoBehaviour
         audioSource.PlayOneShot(stopSound);
     }
 
-    IAttribute GetAttribute(DispensingType newType)
+    IAttribute GetAttribute(PotionType newType)
     {
         if (container != null)
         {
@@ -112,7 +112,7 @@ public class LiquidDispenser : MonoBehaviour
             type = newType;
             switch (type)
             {
-                case DispensingType.Gravity:
+                case PotionType.Gravity:
                     CustomGravity gravity = GameObject.FindWithTag("GameController").GetComponent<CustomGravity>();
 
                     if (gravity == null)
@@ -123,7 +123,7 @@ public class LiquidDispenser : MonoBehaviour
                     currentAttribute = gravity;
                     break;
 
-                case DispensingType.Bouncy:
+                case PotionType.Bouncy:
                     Bouncy bouncy = GameObject.FindWithTag("GameController").GetComponent<Bouncy>();
 
                     if (bouncy == null)
@@ -133,7 +133,7 @@ public class LiquidDispenser : MonoBehaviour
                     container.AddColors(PotionColors.BouncyTop, PotionColors.BouncySide);
                     currentAttribute = bouncy;
                     break;
-                case DispensingType.Cloning:
+                case PotionType.Cloning:
                     Duplicator duplicator = GameObject.FindWithTag("GameController").GetComponent<Duplicator>();
 
                     if (duplicator == null)
@@ -144,7 +144,7 @@ public class LiquidDispenser : MonoBehaviour
                     currentAttribute = duplicator;
                     break;
 
-                case DispensingType.Transparancy:
+                case PotionType.Transparancy:
                     Transparency transparency = GameObject.FindWithTag("GameController").GetComponent<Transparency>();
 
                     if (transparency == null)
@@ -154,7 +154,7 @@ public class LiquidDispenser : MonoBehaviour
                     container.AddColors(PotionColors.TransparencyTop, PotionColors.TransparencySide);
                     currentAttribute = transparency;
                     break;
-                case DispensingType.Explosive:
+                case PotionType.Explosive:
                     Explosive explosive = GameObject.FindWithTag("GameController").GetComponent<Explosive>();
 
                     if (explosive == null)
