@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2834541879839314905}
   - component: {fileID: 2834541879839314904}
   - component: {fileID: 2834541879839314898}
+  - component: {fileID: 1977519014956129176}
   m_Layer: 0
   m_Name: Liquid Catcher
   m_TagString: Untagged
@@ -512,7 +513,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   liquidObj: {fileID: 2834541879966428011}
   liquidAddAmount: 0.00075
-  speed: 0.1
 --- !u!114 &2834541879839314898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +648,29 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &1977519014956129176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2834541879839314911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97daa01185f87ba469af12c8d4f43646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  liquidObject: {fileID: 2834541879966428011}
+  flowRate:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fillSpeed: 0.3
+  minimumFillAmount: 0
+  emptySpeed: 0.1
+  bigPourMultiplier: 0.75
 --- !u!1 &2834541879966428011
 GameObject:
   m_ObjectHideFlags: 0
