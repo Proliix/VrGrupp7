@@ -270,6 +270,8 @@ MonoBehaviour:
     type: 3}
   clip_rockAgainstTable: {fileID: 8300000, guid: 384596f799a33fa4fb718dec09321172,
     type: 3}
+  clip_rockAgainstfloor: {fileID: 8300000, guid: 6e5310dbf87967f46a6be164d327e2fc,
+    type: 3}
 --- !u!82 &1706075720073096792
 AudioSource:
   m_ObjectHideFlags: 0

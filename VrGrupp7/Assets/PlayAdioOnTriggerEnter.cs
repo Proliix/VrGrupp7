@@ -6,6 +6,10 @@ public class PlayAdioOnTriggerEnter : MonoBehaviour
 {
     public AudioClip clip_rockAgainstsrock;
     public AudioClip clip_rockAgainstTable;
+
+    public AudioClip clip_rockAgainstfloor;
+
+    
     private AudioSource source;
 
     void Start()
@@ -34,8 +38,12 @@ public class PlayAdioOnTriggerEnter : MonoBehaviour
         if(other.tag == "Table")
         {
             float volume = Calculate_velocity();
-            volume -= 0.5f;
             source.PlayOneShot(clip_rockAgainstTable, volume);
+        }
+        if(other.tag == "floor")
+        {
+            float volume = Calculate_velocity();
+            source.PlayOneShot(clip_rockAgainstfloor, volume);
         }
     }
 
