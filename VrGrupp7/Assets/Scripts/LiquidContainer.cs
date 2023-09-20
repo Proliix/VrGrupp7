@@ -15,8 +15,8 @@ public class LiquidContainer : MonoBehaviour
     [SerializeField] float emptySpeed = 0.1f;
     [SerializeField] float bigPourMultiplier = 0.75f;
 
-    bool isEmpty;
-    bool isPouring;
+    [SerializeField] bool isEmpty;
+    [SerializeField] bool isPouring;
 
     float angle;
     float fillAmount;
@@ -51,6 +51,58 @@ public class LiquidContainer : MonoBehaviour
         AddColors(mat.GetColor("_TopColor"), mat.GetColor("_SideColor"));
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        fillAmount = mat.GetFloat("_Fill");
+
+        if (fillAmount >= minimumFillAmount)
+        {
+            isEmpty = false;
+            //finds wooble pos
+            wobblePos = new Vector3(mat.GetFloat("_WobbleX"), 0, mat.GetFloat("_WobbleZ"));
+
+            //find angle for it to start to remove liquid
+            angle = flowRate.Evaluate(fillAmount);
+
+            //check if it is tilted enough for it to spill then start to remove liquid and check if the wobble would make it spill
+            if (Vector3.Angle(transform.up + wobblePos, Vector3.up) >= angle)
+            {
+                
+                float tilt = Vector3.Angle(transform.up, Vector3.up) / angle;
+                //Debug.Log(tilt);
+                float liquidLost = (emptySpeed * (tilt * bigPourMultiplier) * Time.deltaTime);
+
+                //Debug.Log("Pouring: " + isPouring + " - Lost: " + liquidLost);
+
+                mat.SetFloat("_Fill", fillAmount - liquidLost);
+                if (!isPouring)
+                {
+                    StartPour();
+                }
+                if(pourLiquid != null)
+                {
+                    pourLiquid.UpdateLiquidLost(liquidLost);
+                    pourLiquid.SetPourStrength(tilt);
+                }
+
+                isPouring = true;
+            }
+            else if(isPouring)
+            {
+                StopPour();
+            }
+        }
+
+        if (fillAmount <= minimumFillAmount && !isEmpty)
+        {
+            if (isPouring)
+                StopPour();
+
+            Empty();
+        }
+    }
+
     void StartPour()
     {
         if (TryGetComponent(out pourLiquid))
@@ -70,65 +122,20 @@ public class LiquidContainer : MonoBehaviour
         }
     }
 
-    void ForceEmpty()
+    void Empty()
     {
-        if (mat.GetFloat("_Fill") > 0)
-            mat.SetFloat("_Fill", fillAmount - (emptySpeed * 3) * Time.deltaTime);
-        else
-            mat.SetFloat("_Fill", forceEmptyAmount);
+        Debug.Log(transform.name + " is Empty");
+        isEmpty = true;
+        mat.SetFloat("_Fill", -10);
+
+        //if (mat.GetFloat("_Fill") > 0)
+        //    mat.SetFloat("_Fill", fillAmount - (emptySpeed * 3) * Time.deltaTime);
+        //else
+        //    mat.SetFloat("_Fill", forceEmptyAmount);
 
         RemoveAllAtributes();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        fillAmount = mat.GetFloat("_Fill");
-
-        if (fillAmount >= minimumFillAmount)
-        {
-            isEmpty = false;
-            //finds wooble pos
-            wobblePos = new Vector3(mat.GetFloat("_WobbleX"), 0, mat.GetFloat("_WobbleZ"));
-
-            //find angle for it to start to remove liquid
-            angle = flowRate.Evaluate(fillAmount);
-
-            //check if it is tilted enough for it to spill then start to remove liquid and check if the wobble would make it spill
-            if (Vector3.Angle(transform.up + wobblePos, Vector3.up) >= angle)
-            {
-
-                float tilt = Vector3.Angle(transform.up, Vector3.up) / angle;
-                //Debug.Log(tilt);
-                float liquidLost = (emptySpeed * (tilt * bigPourMultiplier) * Time.deltaTime);
-
-                mat.SetFloat("_Fill", fillAmount - liquidLost);
-                if (!isPouring)
-                {
-                    StartPour();
-                }
-                if(pourLiquid != null)
-                {
-                    pourLiquid.UpdateLiquidLost(liquidLost);
-                    pourLiquid.SetPourStrength(tilt);
-                }
-
-            }
-            else if (isPouring)
-            {
-                StopPour();
-            }
-        }
-
-        if (fillAmount <= 0 && !isEmpty)
-        {
-            isEmpty = true;
-            if (isPouring)
-                StopPour();
-
-            ForceEmpty();
-        }
-    }
 
     public void AddLiquid()
     {

@@ -19,6 +19,8 @@ public class LiquidObjectPool : MonoBehaviour
         {
             GameObject newLiquid = Instantiate(liquid, transform);
 
+            newLiquid.name = i + " - " + liquid.name;
+
             freeLiquids.Enqueue(newLiquid);
         }
     }
@@ -35,7 +37,7 @@ public class LiquidObjectPool : MonoBehaviour
 
     public Liquid GetLiquid()
     {
-        Debug.Log(freeLiquids.Count);
+        //Debug.Log(freeLiquids.Count);
         return freeLiquids.Dequeue().GetComponent<Liquid>();
     }
 }

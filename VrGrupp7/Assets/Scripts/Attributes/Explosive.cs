@@ -33,6 +33,7 @@ public class Explosive : MonoBehaviour, IScannable, IAttribute
     void Explode()
     {
         GameObject newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
         Destroy(newExplosion, 1);
     }

@@ -28,6 +28,7 @@ public class Liquid : MonoBehaviour
 
     public void StartFlow(Color color)
     {
+        Debug.Log(gameObject.name + ": Starting Flow");
         StopAllCoroutines();
         flowWater = true;
 
@@ -38,6 +39,7 @@ public class Liquid : MonoBehaviour
 
     public void StopFlow()
     {
+        Debug.Log(gameObject.name + ": Stopping flow");
         flowWater = false;
     }
 
@@ -80,6 +82,7 @@ public class Liquid : MonoBehaviour
 
     IEnumerator Coroutine_WaterBend()
     {
+        Debug.Log(gameObject.name + ": Flow Started");
         while (flowWater)
         {
             //Moves the mesh along the spline by scaling it, targetScale updates depending on the length of the spline
@@ -116,7 +119,7 @@ public class Liquid : MonoBehaviour
 
         }
 
-
+        Debug.Log(gameObject.name + ": Flow Stopped");
         gameObject.SetActive(false);
         //spline.gameObject.SetActive(false);
         //Destroy(gameObject, 2f);
@@ -138,37 +141,6 @@ public class Liquid : MonoBehaviour
         }
 
         UpdateSpline();
-
-        //int pointCount = pourLiquid.pointCount;
-
-        //pointCount /= 2;
-
-        //int nodeCount = 0;
-
-        //for (int i = 0; i < pointCount; i += 2, nodeCount++)
-        //{
-
-
-        //    if (spline.nodes.Count <= nodeCount)
-        //    {
-        //        spline.AddNode(new SplineNode(Vector3.zero, Vector3.forward));
-        //    }
-
-        //    Vector3 pos = points[i];
-        //    Vector3 myAngle = Vector3.zero;
-
-        //    if (i == pointCount - 1)
-        //        myAngle = -(points[i] - points[i - 1]);
-        //    else
-        //        myAngle = points[i] - points[i + 1];
-
-        //    Vector3 normal = Quaternion.Euler(myAngle) * myAngle;
-        //    Vector3 direction = pos - (normal / 2f);
-
-        //    spline.nodes[nodeCount].Position = transform.InverseTransformPoint(pos);
-        //    spline.nodes[nodeCount].Direction = transform.InverseTransformPoint(direction);
-
-        //}
     }
 
     public void UpdateSpline()

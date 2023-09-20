@@ -42,6 +42,8 @@ public class PourLiquid : MonoBehaviour
 
     bool isPouring;
 
+    private IEnumerator couroutine_Flowing;
+
     private void Awake()
     {
 
@@ -77,6 +79,8 @@ public class PourLiquid : MonoBehaviour
             yield return new WaitForSeconds(TimeBetweenPoints);
         }
 
+        Debug.Log("PourLiquid: " + liquid.transform.name + "Starting Flow");
+
         //set the liquids pourLiquid reference to this script
         liquid.pourLiquid = this;
 
@@ -98,9 +102,9 @@ public class PourLiquid : MonoBehaviour
             //Sometimes is called after we cancel the couroutine
             if(liquid != null)
                 liquid.UpdateSpline();
-
-
         }
+
+
     }
 
 
@@ -177,18 +181,23 @@ public class PourLiquid : MonoBehaviour
 
     public void Pour(Color color)
     {
-        StartCoroutine(Couroutine_StartFlow(color));
+        Debug.Log("PourLiquid: Pour");
+        couroutine_Flowing = Couroutine_StartFlow(color);
+        StartCoroutine(couroutine_Flowing);
     }
 
     public void Stop()
     {
+        isPouring = false;
+        Debug.Log("LiquidPour: Stopping " + liquid.transform.name);
+
         liquid.StopFlow();
         LiquidObjectPool.instance.ReturnLiquid(liquid);
-
-        StopCoroutine(nameof(Couroutine_StartFlow));
-
         liquid = null;
-        isPouring = false;
+
+        StopCoroutine(couroutine_Flowing);
+
+
         pourStrengthLimiter = 1;
     }
 
@@ -249,5 +258,11 @@ public class PourLiquid : MonoBehaviour
 
         Debug.Log("Transferred Attributes to: " + canHaveAttributes.gameObject.name);
         canHaveAttributes.AddAttributes(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        if (isPouring)
+            Stop();
     }
 }
