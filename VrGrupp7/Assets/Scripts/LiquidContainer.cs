@@ -15,6 +15,7 @@ public class LiquidContainer : MonoBehaviour
     [SerializeField] float emptySpeed = 0.1f;
     [SerializeField] float bigPourMultiplier = 0.75f;
 
+    bool isEmpty;
     bool isPouring;
 
     float angle;
@@ -41,6 +42,11 @@ public class LiquidContainer : MonoBehaviour
     void Start()
     {
         mat = liquidObject.GetComponent<MeshRenderer>().material;
+
+        if(mat.GetFloat("_Fill") <= 0)
+        {
+            isEmpty = true;
+        }
 
         AddColors(mat.GetColor("_TopColor"), mat.GetColor("_SideColor"));
     }
@@ -81,6 +87,7 @@ public class LiquidContainer : MonoBehaviour
 
         if (fillAmount >= minimumFillAmount)
         {
+            isEmpty = false;
             //finds wooble pos
             wobblePos = new Vector3(mat.GetFloat("_WobbleX"), 0, mat.GetFloat("_WobbleZ"));
 
@@ -112,8 +119,10 @@ public class LiquidContainer : MonoBehaviour
                 StopPour();
             }
         }
-        else if (fillAmount > forceEmptyAmount)
+
+        if (fillAmount <= 0 && !isEmpty)
         {
+            isEmpty = true;
             if (isPouring)
                 StopPour();
 

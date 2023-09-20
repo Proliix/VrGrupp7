@@ -132,12 +132,13 @@ public class LiquidCatcher : MonoBehaviour
 
     }
 
-    void AddAttributes(GameObject other)
+    void AddAttributes(GameObject fromObject)
     {
-        IAttribute[] attributes = other.GetComponents<IAttribute>();
+        IAttribute[] attributes = fromObject.GetComponents<IAttribute>();
 
         for (int i = 0; i < attributes.Length; i++)
         {
+            Debug.Log("Adding " + attributes[i].GetName() + " to " + transform.name + " from " + fromObject.name);
             attributes[i].AddToOther(transform);
         }
     }

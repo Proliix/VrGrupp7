@@ -65,7 +65,12 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
     public void AddToOther(Transform other)
     {
         CustomGravity otherGravity = other.GetComponent<CustomGravity>();
+
+        Debug.Log("GetComponent: " + otherGravity);
+
         otherGravity = otherGravity == null ? other.gameObject.AddComponent<CustomGravity>() : otherGravity;
+
+        Debug.Log("AddComponent: " + otherGravity);
 
         otherGravity.AddEffect(gravityScale);
     }

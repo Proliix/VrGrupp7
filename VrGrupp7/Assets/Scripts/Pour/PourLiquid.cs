@@ -218,8 +218,6 @@ public class PourLiquid : MonoBehaviour
 
     void TryTransferLiquid(GameObject hitObject, float delay)
     {
-        Debug.Log("Trying to transfer liquid to: " + hitObject.name);
-
         if(hitObject.TryGetComponent(out LiquidCatcher liquidCatcher))
         {
             StartCoroutine(Couroutine_TransferLiquid(liquidCatcher, liquidLost, delay));
@@ -228,6 +226,11 @@ public class PourLiquid : MonoBehaviour
         {
             Couroutine_TransferAttributes(canHaveAttributes, delay);
         }
+        else
+        {
+            Debug.Log("Tried to tranfer to " + hitObject.gameObject.name);
+        }
+
 
         liquidLost = 0;
     }
@@ -236,6 +239,7 @@ public class PourLiquid : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
+        Debug.Log("Transferred liquid to: " + liquidCatcher.gameObject.name);
         liquidCatcher.RecieveLiquid(gameObject, liquidLost);
     }
 
@@ -243,6 +247,7 @@ public class PourLiquid : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
+        Debug.Log("Transferred Attributes to: " + canHaveAttributes.gameObject.name);
         canHaveAttributes.AddAttributes(gameObject);
     }
 }
