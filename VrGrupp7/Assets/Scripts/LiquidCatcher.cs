@@ -50,18 +50,18 @@ public class LiquidCatcher : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        //fillAmount = mat.GetFloat("_Fill");
+    //void Update()
+    //{
+    //    //fillAmount = mat.GetFloat("_Fill");
 
-        if (fillAmount < targetAmount)
-        {
-            fillAmount += 0.075f * Time.deltaTime;
-            mat.SetFloat("_Fill", fillAmount);
+    //    if (fillAmount < targetAmount)
+    //    {
+    //        fillAmount += 0.075f * Time.deltaTime;
+    //        mat.SetFloat("_Fill", fillAmount);
 
-            Debug.Log("Setting fill to " + fillAmount);
-        }
-    }
+    //        Debug.Log("Setting fill to " + fillAmount);
+    //    }
+    //}
 
     void ChangeColor()
     {
@@ -144,7 +144,7 @@ public class LiquidCatcher : MonoBehaviour
 
     public void RecieveLiquid(GameObject fromObject, float volume)
     {
-        Debug.Log(gameObject.name + " Recieved " + volume + " from " + fromObject.name);
+        //Debug.Log(gameObject.name + " Recieved " + volume + " from " + fromObject.name);
 
         LiquidContainer fromContainer = fromObject.GetComponent<LiquidContainer>();
 
@@ -152,14 +152,13 @@ public class LiquidCatcher : MonoBehaviour
         ChangeColor();
         AddAttributes(fromObject);
 
-        if (targetAmount < 0)
-        {
-            targetAmount = 0;
-            fillAmount = 0;
-            mat.SetFloat("_Fill", fillAmount);
-        }
+        float currentFill = mat.GetFloat("_Fill");
 
-        targetAmount += volume;
+        currentFill = currentFill > 0 ? currentFill : 0;
+
+        currentFill += volume;
+
+        mat.SetFloat("_Fill", currentFill);
     }
 
     private void OnParticleCollision(GameObject other)

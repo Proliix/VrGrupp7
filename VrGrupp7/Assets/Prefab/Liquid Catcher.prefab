@@ -663,7 +663,61 @@ MonoBehaviour:
   liquidObject: {fileID: 2834541879966428011}
   flowRate:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 130
+      inSlope: -26.1047
+      outSlope: -26.1047
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.050951086
+    - serializedVersion: 3
+      time: 0.242253
+      value: 107.521805
+      inSlope: -136.31624
+      outSlope: -136.31624
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4253117
+      value: 85.266174
+      inSlope: -134.35094
+      outSlope: -134.35094
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6193014
+      value: 62.40529
+      inSlope: -137.76619
+      outSlope: -137.76619
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.82177645
+      value: 37.75813
+      inSlope: -135.60715
+      outSlope: -135.60715
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99884033
+      value: 22
+      inSlope: -46.838264
+      outSlope: -46.838264
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.36451048
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
