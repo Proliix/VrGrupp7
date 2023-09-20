@@ -9,7 +9,7 @@ public class CanHaveAttributes : MonoBehaviour
 {
     public UnityEvent onValueChanged;
 
-    void AddAttributes(GameObject other)
+    public void AddAttributes(GameObject other)
     {
         IAttribute[] attributes = other.GetComponents<IAttribute>();
 

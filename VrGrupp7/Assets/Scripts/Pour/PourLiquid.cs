@@ -36,7 +36,11 @@ public class PourLiquid : MonoBehaviour
 
     float pourStrengthLimiter = 1;
 
+    float liquidLost = 0;
+
     private LayerMask PourCollisionMask;
+
+    bool isPouring;
 
     private void Awake()
     {
@@ -46,28 +50,59 @@ public class PourLiquid : MonoBehaviour
 
     }
 
-    private void Start()
-    {
+    //private void Update()
+    //{
 
-        
-    }
+    //    if (timer > TimeBetweenPoints)
+    //    {
+    //        timer %= TimeBetweenPoints;
 
-    private void Update()
+    //        RecordPositions();
+
+    //        if(liquid != null)
+    //            liquid.UpdateSpline();
+
+    //        //DrawDebugLines(splineTrajectory, Color.red, TimeBetweenPoints);
+    //    }
+
+    //    timer += Time.deltaTime * simulationSpeed;
+    //}
+
+    IEnumerator Couroutine_StartFlow(Color color)
     {
-        if (timer > TimeBetweenPoints)
+        //Wait for a liquid from the object pool
+        while(liquid == null)
         {
-            timer %= TimeBetweenPoints;
+            liquid = LiquidObjectPool.instance.GetLiquid();
+            yield return new WaitForSeconds(TimeBetweenPoints);
+        }
+
+        //set the liquids pourLiquid reference to this script
+        liquid.pourLiquid = this;
+
+        isPouring = true;
+
+        //Record a trajectory for the liquid to follow
+        RecordPositions();
+        //Temporarly assign the current trajectory to the splineTrajectory to let the liquid have a trajectory to follow
+        splineTrajectory = currentTrajectory;
+        //Start the flow
+        liquid.StartFlow(color);
+
+        while (isPouring)
+        {
+            yield return new WaitForSeconds(TimeBetweenPoints / simulationSpeed);
 
             RecordPositions();
 
+            //Sometimes is called after we cancel the couroutine
             if(liquid != null)
                 liquid.UpdateSpline();
 
-            //DrawDebugLines(splineTrajectory, Color.red, TimeBetweenPoints);
-        }
 
-        timer += Time.deltaTime * simulationSpeed;
+        }
     }
+
 
     void RecordPositions()
     {
@@ -124,6 +159,8 @@ public class PourLiquid : MonoBehaviour
 
                 pointCount = i;
 
+                TryTransferLiquid(hit.collider.gameObject, time);
+
                 // Clear Unused LinePoints
                 while (LinePoints > i)
                 {
@@ -140,18 +177,18 @@ public class PourLiquid : MonoBehaviour
 
     public void Pour(Color color)
     {
-        liquid = LiquidObjectPool.instance.GetLiquid();
-        liquid.pourLiquid = this;
-
-        liquid.StartFlow(color);
+        StartCoroutine(Couroutine_StartFlow(color));
     }
 
     public void Stop()
     {
         liquid.StopFlow();
         LiquidObjectPool.instance.ReturnLiquid(liquid);
-        liquid = null;
 
+        StopCoroutine(nameof(Couroutine_StartFlow));
+
+        liquid = null;
+        isPouring = false;
         pourStrengthLimiter = 1;
     }
 
@@ -172,5 +209,40 @@ public class PourLiquid : MonoBehaviour
         pourStrengthLimiter -= Time.deltaTime;
         //Magic numbers
         PourStrength = Mathf.Clamp((tilt - 1) * pourStrengthGain, 0.1f, maxPourStrength - Mathf.Clamp01(pourStrengthLimiter)* (maxPourStrength / 3));
+    }
+
+    public void UpdateLiquidLost(float lost)
+    {
+        liquidLost += lost;
+    }
+
+    void TryTransferLiquid(GameObject hitObject, float delay)
+    {
+        Debug.Log("Trying to transfer liquid to: " + hitObject.name);
+
+        if(hitObject.TryGetComponent(out LiquidCatcher liquidCatcher))
+        {
+            StartCoroutine(Couroutine_TransferLiquid(liquidCatcher, liquidLost, delay));
+        }
+        else if(hitObject.TryGetComponent(out CanHaveAttributes canHaveAttributes))
+        {
+            Couroutine_TransferAttributes(canHaveAttributes, delay);
+        }
+
+        liquidLost = 0;
+    }
+
+    IEnumerator Couroutine_TransferLiquid(LiquidCatcher liquidCatcher, float liquidLost, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        liquidCatcher.RecieveLiquid(gameObject, liquidLost);
+    }
+
+    IEnumerator Couroutine_TransferAttributes(CanHaveAttributes canHaveAttributes, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        canHaveAttributes.AddAttributes(gameObject);
     }
 }

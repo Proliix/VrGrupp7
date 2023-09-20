@@ -6,7 +6,7 @@ using UnityEngine;
 public class LiquidContainer : MonoBehaviour
 {
     [SerializeField] GameObject liquidObject;
-    [SerializeField] ParticleSystem particles;
+
     [SerializeField] AnimationCurve flowRate;
     [SerializeField] float fillSpeed = 0.3f;
 
@@ -15,7 +15,8 @@ public class LiquidContainer : MonoBehaviour
     [SerializeField] float emptySpeed = 0.1f;
     [SerializeField] float bigPourMultiplier = 0.75f;
 
-    bool hasParticles;
+    bool isPouring;
+
     float angle;
     float fillAmount;
     Vector3 wobblePos;
@@ -39,37 +40,27 @@ public class LiquidContainer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ParticleSystem.MainModule mainModule = particles.main;
         mat = liquidObject.GetComponent<MeshRenderer>().material;
-        mainModule.startColor = mat.GetColor("_SideColor");
 
         AddColors(mat.GetColor("_TopColor"), mat.GetColor("_SideColor"));
     }
 
-    void StartParticles()
+    void StartPour()
     {
-        hasParticles = true;
-        particles.Play();
-
-        if(TryGetComponent(out pourLiquid))
-        {
-            Debug.Log("Pouring");
-            pourLiquid.Pour(mat.GetColor("_SideColor"));
-
-            particles.gameObject.SetActive(false);
-        }
-
-    }
-
-    void StopParticles()
-    {
-        hasParticles = false;
-        particles.Stop();
-
         if (TryGetComponent(out pourLiquid))
         {
-            Debug.Log("Stopping Pour");
+            isPouring = true;
+            pourLiquid.Pour(mat.GetColor("_SideColor"));
+        }
+    }
+
+    void StopPour()
+    {
+        if (TryGetComponent(out pourLiquid))
+        {
+            isPouring = false;
             pourLiquid.Stop();
+            //Debug.Log("Stopping Pour");
         }
     }
 
@@ -101,27 +92,30 @@ public class LiquidContainer : MonoBehaviour
             {
 
                 float tilt = Vector3.Angle(transform.up, Vector3.up) / angle;
-                Debug.Log(tilt);
+                //Debug.Log(tilt);
                 float liquidLost = (emptySpeed * (tilt * bigPourMultiplier) * Time.deltaTime);
 
                 mat.SetFloat("_Fill", fillAmount - liquidLost);
-                if (!hasParticles)
+                if (!isPouring)
                 {
-                    StartParticles();
+                    StartPour();
                 }
                 if(pourLiquid != null)
+                {
+                    pourLiquid.UpdateLiquidLost(liquidLost);
                     pourLiquid.SetPourStrength(tilt);
+                }
 
             }
-            else if (hasParticles)
+            else if (isPouring)
             {
-                StopParticles();
+                StopPour();
             }
         }
         else if (fillAmount > forceEmptyAmount)
         {
-            if (hasParticles)
-                StopParticles();
+            if (isPouring)
+                StopPour();
 
             ForceEmpty();
         }
@@ -154,9 +148,6 @@ public class LiquidContainer : MonoBehaviour
         mat.SetColor("_SideColor", Color.Lerp(oldSideColor, mixedSideColor, mixedT));
         mat.SetColor("_TopColor", Color.Lerp(oldTopColor, mixedTopColor, mixedT));
         mixedT += mixSpeed * Time.deltaTime;
-
-        ParticleSystem.MainModule mainModule = particles.main;
-        mainModule.startColor = mat.GetColor("_SideColor");
 
     }
 
@@ -271,5 +262,4 @@ public class LiquidContainer : MonoBehaviour
             }
         }
     }
-
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LiquidContainer))]
+
 public class LiquidCatcher : MonoBehaviour
 {
     [SerializeField] GameObject liquidObj;
@@ -24,23 +26,40 @@ public class LiquidCatcher : MonoBehaviour
     float fadeT;
     float fadeSpeed = 0.75f;
 
-    LiquidContainer lastContainer;
+    LiquidContainer container;
 
     // Start is called before the first frame update
     void Start()
     {
+        container = GetComponent<LiquidContainer>();
+
+        if (liquidObj == null)
+        {
+            Debug.LogWarning("Trying to find Liquid in child");
+            liquidObj = transform.Find("Liquid").gameObject;
+        }
+
+
         mat = liquidObj.GetComponent<Renderer>().material;
+
+        targetAmount = mat.GetFloat("_Fill");
+        fillAmount = targetAmount;
+
+        //Debug.Log(targetAmount);
+        //Debug.Log(mat.GetFloat("_Fill"));
     }
 
     // Update is called once per frame
     void Update()
     {
-        fillAmount = mat.GetFloat("_Fill");
+        //fillAmount = mat.GetFloat("_Fill");
 
         if (fillAmount < targetAmount)
         {
             fillAmount += 0.075f * Time.deltaTime;
             mat.SetFloat("_Fill", fillAmount);
+
+            Debug.Log("Setting fill to " + fillAmount);
         }
     }
 
@@ -123,9 +142,28 @@ public class LiquidCatcher : MonoBehaviour
         }
     }
 
+    public void RecieveLiquid(GameObject fromObject, float volume)
+    {
+        Debug.Log(gameObject.name + " Recieved " + volume + " from " + fromObject.name);
+
+        LiquidContainer fromContainer = fromObject.GetComponent<LiquidContainer>();
+
+        AddColors(fromContainer.GetTopColor(), fromContainer.GetSideColor());
+        ChangeColor();
+        AddAttributes(fromObject);
+
+        if (targetAmount < 0)
+        {
+            targetAmount = 0;
+            fillAmount = 0;
+            mat.SetFloat("_Fill", fillAmount);
+        }
+
+        targetAmount += volume;
+    }
+
     private void OnParticleCollision(GameObject other)
     {
-        LiquidContainer container = other.GetComponentInParent<LiquidContainer>();
 
         if (container != null)
         {
@@ -141,7 +179,6 @@ public class LiquidCatcher : MonoBehaviour
             }
 
             targetAmount += liquidAddAmount;
-            lastContainer = container;
         }
     }
 
