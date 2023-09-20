@@ -204,17 +204,24 @@ public class JobManager : MonoBehaviour
             {
                 if (wantedAtributes[i].Attribute.GetType() == containerAttributes[x].GetType())
                 {
+                    Debug.Log("HAS " + wantedAtributes[i].Attribute.GetType().ToString() + " Wants " + (wantedAtributes[i].wantGreater ? "more " : "less ") + "than " + wantedAtributes[i].potency + " has " + containerAttributes[x].GetPotency());
                     switch (wantedAtributes[i].wantGreater)
                     {
                         case true:
-                            if (wantedAtributes[i].potency >= containerAttributes[x].GetPotency())
-                                isCompleted[i] = true;
-                            break;
-                        case false:
+                            Debug.Log("Wanted: " + wantedAtributes[i].potency + " | has: " + containerAttributes[x].GetPotency() + " | Returns: " + (wantedAtributes[i].potency <= containerAttributes[x].GetPotency()));
                             if (wantedAtributes[i].potency <= containerAttributes[x].GetPotency())
                                 isCompleted[i] = true;
+                            else
+                                Debug.Log("THIS ONE IS INCORRECT");
+                            break;
+                        case false:
+                            if (wantedAtributes[i].potency >= containerAttributes[x].GetPotency())
+                                isCompleted[i] = true;
+                            else
+                                Debug.Log("THIS ONE IS INCORRECT");
                             break;
                     }
+                    Debug.Log("__");
                 }
             }
         }
@@ -224,7 +231,7 @@ public class JobManager : MonoBehaviour
         {
             if (!isCompleted[i])
             {
-                TurnInIncorrect();
+                TurnInIncorrect(isCompleted);
                 return;
             }
         }
@@ -240,9 +247,21 @@ public class JobManager : MonoBehaviour
         Invoke(nameof(NewBatchEditor), 10);
     }
 
-    void TurnInIncorrect()
+    void TurnInIncorrect(bool[] isCompleted)
     {
-        displayer.WriteText("This was not what i ordered!?!?");
+        string explination = "This was not what i ordered! I ordered:";
+        for (int i = 0; i < isCompleted.Length; i++)
+        {
+            if (!isCompleted[i])
+            {
+                if (i != 0)
+                    explination += " and ";
+
+                explination += " " + wantedAtributes[i].Attribute.GetName() + " is wrong";
+            }
+        }
+
+        displayer.WriteText(explination);
         CancelInvoke(nameof(WriteText));
         Invoke(nameof(WriteText), 10);
     }
