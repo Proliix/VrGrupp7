@@ -82,7 +82,7 @@ public class Liquid : MonoBehaviour
 
     IEnumerator Coroutine_WaterBend()
     {
-        Debug.Log(gameObject.name + ": Flow Started");
+        //Debug.Log(gameObject.name + ": Flow Started");
         while (flowWater)
         {
             //Moves the mesh along the spline by scaling it, targetScale updates depending on the length of the spline

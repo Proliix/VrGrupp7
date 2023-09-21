@@ -9147,6 +9147,8 @@ MonoBehaviour:
   minimumFillAmount: 0.015
   emptySpeed: 0.1
   bigPourMultiplier: 0.75
+  isEmpty: 0
+  isPouring: 0
 --- !u!114 &5791496026089385513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9182,6 +9184,9 @@ MonoBehaviour:
   LinePoints: 25
   TimeBetweenPoints: 0.05
   pointCount: 0
+  PourCollisionMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &3879099534187548760
 GameObject:
   m_ObjectHideFlags: 0

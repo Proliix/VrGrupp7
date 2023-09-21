@@ -38,7 +38,8 @@ public class PourLiquid : MonoBehaviour
 
     float liquidLost = 0;
 
-    private LayerMask PourCollisionMask;
+    //This can be used to allow liquid to pour through objects;
+    [SerializeField] private LayerMask PourCollisionMask;
 
     bool isPouring;
 
@@ -52,34 +53,21 @@ public class PourLiquid : MonoBehaviour
 
     }
 
-    //private void Update()
-    //{
-
-    //    if (timer > TimeBetweenPoints)
-    //    {
-    //        timer %= TimeBetweenPoints;
-
-    //        RecordPositions();
-
-    //        if(liquid != null)
-    //            liquid.UpdateSpline();
-
-    //        //DrawDebugLines(splineTrajectory, Color.red, TimeBetweenPoints);
-    //    }
-
-    //    timer += Time.deltaTime * simulationSpeed;
-    //}
-
     IEnumerator Couroutine_StartFlow(Color color)
     {
         //Wait for a liquid from the object pool
         while(liquid == null)
         {
             liquid = LiquidObjectPool.instance.GetLiquid();
-            yield return new WaitForSeconds(TimeBetweenPoints);
+
+            if (liquid == null)
+                yield return new WaitForSeconds(TimeBetweenPoints);
+            else
+                Debug.Log(transform.name + " took " + liquid.transform.name + " from object pool");
         }
 
-        Debug.Log("PourLiquid: " + liquid.transform.name + "Starting Flow");
+
+        //Debug.Log("PourLiquid: " + liquid.transform.name + "Starting Flow");
 
         //set the liquids pourLiquid reference to this script
         liquid.pourLiquid = this;
@@ -153,7 +141,7 @@ public class PourLiquid : MonoBehaviour
 
             Vector3 lastPosition = currentTrajectory[i - 1];
 
-            bool collided = Physics.Raycast(lastPosition, point - lastPosition, out RaycastHit hit, (point - lastPosition).magnitude); //Add collision Mask?
+            bool collided = Physics.Raycast(lastPosition, point - lastPosition, out RaycastHit hit, (point - lastPosition).magnitude, PourCollisionMask); //Add collision Mask?
 
             if (collided && hit.collider.gameObject != gameObject)
             {
@@ -181,7 +169,7 @@ public class PourLiquid : MonoBehaviour
 
     public void Pour(Color color)
     {
-        Debug.Log("PourLiquid: Pour");
+        //Debug.Log("PourLiquid: Pour");
         couroutine_Flowing = Couroutine_StartFlow(color);
         StartCoroutine(couroutine_Flowing);
     }
@@ -189,13 +177,17 @@ public class PourLiquid : MonoBehaviour
     public void Stop()
     {
         isPouring = false;
-        Debug.Log("LiquidPour: Stopping " + liquid.transform.name);
+        StopCoroutine(couroutine_Flowing);
+
+        if (liquid == null)
+            return;
+        //Debug.Log("LiquidPour: Stopping " + liquid.transform.name);
 
         liquid.StopFlow();
         LiquidObjectPool.instance.ReturnLiquid(liquid);
         liquid = null;
 
-        StopCoroutine(couroutine_Flowing);
+        
 
 
         pourStrengthLimiter = 1;
@@ -233,7 +225,7 @@ public class PourLiquid : MonoBehaviour
         }
         else if(hitObject.TryGetComponent(out CanHaveAttributes canHaveAttributes))
         {
-            Couroutine_TransferAttributes(canHaveAttributes, delay);
+            StartCoroutine(Couroutine_TransferAttributes(canHaveAttributes, delay));
         }
         else
         {
@@ -263,6 +255,9 @@ public class PourLiquid : MonoBehaviour
     private void OnDisable()
     {
         if (isPouring)
+        {
+            Debug.Log("PourLiquid Disabled: Stopping pour on " + transform.name);
             Stop();
+        }
     }
 }

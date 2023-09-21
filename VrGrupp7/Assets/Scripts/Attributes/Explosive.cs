@@ -15,8 +15,14 @@ public class Explosive : MonoBehaviour, IScannable, IAttribute
 
     [SerializeField] public GameObject explosion;
 
+    bool isInvincible = true;
+    float invincibleAfterSpawnTime = 0.2f;
+
     private void OnCollisionEnter(Collision other)
     {
+        if (isInvincible)
+            return;
+
         float impactForce = other.impulse.magnitude;
 
         if(impactForce > GetForceRequiredToExplode())
@@ -63,5 +69,16 @@ public class Explosive : MonoBehaviour, IScannable, IAttribute
     public string GetName()
     {
         return "Explosive";
+    }
+
+    private void OnEnable()
+    {
+        isInvincible = true;
+        Invoke(nameof(TurnOffInvincible), invincibleAfterSpawnTime);
+    }
+
+    private void TurnOffInvincible()
+    {
+        isInvincible = false;
     }
 }

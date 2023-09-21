@@ -12,6 +12,9 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
 
     public float gravityScale = 1.0f;
 
+    private float throwVelocity;
+    private float throwAngular;
+
     // Global Gravity doesn't appear in the inspector. Modify it here in the code
     // (or via scripting) to define a different default gravity for all objects.
 
@@ -21,18 +24,25 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
 
     private void Start()
     {
-        SetGravity(gravityScale);
+        //SetGravity(gravityScale);
     }
 
     void OnEnable()
     {
         m_rb = GetComponent<Rigidbody>();
         m_rb.useGravity = false;
+
+        SetGravity(gravityScale);
     }
 
     void OnDisable()
     {
-        m_rb.useGravity = true;
+        DisableCustomGravity();
+    }
+
+    private void OnDestroy()
+    {
+        DisableCustomGravity();
     }
 
     void FixedUpdate()
@@ -43,13 +53,29 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
 
     void SetGravity(float percentage)
     {
-        if (TryGetComponent<XRGrabInteractable>(out XRGrabInteractable grabInteractable))
+        if (TryGetComponent(out XRGrabInteractable grabInteractable))
         {
+            //Save default settings
+            throwVelocity = grabInteractable.throwVelocityScale;
+            throwAngular = grabInteractable.throwAngularVelocityScale;
+
             grabInteractable.throwVelocityScale = 1f * percentage + 0.5f;
             grabInteractable.throwAngularVelocityScale = 1f * percentage;
         }
 
         gravityScale = percentage;
+    }
+
+    void DisableCustomGravity()
+    {
+        if (m_rb != null)
+            m_rb.useGravity = true;
+
+        if (TryGetComponent(out XRGrabInteractable grabInteractable))
+        {
+            grabInteractable.throwVelocityScale = throwVelocity;
+            grabInteractable.throwAngularVelocityScale = throwAngular;
+        }
     }
 
     public string GetScanInformation()
@@ -66,11 +92,11 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
     {
         CustomGravity otherGravity = other.GetComponent<CustomGravity>();
 
-        Debug.Log("GetComponent: " + otherGravity);
+        //Debug.Log("GetComponent: " + otherGravity);
 
         otherGravity = otherGravity == null ? other.gameObject.AddComponent<CustomGravity>() : otherGravity;
 
-        Debug.Log("AddComponent: " + otherGravity);
+        //Debug.Log("AddComponent: " + otherGravity);
 
         otherGravity.AddEffect(gravityScale);
     }

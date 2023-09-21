@@ -86,10 +86,11 @@ public class LiquidContainer : MonoBehaviour
                     pourLiquid.SetPourStrength(tilt);
                 }
 
-                isPouring = true;
+                //isPouring = true;
             }
             else if(isPouring)
             {
+                Debug.Log(transform.name + " is not tilted enough");
                 StopPour();
             }
         }
@@ -97,7 +98,10 @@ public class LiquidContainer : MonoBehaviour
         if (fillAmount <= minimumFillAmount && !isEmpty)
         {
             if (isPouring)
+            {
+                Debug.Log(transform.name + " is below min fill");
                 StopPour();
+            }
 
             Empty();
         }
@@ -109,6 +113,7 @@ public class LiquidContainer : MonoBehaviour
         {
             isPouring = true;
             pourLiquid.Pour(mat.GetColor("_SideColor"));
+            Debug.Log("LiquidContainer: Starting Pour");
         }
     }
 
@@ -118,7 +123,7 @@ public class LiquidContainer : MonoBehaviour
         {
             isPouring = false;
             pourLiquid.Stop();
-            //Debug.Log("Stopping Pour");
+            Debug.Log("LiquidContainer: Stopping Pour");
         }
     }
 
