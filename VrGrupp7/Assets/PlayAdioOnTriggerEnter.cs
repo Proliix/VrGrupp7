@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class PlayAdioOnTriggerEnter : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class PlayAdioOnTriggerEnter : MonoBehaviour
     public AudioClip clip_rockAgainstTable;
 
     public AudioClip clip_rockAgainstfloor;
+    float timer;
 
     
     private AudioSource source;
@@ -27,20 +30,25 @@ public class PlayAdioOnTriggerEnter : MonoBehaviour
             float volume = Mathf.InverseLerp(0, 5, speed);
             return volume;
     }
+
+    private void Update() 
+    {
+        timer += Time.deltaTime;
+    }
      void OnTriggerEnter(Collider other) 
     {
-        if(other.tag == "rocks")
+        if(other.tag == "rocks" && timer > 1)
         {
             float volume = Calculate_velocity();
             source.PlayOneShot(clip_rockAgainstsrock, volume);
         }
 
-        if(other.tag == "Table")
+        if(other.tag == "Table" && timer > 1)
         {
             float volume = Calculate_velocity();
             source.PlayOneShot(clip_rockAgainstTable, volume);
         }
-        if(other.tag == "floor")
+        if(other.tag == "floor" && timer > 1)
         {
             float volume = Calculate_velocity();
             source.PlayOneShot(clip_rockAgainstfloor, volume);

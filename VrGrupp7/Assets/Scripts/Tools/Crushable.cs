@@ -6,6 +6,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(Collider))]
 public class Crushable : MonoBehaviour
 {
+    private AudioSource source;
+    public AudioClip clip_hammerAgainstsrock;
+
     public float health;
 
     bool isInvincible = false;
@@ -16,6 +19,11 @@ public class Crushable : MonoBehaviour
     //This value controls on how much the color varies from the base color, 0 means all particles have same color as base;
     public float particleColorGradient = 0.5f;
 
+    void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     private void OnCollisionEnter(Collision other)
     {
 
@@ -24,6 +32,8 @@ public class Crushable : MonoBehaviour
             if (!isInvincible)
             {
                 float damage = crusher.GetDamage();
+
+                source.PlayOneShot(clip_hammerAgainstsrock, damage);
 
                 LoseHealth(damage);
 
@@ -37,7 +47,7 @@ public class Crushable : MonoBehaviour
 
     void LoseHealth(float damage)
     {
-        Debug.Log("Damage: " + damage + " to " + gameObject.name);
+        //Debug.Log("Damage: " + damage + " to " + gameObject.name);
 
         health -= damage;
 
