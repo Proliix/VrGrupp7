@@ -5,12 +5,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(Rigidbody))]
 
 [AddComponentMenu("**Attributes**/CustomGravity")]
-public class CustomGravity : MonoBehaviour, IScannable, IAttribute
+public class CustomGravity : BaseAttribute
 {
     // Gravity Scale editable on the inspector
     // providing a gravity scale per object
 
-    public float gravityScale = 1.0f;
+    //[SerializeField] private float potency = 0;
 
     private float throwVelocity;
     private float throwAngular;
@@ -32,7 +32,7 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
         m_rb = GetComponent<Rigidbody>();
         m_rb.useGravity = false;
 
-        SetGravity(gravityScale);
+        SetGravity(GetGravityModifier());
     }
 
     void OnDisable()
@@ -47,11 +47,11 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
 
     void FixedUpdate()
     {
-        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+        Vector3 gravity = globalGravity * GetGravityModifier() * Vector3.up;
         m_rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
-    void SetGravity(float percentage)
+    void SetGravity(float gravityModifier)
     {
         if (TryGetComponent(out XRGrabInteractable grabInteractable))
         {
@@ -59,11 +59,14 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
             throwVelocity = grabInteractable.throwVelocityScale;
             throwAngular = grabInteractable.throwAngularVelocityScale;
 
-            grabInteractable.throwVelocityScale = 1f * percentage + 0.5f;
-            grabInteractable.throwAngularVelocityScale = 1f * percentage;
+            grabInteractable.throwVelocityScale = 1f * gravityModifier + 0.5f;
+            grabInteractable.throwAngularVelocityScale = 1f * gravityModifier;
         }
+    }
 
-        gravityScale = percentage;
+    float GetGravityModifier()
+    {
+        return 1 - potency;
     }
 
     void DisableCustomGravity()
@@ -78,35 +81,12 @@ public class CustomGravity : MonoBehaviour, IScannable, IAttribute
         }
     }
 
-    public string GetScanInformation()
+    public override string GetScanInformation()
     {
-        return "Custom Gravity: " + (gravityScale * 100) + "%";
+        return "Custom Gravity: " + (potency * 100) + "%";
     }
 
-    public void AddEffect(float potency)
-    {
-        gravityScale = Mathf.MoveTowards(gravityScale, potency, 0.075f * Time.deltaTime);
-    }
-
-    public void AddToOther(Transform other)
-    {
-        CustomGravity otherGravity = other.GetComponent<CustomGravity>();
-
-        //Debug.Log("GetComponent: " + otherGravity);
-
-        otherGravity = otherGravity == null ? other.gameObject.AddComponent<CustomGravity>() : otherGravity;
-
-        //Debug.Log("AddComponent: " + otherGravity);
-
-        otherGravity.AddEffect(gravityScale);
-    }
-
-    public float GetPotency()
-    {
-        return 1 - gravityScale;
-    }
-
-    public string GetName()
+    public override string GetName()
     {
         return "Custom Gravity";
     }

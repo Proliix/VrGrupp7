@@ -255,13 +255,13 @@ public class LiquidContainer : MonoBehaviour
         return mat.GetColor("_TopColor");
     }
 
-    void AddAttributes(GameObject other)
+    void AddAttributes(GameObject other, float volume)
     {
         IAttribute[] attributes = other.GetComponents<IAttribute>();
 
         for (int i = 0; i < attributes.Length; i++)
         {
-            attributes[i].AddToOther(transform);
+            attributes[i].AddToOther(transform, volume);
         }
 
     }
@@ -279,7 +279,7 @@ public class LiquidContainer : MonoBehaviour
             {
                 AddColors(container.GetTopColor(), container.GetSideColor());
                 AddLiquid();
-                AddAttributes(other.transform.parent.gameObject);
+                AddAttributes(other.transform.parent.gameObject, 0.01f);
             }
         }
     }

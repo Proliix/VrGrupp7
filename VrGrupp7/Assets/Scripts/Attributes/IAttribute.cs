@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IAttribute
 {
-    void AddToOther(Transform other);
+    void AddToOther(Transform other, float volume);
     string GetName();
     float GetPotency();
 }

@@ -5,15 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 
 [AddComponentMenu("**Attributes**/Explosive")]
-public class Explosive : MonoBehaviour, IScannable, IAttribute
+public class Explosive : BaseAttribute
 {
 
     Rigidbody m_rb;
     [Range(0f, 20f)] public float maxForceRequiredToExplode = 20f;
 
-    [Range(0f, 1f)] public float potency = 0;
-
-    [SerializeField] public GameObject explosion;
+    public GameObject explosion;
 
     bool isInvincible = true;
     float invincibleAfterSpawnTime = 0.2f;
@@ -31,6 +29,12 @@ public class Explosive : MonoBehaviour, IScannable, IAttribute
         }
     }
 
+    public override void OnComponentAdd(BaseAttribute originalAttribute)
+    {
+        Explosive other = (Explosive)originalAttribute;
+        explosion = other.explosion;
+    }
+
     float GetForceRequiredToExplode()
     {
         return maxForceRequiredToExplode * (1 - potency);
@@ -44,29 +48,31 @@ public class Explosive : MonoBehaviour, IScannable, IAttribute
         Destroy(newExplosion, 1);
     }
 
-    public string GetScanInformation()
+    public override string GetScanInformation()
     {
-        return "Explosive!";
+        string information = "Explosive: ";
+
+        if(potency > 0.8f)
+        {
+            information += "Very Unstable!";
+        }
+        else if (potency > 0.5f)
+        {
+            information += "Unstable";
+        }
+        else if(potency > 0.2f)
+        {
+            information += "Little Unstable";
+        }
+        else
+        {
+            information += "Stable";
+        }
+
+        return information;
     }
 
-    public void AddToOther(Transform other)
-    {
-        Explosive otherExplosive = other.GetComponent<Explosive>();
-        otherExplosive = otherExplosive == null ? other.gameObject.AddComponent<Explosive>() : otherExplosive;
-
-        otherExplosive.AddEffect(potency);
-    }
-    private void AddEffect(float potency)
-    {
-        this.potency += potency * 0.01f;
-    }
-
-    public float GetPotency()
-    {
-        return potency;
-    }
-
-    public string GetName()
+    public override string GetName()
     {
         return "Explosive";
     }

@@ -132,14 +132,16 @@ public class LiquidCatcher : MonoBehaviour
 
     }
 
-    void AddAttributes(GameObject fromObject)
+    void AddAttributes(GameObject fromObject, float volume)
     {
         IAttribute[] attributes = fromObject.GetComponents<IAttribute>();
 
         for (int i = 0; i < attributes.Length; i++)
         {
-            Debug.Log("Adding " + attributes[i].GetName() + " to " + transform.name + " from " + fromObject.name);
-            attributes[i].AddToOther(transform);
+            IAttribute attribute = attributes[i];
+
+            Debug.Log("Adding " + attribute.GetName() + " to " + transform.name + " from " + fromObject.name);
+            attributes[i].AddToOther(transform, volume);
         }
     }
 
@@ -151,7 +153,7 @@ public class LiquidCatcher : MonoBehaviour
 
         AddColors(fromContainer.GetTopColor(), fromContainer.GetSideColor());
         ChangeColor();
-        AddAttributes(fromObject);
+        AddAttributes(fromObject, volume);
 
         float currentFill = mat.GetFloat("_Fill");
 
@@ -169,7 +171,7 @@ public class LiquidCatcher : MonoBehaviour
         {
             AddColors(container.GetTopColor(), container.GetSideColor());
             ChangeColor();
-            AddAttributes(other.transform.parent.gameObject);
+            AddAttributes(other.transform.parent.gameObject, 0.01f);
 
             if (targetAmount < 0)
             {

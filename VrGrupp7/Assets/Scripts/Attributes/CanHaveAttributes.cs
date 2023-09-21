@@ -9,13 +9,13 @@ public class CanHaveAttributes : MonoBehaviour
 {
     public UnityEvent onValueChanged;
 
-    public void AddAttributes(GameObject other)
+    public void AddAttributes(GameObject other, float volume)
     {
         IAttribute[] attributes = other.GetComponents<IAttribute>();
 
         for (int i = 0; i < attributes.Length; i++)
         {
-            attributes[i].AddToOther(transform);
+            attributes[i].AddToOther(transform, volume);
         }
 
         onValueChanged.Invoke();
@@ -27,7 +27,7 @@ public class CanHaveAttributes : MonoBehaviour
 
         if (container != null)
         {
-            AddAttributes(other.transform.parent.gameObject);
+            AddAttributes(other.transform.parent.gameObject, 0.01f);
         }
     }
 }

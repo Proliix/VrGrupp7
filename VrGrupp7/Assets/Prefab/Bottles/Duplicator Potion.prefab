@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 3879099533187143111, guid: ca9522feb21fd764eab8e39a9312edd6,
         type: 3}
       propertyPath: m_Name
-      value: Duplicator
+      value: Duplicator Potion
       objectReference: {fileID: 0}
     - target: {fileID: 3879099533187143117, guid: ca9522feb21fd764eab8e39a9312edd6,
         type: 3}

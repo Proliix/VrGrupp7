@@ -183,7 +183,7 @@ public class LiquidDispenser : MonoBehaviour
         if (container == null || currentAttribute == null)
             return;
 
-        currentAttribute.AddToOther(container.transform);
+        currentAttribute.AddToOther(container.transform, 0.01f);
     }
 
 

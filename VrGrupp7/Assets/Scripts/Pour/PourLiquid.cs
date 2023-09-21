@@ -225,7 +225,7 @@ public class PourLiquid : MonoBehaviour
         }
         else if(hitObject.TryGetComponent(out CanHaveAttributes canHaveAttributes))
         {
-            StartCoroutine(Couroutine_TransferAttributes(canHaveAttributes, delay));
+            StartCoroutine(Couroutine_TransferAttributes(canHaveAttributes, liquidLost, delay));
         }
         else
         {
@@ -244,12 +244,12 @@ public class PourLiquid : MonoBehaviour
         liquidCatcher.RecieveLiquid(gameObject, liquidLost);
     }
 
-    IEnumerator Couroutine_TransferAttributes(CanHaveAttributes canHaveAttributes, float delay)
+    IEnumerator Couroutine_TransferAttributes(CanHaveAttributes canHaveAttributes, float liquidLost, float delay)
     {
         yield return new WaitForSeconds(delay);
 
         Debug.Log("Transferred Attributes to: " + canHaveAttributes.gameObject.name);
-        canHaveAttributes.AddAttributes(gameObject);
+        canHaveAttributes.AddAttributes(gameObject, liquidLost);
     }
 
     private void OnDisable()
