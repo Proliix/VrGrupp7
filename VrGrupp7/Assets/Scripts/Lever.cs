@@ -12,6 +12,7 @@ public class Lever : MonoBehaviour
     [SerializeField] float angleForStart;
     [SerializeField] float clampMin, clampMax;
     [SerializeField] Vector3 dotDir = Vector3.right;
+    [SerializeField] Vector3 angleDir = Vector3.left;
     public UnityEvent onEnable;
     public UnityEvent onDisable;
 
@@ -63,10 +64,10 @@ public class Lever : MonoBehaviour
         }
 
         if (debugAngle)
-            Debug.Log(Vector3.Angle(transform.up, Vector3.left));
+            Debug.Log(Vector3.Angle(transform.up, angleDir));
 
 
-        if (Vector3.Angle(transform.up, Vector3.left) > angleForStart)
+        if (Vector3.Angle(transform.up, angleDir) > angleForStart)
         {
             if (!isActive)
             {
