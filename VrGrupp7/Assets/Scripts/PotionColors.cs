@@ -24,4 +24,41 @@ public static class PotionColors
         result /= aColors.Length;
         return result;
     }
+
+    public static PotionColor GetColor(IAttribute attribute)
+    {
+        string type = attribute.GetType().Name;
+
+
+        switch (type)
+        {
+            case "CustomGravity":
+                { return new PotionColor(GravitySide, GravityTop); }
+            case "Bouncy": 
+                { return new PotionColor(BouncySide, BouncyTop); }
+            case "Duplicator":
+                { return new PotionColor(CloningSide, CloningTop); }
+            case "Transparency": 
+                { return new PotionColor(TransparencySide, TransparencyTop); }
+            case "Explosive": 
+                { return new PotionColor(ExplosiveSide, ExplosiveTop); }
+
+            default:
+                {
+                    Debug.LogWarning("Unknown Color: " + type +  ", click me and fix");
+                    return new PotionColor(Color.grey, Color.black);
+                }
+        }
+    }
+}
+public class PotionColor
+{
+    readonly public Color sideColor;
+    readonly public Color topColor;
+
+    public PotionColor(Color sideColor, Color topColor)
+    {
+        this.sideColor = sideColor;
+        this.topColor = topColor;
+    }
 }

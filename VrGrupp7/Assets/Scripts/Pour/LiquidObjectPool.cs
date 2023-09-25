@@ -37,6 +37,11 @@ public class LiquidObjectPool : MonoBehaviour
 
     public Liquid GetLiquid()
     {
+        if (freeLiquids.Count == 0)
+        {
+            return null;
+        }
+
         //Debug.Log(freeLiquids.Count);
         return freeLiquids.Dequeue().GetComponent<Liquid>();
     }

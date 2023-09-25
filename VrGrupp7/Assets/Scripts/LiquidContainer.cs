@@ -131,7 +131,7 @@ public class LiquidContainer : MonoBehaviour
     {
         Debug.Log(transform.name + " is Empty");
         isEmpty = true;
-        mat.SetFloat("_Fill", -10);
+        mat.SetFloat("_Fill", forceEmptyAmount);
 
         //if (mat.GetFloat("_Fill") > 0)
         //    mat.SetFloat("_Fill", fillAmount - (emptySpeed * 3) * Time.deltaTime);

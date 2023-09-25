@@ -145,6 +145,21 @@ public class LiquidCatcher : MonoBehaviour
         }
     }
 
+    public void RecieveLiquid(IAttribute attribute, float volume)
+    {
+        PotionColor colors = PotionColors.GetColor(attribute);
+
+        AddColors(colors.topColor, colors.sideColor);
+        ChangeColor();
+
+        attribute.AddToOther(transform, volume);
+
+        float currentFill = mat.GetFloat("_Fill");
+        currentFill = currentFill > 0 ? currentFill : 0;
+        currentFill += volume;
+        mat.SetFloat("_Fill", currentFill);
+    }
+
     public void RecieveLiquid(GameObject fromObject, float volume)
     {
         //Debug.Log(gameObject.name + " Recieved " + volume + " from " + fromObject.name);
@@ -156,11 +171,8 @@ public class LiquidCatcher : MonoBehaviour
         AddAttributes(fromObject, volume);
 
         float currentFill = mat.GetFloat("_Fill");
-
         currentFill = currentFill > 0 ? currentFill : 0;
-
         currentFill += volume;
-
         mat.SetFloat("_Fill", currentFill);
     }
 

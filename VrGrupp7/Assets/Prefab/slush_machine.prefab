@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c1daf3ef0c2a94b98f8bdb7f306fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pourLiquid: {fileID: 7995774271662995759}
   particle: {fileID: 582545661989492623}
   fillPos: {x: 0, y: -0.27, z: 0}
   fillhalfExstents: {x: 0.1, y: 0.2, z: 0.11}
@@ -98,6 +99,7 @@ MonoBehaviour:
   stopSound: {fileID: 8300000, guid: a728d132d6b44bb4c8a7fd9186cb97e1, type: 3}
   audioSource: {fileID: 1575714784702486265}
   type: 0
+  liquidPerSecond: 0.5
 --- !u!114 &582545660646067344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5036,6 +5038,7 @@ Transform:
   - {fileID: 5419427279725029284}
   - {fileID: 7501597543790946933}
   - {fileID: 582545661989492621}
+  - {fileID: 7526874733580144941}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 87.605, z: 0}
@@ -5424,6 +5427,63 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5191278333382422952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7526874733580144941}
+  - component: {fileID: 7995774271662995759}
+  m_Layer: 0
+  m_Name: PourLiquid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7526874733580144941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191278333382422952}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: 0, y: -0.0134, z: 0.181}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925411871920693717}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!114 &7995774271662995759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191278333382422952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf1d1ac794e2c143aae63ab1119f6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splineTrajectory: []
+  currentTrajectory: []
+  simulationSpeed: 2
+  pourPosition: {fileID: 7526874733580144941}
+  pourStrengthGain: 3
+  maxPourStrength: 2
+  LinePoints: 25
+  TimeBetweenPoints: 0.05
+  pointCount: 0
+  PourCollisionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  liquidDispenser: {fileID: 582545660646067345}
 --- !u!1 &6174146708215545550
 GameObject:
   m_ObjectHideFlags: 0

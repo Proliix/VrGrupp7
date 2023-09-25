@@ -11,7 +11,6 @@ public class PourLiquid : MonoBehaviour
     public Vector3[] splineTrajectory;
     public Vector3[] currentTrajectory;
 
-    float timer = 0;
     [Range(0.5f, 2f)] public float simulationSpeed = 2f;
 
     [Header("Pour Controls")]
@@ -24,6 +23,7 @@ public class PourLiquid : MonoBehaviour
     [Range(1, 5)]
     private float maxPourStrength = 2;
     private float PourStrength = 2f;
+
     [Header("Display Controls")]
     [SerializeField]
     [Range(10, 100)]
@@ -45,6 +45,8 @@ public class PourLiquid : MonoBehaviour
 
     private IEnumerator couroutine_Flowing;
 
+    [SerializeField] private LiquidDispenser liquidDispenser;
+
     private void Awake()
     {
 
@@ -60,6 +62,7 @@ public class PourLiquid : MonoBehaviour
         {
             liquid = LiquidObjectPool.instance.GetLiquid();
 
+             
             if (liquid == null)
                 yield return new WaitForSeconds(TimeBetweenPoints);
             else
@@ -219,7 +222,13 @@ public class PourLiquid : MonoBehaviour
 
     void TryTransferLiquid(GameObject hitObject, float delay)
     {
-        if(hitObject.TryGetComponent(out LiquidCatcher liquidCatcher))
+        LiquidCatcher liquidCatcher = hitObject.GetComponent<LiquidCatcher>();
+
+        if(liquidCatcher != null && liquidDispenser != null)
+        {
+            StartCoroutine(Couroutine_AddFromDispenser(liquidDispenser.currentAttribute, liquidCatcher, liquidLost, delay));
+        }
+        else if(liquidCatcher != null)
         {
             StartCoroutine(Couroutine_TransferLiquid(liquidCatcher, liquidLost, delay));
         }
@@ -234,6 +243,13 @@ public class PourLiquid : MonoBehaviour
 
 
         liquidLost = 0;
+    }
+    IEnumerator Couroutine_AddFromDispenser(IAttribute attribute, LiquidCatcher liquidCatcher,  float liquidLost, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        liquidCatcher.RecieveLiquid(attribute, liquidLost);
+
     }
 
     IEnumerator Couroutine_TransferLiquid(LiquidCatcher liquidCatcher, float liquidLost, float delay)
