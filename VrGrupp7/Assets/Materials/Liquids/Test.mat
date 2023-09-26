@@ -52,9 +52,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 0.22
-    - _FoamWidth: 0.01
-    - _Foam_Smoothness: 0.16
+    - _Amplitude: 0.11
+    - _FoamWidth: 0.185
+    - _Foam_Smoothness: 0.2
     - _Frequency: 2.43
     - _QueueControl: 0
     - _QueueOffset: 0

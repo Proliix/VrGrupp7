@@ -13,19 +13,24 @@ public class LiquidEffect : MonoBehaviour
     [SerializeField]
     float WobbleSpeedMove = 1f;
     [SerializeField]
+    [Range(0, 1)]
     float fillAmount = 0.5f;
     [SerializeField]
     float Recovery = 1f;
     [SerializeField]
     float Thickness = 1f;
-    [Range(0,1)]
-    public float CompensateShapeAmount;
-    [SerializeField] float compensation;
-    [SerializeField] AnimationCurve compensationCurve;
     [SerializeField]
     Mesh mesh;
     [SerializeField]
     Renderer rend;
+    [Range(0, 1)]
+    public float CompensateShapeAmount;
+    [SerializeField] float compensation;
+    [SerializeField] AnimationCurve compensationCurve;
+    [SerializeField] AnimationCurve angleCompensationCurve;
+    [SerializeField] AnimationCurve fillAngleMultiplier;
+    [Header("Debug")]
+    [SerializeField] bool debugAngle;
     Vector3 pos;
     Vector3 lastPos;
     Vector3 velocity;
@@ -122,30 +127,35 @@ public class LiquidEffect : MonoBehaviour
     void UpdatePos(float deltaTime)
     {
         compensation = compensationCurve.Evaluate(fillAmount);
+        float angle = Vector3.Angle(Vector3.up, transform.up);
+        compensation += (angleCompensationCurve.Evaluate(angle) * (fillAngleMultiplier != null ? fillAngleMultiplier.Evaluate(fillAmount) : 1));
+        if (debugAngle) { Debug.Log("Angle: " + angle); }
 
         Vector3 worldPos = transform.TransformPoint(new Vector3(mesh.bounds.center.x, mesh.bounds.center.y, mesh.bounds.center.z));
-        if (CompensateShapeAmount > 0)
-        {
-            #region oldCompensation
-            // only lerp if not paused/normal update
-            if (deltaTime != 0)
-            {
-                comp = Vector3.Lerp(comp, (worldPos - new Vector3(0, GetLowestPoint(), 0)), deltaTime * 10);
-            }
-            else
-            {
-                comp = (worldPos - new Vector3(0, GetLowestPoint(), 0));
-            }
+        
+        #region oldCompensation
+        //if (CompensateShapeAmount > 0)
+        //{
+        //    // only lerp if not paused/normal update
+        //    if (deltaTime != 0)
+        //    {
+        //        comp = Vector3.Lerp(comp, (worldPos - new Vector3(0, GetLowestPoint(), 0)), deltaTime * 10);
+        //    }
+        //    else
+        //    {
+        //        comp = (worldPos - new Vector3(0, GetLowestPoint(), 0));
+        //    }
 
-            pos = worldPos - transform.position - new Vector3(0, fillAmount - (comp.y * CompensateShapeAmount), 0);
-            #endregion
+        //    pos = worldPos - transform.position - new Vector3(0, fillAmount - (comp.y * CompensateShapeAmount), 0);
+        //}
+        //else
+        //{
+        //    pos = worldPos - transform.position - new Vector3(0, fillAmount, 0);
+        //}
+        #endregion
 
-            //pos = worldPos - transform.position - new Vector3(0, fillAmount - (compensation), 0);
-        }
-        else
-        {
-            pos = worldPos - transform.position - new Vector3(0, fillAmount, 0);
-        }
+        pos = worldPos - transform.position - new Vector3(0, fillAmount - (compensation), 0);
+      
         rend.sharedMaterial.SetVector("_FillAmount", pos);
     }
 
