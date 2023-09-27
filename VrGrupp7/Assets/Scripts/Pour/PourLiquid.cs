@@ -181,17 +181,21 @@ public class PourLiquid : MonoBehaviour
     {
         isPouring = false;
         StopCoroutine(couroutine_Flowing);
+        
 
         if (liquid == null)
             return;
         //Debug.Log("LiquidPour: Stopping " + liquid.transform.name);
 
         liquid.StopFlow();
+    }
+
+    public void ReturnLiquid()
+    {
         LiquidObjectPool.instance.ReturnLiquid(liquid);
         liquid = null;
 
-        
-
+        CancelInvoke();
 
         pourStrengthLimiter = 1;
     }
@@ -229,6 +233,7 @@ public class PourLiquid : MonoBehaviour
             if (liquidCatcher.GetVolume() < 1)
             {
                 StartCoroutine(liquidCatcher.Couroutine_AddFromDispenser(liquidDispenser.currentAttribute, liquidLost, delay));
+                Invoke(nameof(StopParticle), delay);
                 liquidLost = 0;
                 return;
             }
@@ -238,6 +243,7 @@ public class PourLiquid : MonoBehaviour
             if (liquidCatcher.GetVolume() < 1)
             {
                 StartCoroutine(liquidCatcher.Couroutine_TransferLiquid(gameObject, liquidLost, delay));
+                Invoke(nameof(StopParticle), delay);
                 liquidLost = 0;
                 return;
             }
@@ -245,10 +251,12 @@ public class PourLiquid : MonoBehaviour
         else if(hitObject.TryGetComponent(out CanHaveAttributes canHaveAttributes))
         {
             StartCoroutine(Couroutine_TransferAttributes(canHaveAttributes, liquidLost, delay));
+            Invoke(nameof(PlayParticle), delay);
             liquidLost = 0;
             return;
         }
 
+        Invoke(nameof(PlayParticle), delay);
         BaseAttribute[] attributes = GetComponents<BaseAttribute>();
 
         for (int i = 0; i < attributes.Length; i++)
@@ -267,6 +275,16 @@ public class PourLiquid : MonoBehaviour
 
         Debug.Log("Transferred Attributes to: " + canHaveAttributes.gameObject.name);
         canHaveAttributes.AddAttributes(gameObject, liquidLost);
+    }
+
+    void PlayParticle()
+    {
+        liquid.ps_waterSplash.Play();
+    }
+
+    void StopParticle()
+    {
+        liquid.ps_waterSplash.Stop();
     }
 
     private void OnDisable()

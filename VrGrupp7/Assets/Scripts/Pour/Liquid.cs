@@ -26,6 +26,10 @@ public class Liquid : MonoBehaviour
     [SerializeField] private float maxSpeed = 10f;
     private bool flowWater = true;
 
+    public ParticleSystem ps_waterSplash;
+    Vector3 impactPos;
+    Vector3 impactUp;
+
     public void StartFlow(Color color)
     {
         Debug.Log(gameObject.name + ": Starting Flow");
@@ -34,7 +38,7 @@ public class Liquid : MonoBehaviour
 
         SetColor(color);
         Init();
-        StartCoroutine(Coroutine_WaterBend());
+        StartCoroutine(Coroutine_WaterFlow());
     }
 
     public void StopFlow()
@@ -80,7 +84,7 @@ public class Liquid : MonoBehaviour
         targetScale = localScale;
     }
 
-    IEnumerator Coroutine_WaterBend()
+    IEnumerator Coroutine_WaterFlow()
     {
         //Debug.Log(gameObject.name + ": Flow Started");
         while (flowWater)
@@ -95,17 +99,30 @@ public class Liquid : MonoBehaviour
                 speedCurveLerp = Mathf.Clamp(speedCurveLerp + speedDelta * Time.deltaTime, 0, maxSpeed);
 
                 //Debug.Log("Scaling");
+
+                //if (ps_waterSplash.isPlaying)
+                //    ps_waterSplash.Stop();
+
             }
             else
             {
+                //if(ps_waterSplash.isStopped)
+                //    ps_waterSplash.Play();
+
                 length = meshLength;
             }
+
+            ps_waterSplash.transform.position = impactPos;
+            ps_waterSplash.transform.up = impactUp;
 
             yield return null;
         }
 
         float count = 0;
         speedCurveLerp = 0;
+
+        //if (ps_waterSplash.isStopped)
+        //    ps_waterSplash.Play();
 
         while (count < spline.Length)
         {
@@ -120,6 +137,7 @@ public class Liquid : MonoBehaviour
         }
 
         Debug.Log(gameObject.name + ": Flow Stopped");
+        pourLiquid.ReturnLiquid();
         gameObject.SetActive(false);
         //spline.gameObject.SetActive(false);
         //Destroy(gameObject, 2f);
@@ -152,7 +170,7 @@ public class Liquid : MonoBehaviour
 
         Vector3[] points = pourLiquid.splineTrajectory;
 
-        //If the spline trajectory is the shortest possible, start point and end point, we process it manually
+        //If the spline trajectory is the shortest possible, containing only a start point and end point, we process it manually
         if(points[2] == Vector3.zero)
         {
             Vector3 point = points[0];
@@ -169,6 +187,9 @@ public class Liquid : MonoBehaviour
 
             RemoveUnusedSplines(2);
 
+            impactPos = spline.nodes[1].Position;
+            impactUp = spline.nodes[1].Direction;
+
             return;
         }
 
@@ -179,8 +200,26 @@ public class Liquid : MonoBehaviour
         {
             Vector3 point = points[i];
 
+            //Logic for detecting when we reached the end of the spline trajectory
             if (point == Vector3.zero)
-                break;
+            {
+                //If we stopped on an uneven point (we have i += 2) we register the middle step as a node instead
+                if(points[i- 1] != Vector3.zero)
+                {
+                    impactPos = points[i - 1];
+                    impactUp = points[i - 2] - points[i - 1];
+                    i--;
+                    maxPoints = 0;
+                }
+                //We have stopped at correct point and just need to get the impact position
+                else
+                {
+                    impactPos = points[i - 2];
+                    impactUp = points[i - 3] - points[i - 2];
+                    break;
+                }
+
+            }
 
             if (spline.nodes.Count <= nodeCount)
             {
@@ -230,5 +269,16 @@ public class Liquid : MonoBehaviour
         newMaterial.SetColor("_Color", color);
 
         contortAlong.material = newMaterial;
+
+        if(ps_waterSplash != null)
+        {
+            float particleColorGradient = 0.2f;
+            //Create a light/dark gradient from our gameobject color
+            var gradient = new ParticleSystem.MinMaxGradient(color * (1 - particleColorGradient), color * (1 + particleColorGradient));
+            var main = ps_waterSplash.main;
+            //Set particle color to gradient;
+            main.startColor = gradient;
+
+        }
     }
 }

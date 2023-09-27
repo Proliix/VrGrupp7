@@ -21,6 +21,7 @@ public class LiquidObjectPool : MonoBehaviour
 
             newLiquid.name = i + " - " + liquid.name;
 
+            newLiquid.SetActive(false);
             freeLiquids.Enqueue(newLiquid);
         }
     }
