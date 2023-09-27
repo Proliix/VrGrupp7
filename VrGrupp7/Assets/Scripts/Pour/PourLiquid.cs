@@ -223,41 +223,42 @@ public class PourLiquid : MonoBehaviour
     void TryTransferLiquid(GameObject hitObject, float delay)
     {
         LiquidCatcher liquidCatcher = hitObject.GetComponent<LiquidCatcher>();
-
+        
         if(liquidCatcher != null && liquidDispenser != null)
         {
-            StartCoroutine(Couroutine_AddFromDispenser(liquidDispenser.currentAttribute, liquidCatcher, liquidLost, delay));
+            if (liquidCatcher.GetVolume() < 1)
+            {
+                StartCoroutine(liquidCatcher.Couroutine_AddFromDispenser(liquidDispenser.currentAttribute, liquidLost, delay));
+                liquidLost = 0;
+                return;
+            }
         }
         else if(liquidCatcher != null)
         {
-            StartCoroutine(Couroutine_TransferLiquid(liquidCatcher, liquidLost, delay));
+            if (liquidCatcher.GetVolume() < 1)
+            {
+                StartCoroutine(liquidCatcher.Couroutine_TransferLiquid(gameObject, liquidLost, delay));
+                liquidLost = 0;
+                return;
+            }
         }
         else if(hitObject.TryGetComponent(out CanHaveAttributes canHaveAttributes))
         {
             StartCoroutine(Couroutine_TransferAttributes(canHaveAttributes, liquidLost, delay));
-        }
-        else
-        {
-            Debug.Log("Tried to tranfer to " + hitObject.gameObject.name);
+            liquidLost = 0;
+            return;
         }
 
+        BaseAttribute[] attributes = GetComponents<BaseAttribute>();
+
+        for (int i = 0; i < attributes.Length; i++)
+        {
+            attributes[i].LoseMass(liquidLost);
+        }
+
+        Debug.Log("Tried to tranfer to " + hitObject.name);
 
         liquidLost = 0;
-    }
-    IEnumerator Couroutine_AddFromDispenser(IAttribute attribute, LiquidCatcher liquidCatcher,  float liquidLost, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        liquidCatcher.RecieveLiquid(attribute, liquidLost);
-
-    }
-
-    IEnumerator Couroutine_TransferLiquid(LiquidCatcher liquidCatcher, float liquidLost, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        Debug.Log("Transferred liquid to: " + liquidCatcher.gameObject.name);
-        liquidCatcher.RecieveLiquid(gameObject, liquidLost);
     }
 
     IEnumerator Couroutine_TransferAttributes(CanHaveAttributes canHaveAttributes, float liquidLost, float delay)

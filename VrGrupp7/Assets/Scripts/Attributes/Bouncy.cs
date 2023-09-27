@@ -8,24 +8,34 @@ using UnityEngine;
 public class Bouncy : BaseAttribute
 {
     Collider[] m_colliders;
+    PhysicMaterial material;
 
     void OnEnable()
     {
-        m_colliders = GetComponents<Collider>();
-
+        Init();
         SetBouncyness(potency);
+    }
+
+    void Init()
+    {
+        m_colliders = GetComponents<Collider>();
+        material = new PhysicMaterial();
+
+        for (int i = 0; i < m_colliders.Length; i++)
+        {
+            m_colliders[i].material = material;
+        }
     }
 
     void SetBouncyness(float bouncy)
     {
-        potency = bouncy;
+        //potency = bouncy;
+        material.bounciness = Mathf.Clamp01(bouncy);
 
-        for (int i = 0; i < m_colliders.Length; i++)
-        {
-            PhysicMaterial material = new PhysicMaterial();
-            material.bounciness = bouncy;
-            m_colliders[i].material = material;
-        }
+        //for (int i = 0; i < m_colliders.Length; i++)
+        //{
+        //    m_colliders[i].material = material;
+        //}
     }
 
     public override void UpdateStats()
