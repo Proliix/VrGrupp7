@@ -66,7 +66,7 @@ public class CustomGravity : BaseAttribute
 
     float GetGravityModifier()
     {
-        return 1 - potency;
+        return 1 - Mathf.Clamp01(potency);
     }
 
     void DisableCustomGravity()

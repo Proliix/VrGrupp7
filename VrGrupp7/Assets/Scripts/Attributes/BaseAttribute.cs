@@ -4,39 +4,65 @@ using UnityEngine;
 
 public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
 {
-    public float potency = 0;
+    private LiquidContainer liquidContainer;
 
-    public void AddPotency(float addPotency)
+    public float potency
     {
-        potency += addPotency;
+        get { return GetPotency(); }
+    }
+
+    public float mass = 0;
+
+    public void AddMass(float addMass)
+    {
+        mass += addMass;
 
         UpdateStats();
     }
-    public void AddPotency(float otherPotency, float volume)
+    public void AddMass(float otherMass, float volume)
     {
-        potency += otherPotency * volume;
+        mass += otherMass * volume;
 
         UpdateStats();
     }
 
-    public float LosePotency(float volume)
+    public float LoseMass(float volume)
     {
-        float lostPotency = potency * volume;
-        potency -= lostPotency;
+        float lostMass = (potency*100) * volume;
+        mass -= lostMass;
 
         UpdateStats();
 
-        return lostPotency;
+        return lostMass;
     }
 
-    public void TransferPotency(BaseAttribute other, float volume)
+    public void TransferMass(BaseAttribute other, float volume)
     {
-        float lostPotency = other.LosePotency(volume);
-        AddPotency(lostPotency);
+        float lostMass = other.LoseMass(volume);
+        AddMass(lostMass);
     }
 
     public float GetPotency()
     {
+        float volume = 1;
+        if (liquidContainer == null)
+        {
+            if (TryGetComponent(out liquidContainer))
+            {
+                volume = liquidContainer.GetLiquidVolume();
+            }
+        }
+        else
+            volume = liquidContainer.GetLiquidVolume();
+
+        if (volume == 0)
+            return 0;
+
+        float potency = ((mass) * 0.01f) / volume;
+
+        //if (potency > 1 || potency < 0)
+        //    Debug.Log(transform.name + " has this potency" + potency + " from mass: " + mass + " and vol: " + volume);
+
         return potency;
     }
 
@@ -53,7 +79,9 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
 
         //otherComponent = otherComponent == null ? (BaseAttribute)other.gameObject.AddComponent(type) : otherComponent;
 
-        otherComponent.AddPotency(potency, volume);
+        //otherComponent.addMass(mass, volume);
+
+        otherComponent.TransferMass(this, volume);
 
         Debug.Log("Adding " + type.Name + " to " + other.name);
     }

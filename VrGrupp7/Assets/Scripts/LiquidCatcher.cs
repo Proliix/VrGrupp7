@@ -12,6 +12,7 @@ public class LiquidCatcher : MonoBehaviour
     Material mat;
     float targetAmount = -10;
     float fillAmount;
+    float incomingLiquid = 0;
 
     Color fadeColorSide;
     Color fadeColorTop;
@@ -140,13 +141,15 @@ public class LiquidCatcher : MonoBehaviour
         {
             IAttribute attribute = attributes[i];
 
-            Debug.Log("Adding " + attribute.GetName() + " to " + transform.name + " from " + fromObject.name);
+            Debug.Log("Adding " + volume + " of " + attribute.GetName() + " to " + transform.name + " from " + fromObject.name);
             attributes[i].AddToOther(transform, volume);
         }
     }
 
     public void RecieveLiquid(IAttribute attribute, float volume)
     {
+        CheckOverflow(volume, out volume);
+
         PotionColor colors = PotionColors.GetColor(attribute);
 
         AddColors(colors.topColor, colors.sideColor);
@@ -164,6 +167,8 @@ public class LiquidCatcher : MonoBehaviour
     {
         //Debug.Log(gameObject.name + " Recieved " + volume + " from " + fromObject.name);
 
+        CheckOverflow(volume, out volume);
+
         LiquidContainer fromContainer = fromObject.GetComponent<LiquidContainer>();
 
         AddColors(fromContainer.GetTopColor(), fromContainer.GetSideColor());
@@ -175,6 +180,46 @@ public class LiquidCatcher : MonoBehaviour
         currentFill += volume;
         mat.SetFloat("_Fill", currentFill);
     }
+
+    public IEnumerator Couroutine_AddFromDispenser(IAttribute attribute, float liquidLost, float delay)
+    {
+        incomingLiquid += liquidLost;
+        yield return new WaitForSeconds(delay);
+
+        RecieveLiquid(attribute, liquidLost);
+        incomingLiquid -= liquidLost;
+    }
+
+    public IEnumerator Couroutine_TransferLiquid(GameObject fromObject, float liquidLost, float delay)
+    {
+        incomingLiquid += liquidLost;
+        yield return new WaitForSeconds(delay);
+
+        Debug.Log("Transferred liquid to: " + gameObject.name);
+        RecieveLiquid(fromObject, liquidLost);
+        incomingLiquid -= liquidLost;
+    }
+
+    public float GetVolume()
+    {
+        float volume = mat.GetFloat("_Fill") + incomingLiquid;
+        return volume;
+    }
+
+    bool CheckOverflow(float volume, out float adjustedVolume)
+    {
+        float fill = mat.GetFloat("_Fill");
+
+        if(fill + volume < 1)
+        {
+            adjustedVolume = volume;
+            return false;
+        }
+
+        adjustedVolume = 1 - fill;
+        return true;
+    }
+
 
     private void OnParticleCollision(GameObject other)
     {

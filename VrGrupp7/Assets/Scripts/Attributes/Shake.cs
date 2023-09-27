@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Shake : MonoBehaviour
@@ -9,9 +10,13 @@ public class Shake : MonoBehaviour
 
     [SerializeField] private Vector3 oldPosition;
 
-    public float weakShake = 5;
-    public float mediumShake = 15;
-    public float strongShake = 25;
+    public float weakShakeForce = 5;
+    public float mediumShakeForce = 15;
+    public float strongShakeForce = 25;
+
+    public UnityEvent weakShake;
+    public UnityEvent mediumShake;
+    public UnityEvent strongShake;
 
     // Start is called before the first frame update
     void Start()
@@ -30,18 +35,21 @@ public class Shake : MonoBehaviour
 
             //Debug.Log(shakeForce);
 
-            if (shakeForce > strongShake)
+            if (shakeForce > strongShakeForce)
             {
+                strongShake.Invoke();
                 Debug.Log("Strong Shake");
                 return;
             }
-            if (shakeForce > mediumShake)
+            if (shakeForce > mediumShakeForce)
             {
+                mediumShake.Invoke();
                 Debug.Log("Medium Shake");
                 return;
             }
-            if (shakeForce > weakShake)
+            if (shakeForce > weakShakeForce)
             {
+                weakShake.Invoke();
                 Debug.Log("Weak Shake");
                 return;
             }

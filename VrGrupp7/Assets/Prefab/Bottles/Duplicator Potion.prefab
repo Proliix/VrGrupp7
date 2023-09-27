@@ -77,10 +77,20 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3879099533187143118, guid: ca9522feb21fd764eab8e39a9312edd6,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 1090
+      objectReference: {fileID: 0}
     - target: {fileID: 3879099534187548770, guid: ca9522feb21fd764eab8e39a9312edd6,
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879099534187548770, guid: ca9522feb21fd764eab8e39a9312edd6,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 1403
       objectReference: {fileID: 0}
     - target: {fileID: 3879099534187548772, guid: ca9522feb21fd764eab8e39a9312edd6,
         type: 3}
@@ -112,4 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eeb120171a73974a9d0a27933c513bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progress: 0
+  mass: 0

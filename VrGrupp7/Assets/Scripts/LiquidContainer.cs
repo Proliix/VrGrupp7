@@ -283,4 +283,12 @@ public class LiquidContainer : MonoBehaviour
             }
         }
     }
+
+    public float GetLiquidVolume()
+    {
+        if (mat == null)
+            mat = liquidObject.GetComponent<MeshRenderer>().material;
+
+        return Mathf.Clamp01(mat.GetFloat("_Fill"));
+    }
 }
