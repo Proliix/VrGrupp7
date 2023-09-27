@@ -47,10 +47,13 @@ public class LiquidEffect : MonoBehaviour
     [HideInInspector]
     public bool isSelected;
 
+    LiquidSounds sounds;
+
     // Use this for initialization
     void Start()
     {
         GetMeshAndRend();
+        sounds = GetComponent<LiquidSounds>();
     }
 
     private void OnValidate()
@@ -63,6 +66,16 @@ public class LiquidEffect : MonoBehaviour
         mesh = GetComponent<MeshFilter>().sharedMesh;
 
         rend = GetComponent<Renderer>();
+    }
+
+    public void SetLiquid(float fill)
+    {
+        fillAmount = 1 - fill;
+    }
+
+    public float GetLiquid()
+    {
+        return fillAmount;
     }
 
     Material GetCorrectMat()
@@ -78,7 +91,6 @@ public class LiquidEffect : MonoBehaviour
     {
         if (Application.isPlaying || isSelected)
         {
-
             float deltaTime = 0;
             switch (updateMode)
             {
@@ -129,6 +141,9 @@ public class LiquidEffect : MonoBehaviour
             // set fill amount
             UpdatePos(deltaTime);
 
+            if (sounds != null && Application.isPlaying)
+                sounds.UpdateSound(lastPos, wobbleAmountX, wobbleAmountZ);
+
             // keep last position
             lastPos = transform.position;
             lastRot = transform.rotation;
@@ -137,11 +152,9 @@ public class LiquidEffect : MonoBehaviour
 
     void UpdatePos(float deltaTime)
     {
-
         compensation = compensationCurve.Evaluate(fillAmount);
         float angle = Vector3.Angle(Vector3.up, transform.up);
         compensation += (angleCompensationCurve.Evaluate(angle) * (fillAngleMultiplier != null ? fillAngleMultiplier.Evaluate(fillAmount) : 1));
-
 
         if (debugAngle) { Debug.Log("Angle: " + angle); }
 
@@ -171,7 +184,6 @@ public class LiquidEffect : MonoBehaviour
         pos = worldPos - transform.position - new Vector3(0, fillAmount - (compensation), 0);
 
         GetCorrectMat().SetVector("_FillAmount", pos);
-
     }
 
     //https://forum.unity.com/threads/manually-calculate-angular-velocity-of-gameobject.289462/#post-4302796

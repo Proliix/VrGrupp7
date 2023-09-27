@@ -7,7 +7,13 @@ public class WantedAttribute
 {
     public IAttribute Attribute;
     public float potency;
-    public bool wantGreater;
+    public float marginOfError;
+
+    public bool CheckIfWanted(float checkPotency)
+    {
+        return (checkPotency >= potency - marginOfError) && (checkPotency <= potency + marginOfError);
+
+    }
 }
 
 public class JobManager : MonoBehaviour
@@ -89,9 +95,9 @@ public class JobManager : MonoBehaviour
         if (!CheckForException(allAttributes[attributeNum]))
         {
             newWanted.Attribute = allAttributes[attributeNum];
-            bool wantGreater = Random.Range(0, 2) > 0;
-            newWanted.wantGreater = wantGreater;
-            float potency = Random.Range(wantGreater ? 0f : 0.1f, wantGreater ? 0.9f : 1f);
+            float margin = Random.Range(2, 5 + 1);
+            newWanted.marginOfError = margin;
+            float potency = Random.Range(0.5f, 0.75f);
             newWanted.potency = Mathf.Floor(Mathf.Round(potency * 100.0f)) * 0.01f;
             wantedAtributes.Add(newWanted);
         }
@@ -122,12 +128,12 @@ public class JobManager : MonoBehaviour
             case nameof(PotionType.Bouncy):
                 wanted.Attribute = attribute;
                 wanted.potency = 0;
-                wanted.wantGreater = true;
+                wanted.marginOfError = 1000;
                 break;
             case nameof(PotionType.Explosive):
                 wanted.Attribute = attribute;
                 wanted.potency = 0;
-                wanted.wantGreater = true;
+                wanted.marginOfError = 1000;
                 break;
             default:
                 Debug.LogError("TRIED TO CREATE EXEPTION FOR " + attribute.GetType().ToString() + " THAT IS NOT AN EXCEPTION OR NOT IS NOT CORRECTLY IMPLEMENTED", this);
@@ -164,8 +170,7 @@ public class JobManager : MonoBehaviour
 
             if (!CheckForException(wantedAtributes[i].Attribute))
             {
-                newJobString += wantedAtributes[i].Attribute.GetName() + " with " + (wantedAtributes[i].wantGreater ? "more " : "less ") +
-                    "than " + (wantedAtributes[i].potency * 100).ToString() + "% potency";
+                newJobString += wantedAtributes[i].Attribute.GetName() + " with " + (wantedAtributes[i].potency * 100).ToString() + "% potency";
             }
             else
             {
@@ -204,24 +209,7 @@ public class JobManager : MonoBehaviour
             {
                 if (wantedAtributes[i].Attribute.GetType() == containerAttributes[x].GetType())
                 {
-                    Debug.Log("HAS " + wantedAtributes[i].Attribute.GetType().ToString() + " Wants " + (wantedAtributes[i].wantGreater ? "more " : "less ") + "than " + wantedAtributes[i].potency + " has " + containerAttributes[x].GetPotency());
-                    switch (wantedAtributes[i].wantGreater)
-                    {
-                        case true:
-                            Debug.Log("Wanted: " + wantedAtributes[i].potency + " | has: " + containerAttributes[x].GetPotency() + " | Returns: " + (wantedAtributes[i].potency <= containerAttributes[x].GetPotency()));
-                            if (wantedAtributes[i].potency <= containerAttributes[x].GetPotency())
-                                isCompleted[i] = true;
-                            else
-                                Debug.Log("THIS ONE IS INCORRECT");
-                            break;
-                        case false:
-                            if (wantedAtributes[i].potency >= containerAttributes[x].GetPotency())
-                                isCompleted[i] = true;
-                            else
-                                Debug.Log("THIS ONE IS INCORRECT");
-                            break;
-                    }
-                    Debug.Log("__");
+                    isCompleted[i] = wantedAtributes[i].CheckIfWanted(containerAttributes[x].GetPotency());
                 }
             }
         }
