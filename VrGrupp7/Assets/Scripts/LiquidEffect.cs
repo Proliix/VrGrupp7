@@ -43,7 +43,9 @@ public class LiquidEffect : MonoBehaviour
     float pulse;
     float sinewave;
     float time = 0.5f;
-    Vector3 comp;
+
+    [HideInInspector]
+    public bool isSelected;
 
     // Use this for initialization
     void Start()
@@ -58,81 +60,93 @@ public class LiquidEffect : MonoBehaviour
 
     void GetMeshAndRend()
     {
-        if (mesh == null)
-        {
-            mesh = GetComponent<MeshFilter>().sharedMesh;
-        }
-        if (rend == null)
-        {
-            rend = GetComponent<Renderer>();
-        }
+        mesh = GetComponent<MeshFilter>().sharedMesh;
+
+        rend = GetComponent<Renderer>();
     }
+
+    Material GetCorrectMat()
+    {
+        if (Application.isPlaying)
+            return rend.material;
+        else
+            return rend.sharedMaterial;
+
+    }
+
     void Update()
     {
-        float deltaTime = 0;
-        switch (updateMode)
-        {
-            case UpdateMode.Normal:
-                deltaTime = Time.deltaTime;
-                break;
-
-            case UpdateMode.UnscaledTime:
-                deltaTime = Time.unscaledDeltaTime;
-                break;
-        }
-
-        time += deltaTime;
-
-        if (deltaTime != 0)
+        if (Application.isPlaying || isSelected)
         {
 
+            float deltaTime = 0;
+            switch (updateMode)
+            {
+                case UpdateMode.Normal:
+                    deltaTime = Time.deltaTime;
+                    break;
 
-            // decrease wobble over time
-            wobbleAmountToAddX = Mathf.Lerp(wobbleAmountToAddX, 0, (deltaTime * Recovery));
-            wobbleAmountToAddZ = Mathf.Lerp(wobbleAmountToAddZ, 0, (deltaTime * Recovery));
+                case UpdateMode.UnscaledTime:
+                    deltaTime = Time.unscaledDeltaTime;
+                    break;
+            }
+
+            time += deltaTime;
+
+            if (deltaTime != 0)
+            {
+
+
+                // decrease wobble over time
+                wobbleAmountToAddX = Mathf.Lerp(wobbleAmountToAddX, 0, (deltaTime * Recovery));
+                wobbleAmountToAddZ = Mathf.Lerp(wobbleAmountToAddZ, 0, (deltaTime * Recovery));
 
 
 
-            // make a sine wave of the decreasing wobble
-            pulse = 2 * Mathf.PI * WobbleSpeedMove;
-            sinewave = Mathf.Lerp(sinewave, Mathf.Sin(pulse * time), deltaTime * Mathf.Clamp(velocity.magnitude + angularVelocity.magnitude, Thickness, 10));
+                // make a sine wave of the decreasing wobble
+                pulse = 2 * Mathf.PI * WobbleSpeedMove;
+                sinewave = Mathf.Lerp(sinewave, Mathf.Sin(pulse * time), deltaTime * Mathf.Clamp(velocity.magnitude + angularVelocity.magnitude, Thickness, 10));
 
-            wobbleAmountX = wobbleAmountToAddX * sinewave;
-            wobbleAmountZ = wobbleAmountToAddZ * sinewave;
+                wobbleAmountX = wobbleAmountToAddX * sinewave;
+                wobbleAmountZ = wobbleAmountToAddZ * sinewave;
 
 
 
-            // velocity
-            velocity = (lastPos - transform.position) / deltaTime;
+                // velocity
+                velocity = (lastPos - transform.position) / deltaTime;
 
-            angularVelocity = GetAngularVelocity(lastRot, transform.rotation);
+                angularVelocity = GetAngularVelocity(lastRot, transform.rotation);
 
-            // add clamped velocity to wobble
-            wobbleAmountToAddX += Mathf.Clamp((velocity.x + (velocity.y * 0.2f) + angularVelocity.z + angularVelocity.y) * MaxWobble, -MaxWobble, MaxWobble);
-            wobbleAmountToAddZ += Mathf.Clamp((velocity.z + (velocity.y * 0.2f) + angularVelocity.x + angularVelocity.y) * MaxWobble, -MaxWobble, MaxWobble);
+                // add clamped velocity to wobble
+                wobbleAmountToAddX += Mathf.Clamp((velocity.x + (velocity.y * 0.2f) + angularVelocity.z + angularVelocity.y) * MaxWobble, -MaxWobble, MaxWobble);
+                wobbleAmountToAddZ += Mathf.Clamp((velocity.z + (velocity.y * 0.2f) + angularVelocity.x + angularVelocity.y) * MaxWobble, -MaxWobble, MaxWobble);
+            }
+
+            // send it to the shader
+            GetCorrectMat().SetFloat("_WobbleX", wobbleAmountX);
+            GetCorrectMat().SetFloat("_WobbleZ", wobbleAmountZ);
+
+            // set fill amount
+            UpdatePos(deltaTime);
+
+            // keep last position
+            lastPos = transform.position;
+            lastRot = transform.rotation;
         }
-
-        // send it to the shader
-        rend.sharedMaterial.SetFloat("_WobbleX", wobbleAmountX);
-        rend.sharedMaterial.SetFloat("_WobbleZ", wobbleAmountZ);
-
-        // set fill amount
-        UpdatePos(deltaTime);
-
-        // keep last position
-        lastPos = transform.position;
-        lastRot = transform.rotation;
     }
 
     void UpdatePos(float deltaTime)
     {
+
         compensation = compensationCurve.Evaluate(fillAmount);
         float angle = Vector3.Angle(Vector3.up, transform.up);
         compensation += (angleCompensationCurve.Evaluate(angle) * (fillAngleMultiplier != null ? fillAngleMultiplier.Evaluate(fillAmount) : 1));
+
+
         if (debugAngle) { Debug.Log("Angle: " + angle); }
 
         Vector3 worldPos = transform.TransformPoint(new Vector3(mesh.bounds.center.x, mesh.bounds.center.y, mesh.bounds.center.z));
-        
+
         #region oldCompensation
         //if (CompensateShapeAmount > 0)
         //{
@@ -155,8 +169,9 @@ public class LiquidEffect : MonoBehaviour
         #endregion
 
         pos = worldPos - transform.position - new Vector3(0, fillAmount - (compensation), 0);
-      
-        rend.sharedMaterial.SetVector("_FillAmount", pos);
+
+        GetCorrectMat().SetVector("_FillAmount", pos);
+
     }
 
     //https://forum.unity.com/threads/manually-calculate-angular-velocity-of-gameobject.289462/#post-4302796
