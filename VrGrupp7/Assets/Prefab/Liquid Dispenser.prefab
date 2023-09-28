@@ -249,6 +249,7 @@ MonoBehaviour:
   clampMin: -77
   clampMax: 77
   dotDir: {x: 1, y: 0, z: 0}
+  angleDir: {x: -1, y: 0, z: 0}
   onEnable:
     m_PersistentCalls:
       m_Calls: []
@@ -269,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c1daf3ef0c2a94b98f8bdb7f306fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pourLiquid: {fileID: 0}
   particle: {fileID: 7638955963467154488}
   fillPos: {x: 0.115, y: -0.1, z: -0.19}
   fillhalfExstents: {x: 0.07, y: 0.2, z: 0.07}
@@ -279,6 +281,7 @@ MonoBehaviour:
   stopSound: {fileID: 8300000, guid: a728d132d6b44bb4c8a7fd9186cb97e1, type: 3}
   audioSource: {fileID: 1667420171}
   type: 0
+  liquidPerSecond: 0.5
 --- !u!114 &8812090085228326954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,7 +623,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 776
+  m_VersionIndex: 779
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1060,7 +1063,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1100
+  m_VersionIndex: 1103
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1404,7 +1407,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1103
+  m_VersionIndex: 1106
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6563,7 +6566,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 769
+  m_VersionIndex: 772
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
