@@ -16,7 +16,7 @@ public enum PotionType
 public class LiquidDispenser : MonoBehaviour
 {
     [SerializeField] PourLiquid pourLiquid;
-    [SerializeField] ParticleSystem particle;
+    //[SerializeField] ParticleSystem particle;
     [SerializeField] Vector3 fillPos;
     [SerializeField] Vector3 fillhalfExstents;
     [SerializeField] Material transparacyMat;
@@ -60,57 +60,34 @@ public class LiquidDispenser : MonoBehaviour
         }
     }
 
-    void DispensingUpdate()
+    void StartPour()
     {
-
-        container = FindContainerInBounds();
-
-        UpdateAtribute();
-        container?.AddLiquid();
-
-    }
-
-    LiquidContainer FindContainerInBounds()
-    {
-        Collider[] hitColliders = Physics.OverlapBox(startPos + fillPos, fillhalfExstents);
-
-        for (int i = 0; i < hitColliders.Length; i++)
-        {
-            LiquidContainer newContainer;
-            if (hitColliders[i].gameObject.TryGetComponent(out newContainer) == false)
-                continue;
-
-            return newContainer;
-        }
-
-        return null;
-    }
-
-    void StartDispensing()
-    {
-        container = FindContainerInBounds();
-        GetAttribute(type);
-        DispensingUpdate();
         isActive = true;
-        ParticleSystem.MainModule mainModule = particle.main;
-        mainModule.startColor = currentColor;
-        particle.Play();
+        GetAttribute(type);
+        pourLiquid.Pour(currentColor);
+
         audioSource.PlayOneShot(startSound);
         Invoke(nameof(StartLoopSound), startSound.length - 0.01f);
+    }
+
+    void UpdatePour()
+    {
+        pourLiquid.UpdateLiquidLost(liquidPerSecond * Time.deltaTime);
+    }
+
+    void StopPour()
+    {
+        isActive = false;
+        pourLiquid.Stop();
+
+        audioSource.Stop();
+        audioSource.PlayOneShot(stopSound);
     }
 
     void StartLoopSound()
     {
         if (isActive)
             audioSource.Play();
-    }
-
-    void StopDispensing()
-    {
-        isActive = false;
-        particle.Stop();
-        audioSource.Stop();
-        audioSource.PlayOneShot(stopSound);
     }
 
     IAttribute GetAttribute(PotionType newType)
@@ -164,8 +141,8 @@ public class LiquidDispenser : MonoBehaviour
                 Explosive explosive = GameObject.FindWithTag("GameController").GetComponent<Explosive>();
 
                 if (explosive == null)
-                    Debug.LogError("DID NOT GET EXPLOSIVE FROM GAMECONTROLLER",this);
-                    
+                    Debug.LogError("DID NOT GET EXPLOSIVE FROM GAMECONTROLLER", this);
+
                 currentColor = PotionColors.ExplosiveSide;
                 //container.AddColors(PotionColors.ExplosiveTop, PotionColors.ExplosiveSide);
                 currentAttribute = explosive;
@@ -180,37 +157,6 @@ public class LiquidDispenser : MonoBehaviour
         return currentAttribute;
     }
 
-    void UpdateAtribute()
-    {
-        container = FindContainerInBounds();
-        GetAttribute(type);
-
-        if (container == null || currentAttribute == null)
-            return;
-
-        currentAttribute.AddToOther(container.transform, 0.01f);
-    }
-
-    void StartPour()
-    {
-        isActive = true;
-        GetAttribute(type);
-        pourLiquid.Pour(currentColor);
-    }
-
-    void UpdatePour()
-    {
-        pourLiquid.UpdateLiquidLost(liquidPerSecond * Time.deltaTime);
-    }
-
-    void StopPour()
-    {
-        isActive = false;
-        pourLiquid.Stop();
-    }
-
-
-
     private void OnDrawGizmosSelected()
     {
         if (startPos != Vector3.zero)
@@ -218,5 +164,75 @@ public class LiquidDispenser : MonoBehaviour
         else
             Gizmos.DrawWireCube(transform.position + fillPos, fillhalfExstents * 2);
     }
+
+
+
+    //void DispensingUpdate()
+    //{
+
+    //    container = FindContainerInBounds();
+
+    //    UpdateAtribute();
+    //    container?.AddLiquid();
+
+    //}
+
+    //LiquidContainer FindContainerInBounds()
+    //{
+    //    Collider[] hitColliders = Physics.OverlapBox(startPos + fillPos, fillhalfExstents);
+
+    //    for (int i = 0; i < hitColliders.Length; i++)
+    //    {
+    //        LiquidContainer newContainer;
+    //        if (hitColliders[i].gameObject.TryGetComponent(out newContainer) == false)
+    //            continue;
+
+    //        return newContainer;
+    //    }
+
+    //    return null;
+    //}
+
+    //void StartDispensing()
+    //{
+    //    container = FindContainerInBounds();
+    //    GetAttribute(type);
+    //    DispensingUpdate();
+    //    isActive = true;
+    //    ParticleSystem.MainModule mainModule = particle.main;
+    //    mainModule.startColor = currentColor;
+    //    particle.Play();
+    //    audioSource.PlayOneShot(startSound);
+    //    Invoke(nameof(StartLoopSound), startSound.length - 0.01f);
+    //}
+
+
+
+    //void StopDispensing()
+    //{
+    //    isActive = false;
+    //    particle.Stop();
+    //    audioSource.Stop();
+    //    audioSource.PlayOneShot(stopSound);
+    //}
+
+
+
+    //void UpdateAtribute()
+    //{
+    //    container = FindContainerInBounds();
+    //    GetAttribute(type);
+
+    //    if (container == null || currentAttribute == null)
+    //        return;
+
+    //    currentAttribute.AddToOther(container.transform, 0.01f);
+    //}
+
+
+
+
+
+
 
 }

@@ -4864,7 +4864,7 @@ MonoBehaviour:
   spline: {fileID: 8674352933280111883}
   contortAlong: {fileID: 8674352933280111880}
   speedDelta: 1.4
-  animationSpeed: 15
+  animationSpeed: 10
   maxSpeed: 1
   ps_waterSplash: {fileID: 7266039759531290582}
 --- !u!1 &8674352933280111894
