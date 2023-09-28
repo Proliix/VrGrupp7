@@ -9,7 +9,8 @@ public class LiquidCatcher : MonoBehaviour
     [SerializeField] GameObject liquidObj;
     [SerializeField] float liquidAddAmount = 0.1f;
 
-    Material mat;
+    //Material mat;
+    LiquidEffect liquid;
     float targetAmount = -10;
     float fillAmount;
     float incomingLiquid = 0;
@@ -40,10 +41,12 @@ public class LiquidCatcher : MonoBehaviour
             liquidObj = transform.Find("Liquid").gameObject;
         }
 
+        if (!liquidObj.TryGetComponent(out liquid))
+            Debug.LogError("Could not find liquid effect on " + gameObject.name + "'s liquidobject", liquidObj);
 
-        mat = liquidObj.GetComponent<Renderer>().material;
+        //mat = liquidObj.GetComponent<Renderer>().material;
 
-        targetAmount = mat.GetFloat("_Fill");
+        targetAmount = liquid.GetLiquid();
         fillAmount = targetAmount;
 
         //Debug.Log(targetAmount);
@@ -66,12 +69,12 @@ public class LiquidCatcher : MonoBehaviour
 
     void ChangeColor()
     {
-        if (mat.GetColor("_SideColor") == mixedColorSide && mat.GetColor("_TopColor") == mixedColorTop)
+        if (liquid.GetSideColor() == mixedColorSide && liquid.GetTopColor() == mixedColorTop)
             return;
 
 
-        mat.SetColor("_SideColor", Color.Lerp(oldSideColor, mixedColorSide, fadeT));
-        mat.SetColor("_TopColor", Color.Lerp(oldTopColor, mixedColorTop, fadeT));
+        liquid.SetSideColor(Color.Lerp(oldSideColor, mixedColorSide, fadeT));
+        liquid.SetTopColor(Color.Lerp(oldTopColor, mixedColorTop, fadeT));
         fadeT += fadeSpeed * Time.deltaTime;
 
     }
@@ -100,7 +103,7 @@ public class LiquidCatcher : MonoBehaviour
 
             topColors.Add(newTopColor);
             mixedColorTop = PotionColors.CombineColors(topColors.ToArray());
-            oldTopColor = mat.GetColor("_TopColor");
+            oldTopColor = liquid.GetTopColor();
             fadeT = 0;
         }
         #endregion
@@ -126,10 +129,16 @@ public class LiquidCatcher : MonoBehaviour
 
             sideColors.Add(newSideColor);
             mixedColorSide = PotionColors.CombineColors(sideColors.ToArray());
-            oldSideColor = mat.GetColor("_SideColor");
+            oldSideColor = liquid.GetSideColor();
             fadeT = 0;
         }
         #endregion
+
+        if (sideColors.Count == 1 && topColors.Count == 1)
+        {
+            liquid.SetSideColor(mixedColorSide);
+            liquid.SetTopColor(mixedColorTop);
+        }
 
     }
 
@@ -157,10 +166,10 @@ public class LiquidCatcher : MonoBehaviour
 
         attribute.AddToOther(transform, volume);
 
-        float currentFill = mat.GetFloat("_Fill");
+        float currentFill = liquid.GetLiquid();
         currentFill = currentFill > 0 ? currentFill : 0;
         currentFill += volume;
-        mat.SetFloat("_Fill", currentFill);
+        liquid.SetLiquid(currentFill);
     }
 
     public void RecieveLiquid(GameObject fromObject, float volume)
@@ -175,10 +184,10 @@ public class LiquidCatcher : MonoBehaviour
         ChangeColor();
         AddAttributes(fromObject, volume);
 
-        float currentFill = mat.GetFloat("_Fill");
+        float currentFill = liquid.GetLiquid();
         currentFill = currentFill > 0 ? currentFill : 0;
         currentFill += volume;
-        mat.SetFloat("_Fill", currentFill);
+        liquid.SetLiquid(currentFill);
     }
 
     public IEnumerator Couroutine_AddFromDispenser(IAttribute attribute, float liquidLost, float delay)
@@ -202,15 +211,15 @@ public class LiquidCatcher : MonoBehaviour
 
     public float GetVolume()
     {
-        float volume = mat.GetFloat("_Fill") + incomingLiquid;
+        float volume = liquid.GetLiquid() + incomingLiquid;
         return volume;
     }
 
     bool CheckOverflow(float volume, out float adjustedVolume)
     {
-        float fill = mat.GetFloat("_Fill");
+        float fill = liquid.GetLiquid();
 
-        if(fill + volume < 1)
+        if (fill + volume < 1)
         {
             adjustedVolume = volume;
             return false;
@@ -219,28 +228,4 @@ public class LiquidCatcher : MonoBehaviour
         adjustedVolume = 1 - fill;
         return true;
     }
-
-
-    private void OnParticleCollision(GameObject other)
-    {
-
-        if (container != null)
-        {
-            AddColors(container.GetTopColor(), container.GetSideColor());
-            ChangeColor();
-            AddAttributes(other.transform.parent.gameObject, 0.01f);
-
-            if (targetAmount < 0)
-            {
-                targetAmount = 0;
-                fillAmount = 0;
-                mat.SetFloat("_Fill", fillAmount);
-            }
-
-            targetAmount += liquidAddAmount;
-        }
-    }
-
-
-
 }

@@ -23,8 +23,6 @@ public class LiquidEffect : MonoBehaviour
     Mesh mesh;
     [SerializeField]
     Renderer rend;
-    [Range(0, 1)]
-    public float CompensateShapeAmount;
     [SerializeField] float compensation;
     [SerializeField] AnimationCurve compensationCurve;
     [SerializeField] AnimationCurve angleCompensationCurve;
@@ -43,6 +41,7 @@ public class LiquidEffect : MonoBehaviour
     float pulse;
     float sinewave;
     float time = 0.5f;
+    bool isEmpty;
 
     [HideInInspector]
     public bool isSelected;
@@ -70,12 +69,47 @@ public class LiquidEffect : MonoBehaviour
 
     public void SetLiquid(float fill)
     {
+        sounds.UpdateSoundFill(fill);
         fillAmount = 1 - fill;
+        if (fillAmount < 1)
+            isEmpty = false;
     }
 
     public float GetLiquid()
     {
-        return fillAmount;
+        return !isEmpty ? 1 - fillAmount : 0;
+    }
+
+    public Color GetSideColor()
+    {
+        return GetCorrectMat().GetColor("_SideColor");
+    }
+
+    public Color GetTopColor()
+    {
+        return GetCorrectMat().GetColor("_TopColor");
+    }
+
+    public void SetSideColor(Color newColor)
+    {
+        GetCorrectMat().SetColor("_SideColor", newColor);
+    }
+
+    public void SetTopColor(Color newColor)
+    {
+        GetCorrectMat().SetColor("_TopColor", newColor);
+        GetCorrectMat().SetColor("_Rim_Color", newColor);
+    }
+
+    public bool GetIsEmpty()
+    {
+        return isEmpty;
+    }
+
+    public void EmptyLiquid()
+    {
+        isEmpty = true;
+        fillAmount = 10;
     }
 
     Material GetCorrectMat()
@@ -142,7 +176,7 @@ public class LiquidEffect : MonoBehaviour
             UpdatePos(deltaTime);
 
             if (sounds != null && Application.isPlaying)
-                sounds.UpdateSound(lastPos, wobbleAmountX, wobbleAmountZ);
+                sounds.UpdateSoundSway(lastPos, wobbleAmountX, wobbleAmountZ);
 
             // keep last position
             lastPos = transform.position;

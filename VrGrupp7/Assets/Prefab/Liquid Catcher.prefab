@@ -725,6 +725,7 @@ MonoBehaviour:
   minimumFillAmount: 0
   emptySpeed: 0.1
   bigPourMultiplier: 0.75
+  isPouring: 0
 --- !u!1 &2834541879966428011
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +740,7 @@ GameObject:
   - component: {fileID: 2834541879966428006}
   - component: {fileID: 2834541879966428005}
   - component: {fileID: 2834541879966428004}
-  - component: {fileID: 2834541879966428002}
+  - component: {fileID: 1558424677}
   m_Layer: 0
   m_Name: Liquid
   m_TagString: Untagged
@@ -1026,7 +1027,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4f8394937a0297c4083f3bb7e39993df, type: 2}
+  - {fileID: 2100000, guid: 3f5c9b84934e0be4f989b7de765f9efa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1070,7 +1071,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &2834541879966428002
+--- !u!114 &1558424677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1079,9 +1080,89 @@ MonoBehaviour:
   m_GameObject: {fileID: 2834541879966428011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914168731042d254eae92e64bb14c2ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 3018bf75b53920f40adbb07909e60c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMode: 0
   MaxWobble: 0.03
-  WobbleSpeed: 1
+  WobbleSpeedMove: 1
+  fillAmount: 1
   Recovery: 1
+  Thickness: 1
+  mesh: {fileID: 0}
+  rend: {fileID: 2834541879966428006}
+  compensation: 0.43
+  compensationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.43
+      inSlope: 0.86
+      outSlope: 0.86
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.43
+      inSlope: 0.86
+      outSlope: 0.86
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  angleCompensationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fillAngleMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  debugAngle: 0
+  isSelected: 0

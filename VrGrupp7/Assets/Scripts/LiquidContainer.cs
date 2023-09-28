@@ -15,13 +15,13 @@ public class LiquidContainer : MonoBehaviour
     [SerializeField] float emptySpeed = 0.1f;
     [SerializeField] float bigPourMultiplier = 0.75f;
 
-    [SerializeField] bool isEmpty;
     [SerializeField] bool isPouring;
 
     float angle;
     float fillAmount;
     Vector3 wobblePos;
     Material mat;
+    LiquidEffect liquid;
 
     //COLOR MIXING
     List<Color> sideColors = new List<Color>();
@@ -33,9 +33,6 @@ public class LiquidContainer : MonoBehaviour
     float mixedT;
     float mixSpeed = 0.5f;
 
-
-    float forceEmptyAmount = -10;
-
     PourLiquid pourLiquid;
 
     // Start is called before the first frame update
@@ -43,22 +40,30 @@ public class LiquidContainer : MonoBehaviour
     {
         mat = liquidObject.GetComponent<MeshRenderer>().material;
 
-        if(mat.GetFloat("_Fill") <= 0)
+        if (!liquidObject.TryGetComponent(out liquid))
+            Debug.LogError("Could not find liquid effect on " + gameObject.name + "'s liquidobject", liquidObject);
+
+        if (liquid.GetLiquid() <= 0)
         {
-            isEmpty = true;
+            liquid.EmptyLiquid();
         }
 
-        AddColors(mat.GetColor("_TopColor"), mat.GetColor("_SideColor"));
+        AddColors(liquid.GetTopColor(), liquid.GetSideColor());
     }
 
     // Update is called once per frame
     void Update()
     {
-        fillAmount = mat.GetFloat("_Fill");
+        if (liquid == null)
+        {
+            Debug.LogError("<color=red><b>Error: </b></color>" + gameObject.name + " DOES NOT HAVE A LIQUIDEFFECT. THIS OBJECT WILL NOT WORK. ADD A LIQUID EFFECT TO ITS LIQUID OBJECT", this);
+            return;
+        }
+
+        fillAmount = liquid.GetLiquid();
 
         if (fillAmount >= minimumFillAmount)
         {
-            isEmpty = false;
             //finds wooble pos
             wobblePos = new Vector3(mat.GetFloat("_WobbleX"), 0, mat.GetFloat("_WobbleZ"));
 
@@ -68,19 +73,19 @@ public class LiquidContainer : MonoBehaviour
             //check if it is tilted enough for it to spill then start to remove liquid and check if the wobble would make it spill
             if (Vector3.Angle(transform.up + wobblePos, Vector3.up) >= angle)
             {
-                
+
                 float tilt = Vector3.Angle(transform.up, Vector3.up) / angle;
                 //Debug.Log(tilt);
                 float liquidLost = (emptySpeed * (tilt * bigPourMultiplier) * Time.deltaTime);
 
                 //Debug.Log("Pouring: " + isPouring + " - Lost: " + liquidLost);
 
-                mat.SetFloat("_Fill", fillAmount - liquidLost);
+                liquid.SetLiquid(fillAmount - liquidLost);
                 if (!isPouring)
                 {
                     StartPour();
                 }
-                if(pourLiquid != null)
+                if (pourLiquid != null)
                 {
                     pourLiquid.UpdateLiquidLost(liquidLost);
                     pourLiquid.SetPourStrength(tilt);
@@ -88,14 +93,14 @@ public class LiquidContainer : MonoBehaviour
 
                 //isPouring = true;
             }
-            else if(isPouring)
+            else if (isPouring)
             {
                 Debug.Log(transform.name + " is not tilted enough");
                 StopPour();
             }
         }
 
-        if (fillAmount <= minimumFillAmount && !isEmpty)
+        if (fillAmount <= minimumFillAmount && !liquid.GetIsEmpty())
         {
             if (isPouring)
             {
@@ -112,7 +117,7 @@ public class LiquidContainer : MonoBehaviour
         if (TryGetComponent(out pourLiquid))
         {
             isPouring = true;
-            pourLiquid.Pour(mat.GetColor("_SideColor"));
+            pourLiquid.Pour(liquid.GetSideColor());
             Debug.Log("LiquidContainer: Starting Pour");
         }
     }
@@ -129,10 +134,7 @@ public class LiquidContainer : MonoBehaviour
 
     void Empty()
     {
-        Debug.Log(transform.name + " is Empty");
-        isEmpty = true;
-        mat.SetFloat("_Fill", forceEmptyAmount);
-
+        liquid.EmptyLiquid();
         //if (mat.GetFloat("_Fill") > 0)
         //    mat.SetFloat("_Fill", fillAmount - (emptySpeed * 3) * Time.deltaTime);
         //else
@@ -146,17 +148,17 @@ public class LiquidContainer : MonoBehaviour
     {
         if (Vector3.Angle(transform.up, Vector3.up) < 20f)
         {
-            UpdateColor();
+            //UpdateColor();
 
             if (fillAmount < 0)
                 fillAmount = 0;
 
             if (fillAmount < 1)
             {
-                mat.SetFloat("_Fill", fillAmount + (fillSpeed * Time.deltaTime));
+                liquid.SetLiquid(fillAmount + (fillSpeed * Time.deltaTime));
             }
             else
-                mat.SetFloat("_Fill", 1);
+                liquid.SetLiquid(1);
         }
     }
 
@@ -165,9 +167,8 @@ public class LiquidContainer : MonoBehaviour
         if (GetSideColor() == mixedSideColor && GetTopColor() == mixedTopColor)
             return;
 
-
-        mat.SetColor("_SideColor", Color.Lerp(oldSideColor, mixedSideColor, mixedT));
-        mat.SetColor("_TopColor", Color.Lerp(oldTopColor, mixedTopColor, mixedT));
+        liquid.SetSideColor(Color.Lerp(oldSideColor, mixedSideColor, mixedT));
+        liquid.SetTopColor(Color.Lerp(oldTopColor, mixedTopColor, mixedT));
         mixedT += mixSpeed * Time.deltaTime;
 
     }
@@ -247,12 +248,12 @@ public class LiquidContainer : MonoBehaviour
 
     public Color GetSideColor()
     {
-        return mat.GetColor("_SideColor");
+        return liquid.GetSideColor();
     }
 
     public Color GetTopColor()
     {
-        return mat.GetColor("_TopColor");
+        return liquid.GetTopColor();
     }
 
     void AddAttributes(GameObject other, float volume)
@@ -266,29 +267,11 @@ public class LiquidContainer : MonoBehaviour
 
     }
 
-    private void OnParticleCollision(GameObject other)
-    {
-        if (other.GetComponentInParent<LiquidContainer>() == this)
-            return;
-
-        if (Vector3.Angle(transform.up, Vector3.up) < 20f)
-        {
-            LiquidContainer container = other.GetComponentInParent<LiquidContainer>();
-
-            if (container != null)
-            {
-                AddColors(container.GetTopColor(), container.GetSideColor());
-                AddLiquid();
-                AddAttributes(other.transform.parent.gameObject, 0.01f);
-            }
-        }
-    }
-
     public float GetLiquidVolume()
     {
         if (mat == null)
             mat = liquidObject.GetComponent<MeshRenderer>().material;
 
-        return Mathf.Clamp01(mat.GetFloat("_Fill"));
+        return Mathf.Clamp01(liquid.GetLiquid());
     }
 }

@@ -3,40 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(LiquidEffect))]
 public class LiquidSounds : MonoBehaviour
 {
-    [SerializeField] AudioClip[] liquidSounds;
-    AudioSource source;
+    [Header("Sway Settings")]
+    [SerializeField] AudioClip[] liquidSoundsSway;
+    [SerializeField] AudioSource sourceSway;
     [SerializeField] float timeForNextSound = 0.25f;
     [SerializeField] float velocityChangeThreshold = 2.0f;
     [SerializeField] float sloshingThreshold = 0.5f;
     [SerializeField] float sloshFactor = 0.1f;
+    [Header("Pour in Settings")]
+    [SerializeField] AudioClip[] liquidSoundsPour;
+    [SerializeField] AudioSource sourcePour;
+    [SerializeField] float minPitch = 0.7f;
+    [SerializeField] float maxPitch = 1.2f;
+    [SerializeField] float minVolume = 0.5f;
+    [SerializeField] float maxVolume = 1;
+    [SerializeField] float testDelay = 0.01f;
 
+    LiquidEffect liquid;
+
+    //pour
+    bool canPlayPour = true;
+
+    //Sway
     private Vector3 lastPos;
-    float soundTimer;
+    float swaySoundTimer;
     private float wobbleAmountX;
     private float wobbleAmountZ;
 
     private void Start()
     {
-        source = GetComponent<AudioSource>();
+        liquid = GetComponent<LiquidEffect>();
     }
 
-    public void UpdateSound(Vector3 lastPosition, float wobbleX, float wobbleZ)
+    public void UpdateSoundFill(float fill)
     {
-        soundTimer += Time.deltaTime;
+        sourcePour.pitch = Mathf.Lerp(minPitch, maxPitch, fill);
+        sourcePour.volume = Mathf.Lerp(minVolume, maxVolume, fill);
+        if (canPlayPour)
+        {
+            canPlayPour = false;
+            AudioClip clip = liquidSoundsPour[Random.Range(0, liquidSoundsPour.Length)];
+            sourcePour.clip = clip;
+            sourcePour.Play();
+            StartCoroutine(WaitForNextPour(clip.length - testDelay));
+        }
+    }
+
+    IEnumerator WaitForNextPour(float time)
+    {
+        yield return new WaitForSeconds(time);
+        canPlayPour = true;
+    }
+
+    public void UpdateSoundSway(Vector3 lastPosition, float wobbleX, float wobbleZ)
+    {
+        if (liquid.GetIsEmpty())
+            return;
+
+        swaySoundTimer += Time.deltaTime;
         lastPos = lastPosition;
         wobbleAmountX = wobbleX;
         wobbleAmountZ = wobbleZ;
 
-        if (soundTimer >= timeForNextSound)
+        if (swaySoundTimer >= timeForNextSound)
         {
-            soundTimer = 0;
-            SoundEffect();
+            swaySoundTimer = 0;
+            SoundEffectSway();
         }
     }
 
-    void SoundEffect()
+    void SoundEffectSway()
     {
         // Calculate the change in position since the last frame
         Vector3 positionChange = transform.position - lastPos;
@@ -66,16 +105,16 @@ public class LiquidSounds : MonoBehaviour
         {
 
             // Play a random liquid sound from the array.
-            if (liquidSounds.Length > 0)
+            if (liquidSoundsSway.Length > 0)
             {
-                int randomSoundIndex = Random.Range(0, liquidSounds.Length);
-                AudioClip randomSound = liquidSounds[randomSoundIndex];
+                int randomSoundIndex = Random.Range(0, liquidSoundsSway.Length);
+                AudioClip randomSound = liquidSoundsSway[randomSoundIndex];
                 // Set the volume and pitch of the audio source.
-                source.volume = volume;
-                source.pitch = pitch;
+                sourceSway.volume = volume;
+                sourceSway.pitch = pitch + ((1 - liquid.GetLiquid()) * 0.25f);
 
                 // Play the selected sound.
-                source.PlayOneShot(randomSound);
+                sourceSway.PlayOneShot(randomSound);
             }
         }
 
