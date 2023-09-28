@@ -63,24 +63,8 @@ public class Lever : MonoBehaviour
 
             if (dot > 0)
             {
-                float eulerX = transform.rotation.eulerAngles.x;
-                float eulerZ = transform.rotation.eulerAngles.z;
-
-                switch (clampAxis)
-                {
-                    case ClampAxis.xAxis:
-                        eulerX = ClampAngle(transform.rotation.eulerAngles.x, clampMin, clampMax);
-                        break;
-                    case ClampAxis.zAxis:
-                        eulerZ = ClampAngle(transform.rotation.eulerAngles.z, clampMin, clampMax);
-                        break;
-                    default:
-                        break;
-                }
-
-
                 transform.LookAt(new Vector3(hand.transform.position.x, hand.transform.position.y, transform.position.z));
-                transform.eulerAngles = new Vector3(eulerX, transform.rotation.eulerAngles.y, eulerZ);
+                transform.eulerAngles = new Vector3(ClampAngle(transform.rotation.eulerAngles.x, clampMin, clampMax), 0, transform.rotation.eulerAngles.z);
             }
 
         }
