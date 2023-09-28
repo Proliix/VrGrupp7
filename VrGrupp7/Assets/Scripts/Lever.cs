@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
+enum ClampAxis
+{
+    xAxis, zAxis
+}
+
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRSimpleInteractable))]
 [HelpURL("https://www.youtube.com/watch?v=ZaWu0YPmDJo")]
@@ -13,6 +18,7 @@ public class Lever : MonoBehaviour
     [SerializeField] float clampMin, clampMax;
     [SerializeField] Vector3 dotDir = Vector3.right;
     [SerializeField] Vector3 angleDir = Vector3.left;
+    [SerializeField] ClampAxis clampAxis;
     public UnityEvent onEnable;
     public UnityEvent onDisable;
 
@@ -57,8 +63,24 @@ public class Lever : MonoBehaviour
 
             if (dot > 0)
             {
+                float eulerX = transform.rotation.eulerAngles.x;
+                float eulerZ = transform.rotation.eulerAngles.z;
+
+                switch (clampAxis)
+                {
+                    case ClampAxis.xAxis:
+                        eulerX = ClampAngle(transform.rotation.eulerAngles.x, clampMin, clampMax);
+                        break;
+                    case ClampAxis.zAxis:
+                        eulerZ = ClampAngle(transform.rotation.eulerAngles.z, clampMin, clampMax);
+                        break;
+                    default:
+                        break;
+                }
+
+
                 transform.LookAt(new Vector3(hand.transform.position.x, hand.transform.position.y, transform.position.z));
-                transform.eulerAngles = new Vector3(ClampAngle(transform.rotation.eulerAngles.x, clampMin, clampMax), transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+                transform.eulerAngles = new Vector3(eulerX, transform.rotation.eulerAngles.y, eulerZ);
             }
 
         }
