@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-enum ClampAxis
-{
-    xAxis, zAxis
-}
-
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRSimpleInteractable))]
 [HelpURL("https://www.youtube.com/watch?v=ZaWu0YPmDJo")]
@@ -18,7 +13,6 @@ public class Lever : MonoBehaviour
     [SerializeField] float clampMin, clampMax;
     [SerializeField] Vector3 dotDir = Vector3.right;
     [SerializeField] Vector3 angleDir = Vector3.left;
-    [SerializeField] ClampAxis clampAxis;
     public UnityEvent onEnable;
     public UnityEvent onDisable;
 
