@@ -8791,7 +8791,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1084
+  m_VersionIndex: 1129
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8915,7 +8915,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -9203,6 +9203,7 @@ GameObject:
   - component: {fileID: 1886384299}
   - component: {fileID: 1455832564563986848}
   - component: {fileID: 1161179719016556817}
+  - component: {fileID: 81740479}
   m_Layer: 0
   m_Name: Liquid
   m_TagString: Untagged
@@ -17917,7 +17918,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1400
+  m_VersionIndex: 1445
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -18123,7 +18124,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   debugAngle: 0
-  isSelected: 1
+  isSelected: 0
 --- !u!114 &1455832564563986848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18136,17 +18137,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f2556949ed2394fa36dcf17b90aabf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  liquidSounds:
+  liquidSoundsSway:
   - {fileID: 8300000, guid: fd6998f488b4fa24089a779c0403f855, type: 3}
   - {fileID: 8300000, guid: 594facc5360f86c448e24fa5813dabe7, type: 3}
   - {fileID: 8300000, guid: 00de4e22ecfcfc84ca49be586c8c108a, type: 3}
   - {fileID: 8300000, guid: 3daaf9d63acd91345a3a300093183904, type: 3}
   - {fileID: 8300000, guid: e0096b66210e32c4bb6fe09a986857ea, type: 3}
   - {fileID: 8300000, guid: 3f1053c8748486f4c860ce0c5bb41953, type: 3}
+  sourceSway: {fileID: 1161179719016556817}
   timeForNextSound: 0.25
   velocityChangeThreshold: 2
   sloshingThreshold: 0.5
   sloshFactor: 0.1
+  liquidSoundsPour:
+  - {fileID: 8300000, guid: d71ec33c4093ffc42aa96cb1ed487d0d, type: 3}
+  - {fileID: 8300000, guid: cbc188f9e405e9f479a9f6dc5d17316d, type: 3}
+  - {fileID: 8300000, guid: 0fa45d455a13e63429f9995f365c0f46, type: 3}
+  - {fileID: 8300000, guid: 8268c157343540049aa9c6657532f705, type: 3}
+  - {fileID: 8300000, guid: d7b8e02b59c71014abc4740f71443b9e, type: 3}
+  - {fileID: 8300000, guid: dd62035f48084484bb301ee61fafd82a, type: 3}
+  - {fileID: 8300000, guid: b172d9724031e4e4fb141114f18cd16e, type: 3}
+  sourcePour: {fileID: 81740479}
+  minPitch: 0.7
+  maxPitch: 1.2
+  minVolume: 0.5
+  maxVolume: 1
+  testDelay: 0.01
 --- !u!82 &1161179719016556817
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18158,7 +18174,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -18203,7 +18219,103 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &81740479
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879099534187548760}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -20,10 +20,16 @@ public class JobManager : MonoBehaviour
 {
     [SerializeField] TextDisplayer displayer;
     [SerializeField] int startBatch = 2;
+    [Range(0, 1)]
+    [SerializeField] float minPotency = 0.05f;
+    [Range(0, 1)]
+    [SerializeField] float maxPotency = 0.75f;
     [Header("Turn in area")]
     [SerializeField] Vector3 turnInPos;
     [SerializeField] Vector3 turnInSize;
 
+    //make it so it's not 33.3333333333 and 66.6666666 so there looks like its no room for error
+    const float SAFETY_PERCENT = 0.005f;
 
     IAttribute[] allAttributes;
     [HideInInspector] public List<WantedAttribute> wantedAtributes;
@@ -76,6 +82,13 @@ public class JobManager : MonoBehaviour
     void AddWantedAttribute()
     {
         WantedAttribute newWanted = new WantedAttribute();
+        float fullPotency = GetFullPotency();
+        if (ConvertPotencyToMaxValue(fullPotency) < minPotency)
+        {
+            Debug.Log("Full potency reached in jobmanager");
+            return;
+        }
+
         int counter = 0;
         int attributeNum = 0;
         while (counter < (allAttributes.Length * 2))
@@ -97,7 +110,7 @@ public class JobManager : MonoBehaviour
             newWanted.Attribute = allAttributes[attributeNum];
             float margin = Random.Range(2, 5 + 1);
             newWanted.marginOfError = margin;
-            float potency = Random.Range(0.5f, 0.75f);
+            float potency = Random.Range(minPotency, fullPotency > 0 ? ConvertPotencyToMaxValue(fullPotency) : maxPotency);
             newWanted.potency = Mathf.Floor(Mathf.Round(potency * 100.0f)) * 0.01f;
             wantedAtributes.Add(newWanted);
         }
@@ -119,6 +132,22 @@ public class JobManager : MonoBehaviour
         }
     }
 
+    float GetFullPotency()
+    {
+        float potency = 0;
+
+        for (int i = 0; i < wantedAtributes.Count; i++)
+        {
+            potency += wantedAtributes[i].potency;
+        }
+
+        return potency;
+    }
+
+    static float ConvertPotencyToMaxValue(float potency)
+    {
+        return 1 - (potency + SAFETY_PERCENT);
+    }
 
     void CreateAttributeException(IAttribute attribute)
     {
@@ -225,7 +254,6 @@ public class JobManager : MonoBehaviour
         }
 
         TurnInCorrect();
-
     }
 
     void TurnInCorrect()
@@ -237,7 +265,7 @@ public class JobManager : MonoBehaviour
 
     void TurnInIncorrect(bool[] isCompleted)
     {
-        string explination = "This was not what i ordered! I ordered:";
+        string explination = "This was not what i ordered! I ordered a potion with ";
         for (int i = 0; i < isCompleted.Length; i++)
         {
             if (!isCompleted[i])
@@ -245,7 +273,7 @@ public class JobManager : MonoBehaviour
                 if (i != 0)
                     explination += " and ";
 
-                explination += " " + wantedAtributes[i].Attribute.GetName() + " is wrong";
+                explination += " " + wantedAtributes[i].Attribute.GetName() + " should be " + wantedAtributes[i].potency + "%";
             }
         }
 
