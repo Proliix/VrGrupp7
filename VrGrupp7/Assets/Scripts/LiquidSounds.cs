@@ -88,7 +88,6 @@ public class LiquidSounds : MonoBehaviour
 
         // Calculate the combined intensity based on both velocity change and sloshing
         float combinedIntensity = Mathf.Max(movementSpeed / velocityChangeThreshold, wobbleMagnitude);
-        Debug.Log("combined intensity: " + combinedIntensity);
 
         // Adjust volume and pitch based on the combined intensity
         float minVolume = 0.1f;
