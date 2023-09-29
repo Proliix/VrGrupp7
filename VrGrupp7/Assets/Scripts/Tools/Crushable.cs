@@ -9,7 +9,10 @@ public class Crushable : MonoBehaviour
     private AudioSource source;
     public AudioClip clip_hammerAgainstsrock;
 
+    [SerializeField] private GameObject[] detatchOnDestroy;
+
     public float health;
+    [SerializeField] private float heatModifier = 3f;
 
     bool isInvincible = false;
     float invincibleAfterHitTime = 0.1f;
@@ -19,6 +22,7 @@ public class Crushable : MonoBehaviour
     //This value controls on how much the color varies from the base color, 0 means all particles have same color as base;
     public float particleColorGradient = 0.5f;
 
+
     void Start()
     {
         source = GetComponent<AudioSource>();
@@ -26,28 +30,39 @@ public class Crushable : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-
-        if(other.transform.TryGetComponent(out Crusher crusher))
+        if (TryGetComponent(out Crusher crusher))
         {
-            if (!isInvincible)
-            {
-                float damage = crusher.GetDamage();
-
-                source.PlayOneShot(clip_hammerAgainstsrock, damage);
-
-                LoseHealth(damage);
-
-                StartCoroutine(Invincible(invincibleAfterHitTime));
-
-                SpawnParticleEffect(other);
-
-            }
+            OnCollision(crusher.GetDamage() ,other.GetContact(0).point, other.collider.bounds.center);
         }
     }
 
-    void LoseHealth(float damage)
+    public void OnCollision(float damage, Vector3 hitLocation, Vector3 crusherLocation)
+    {
+        if (!isInvincible)
+        {
+            //float damage = crusher.GetDamage();
+
+            source.PlayOneShot(clip_hammerAgainstsrock, damage);
+
+            LoseHealth(damage);
+
+            StartCoroutine(Invincible(invincibleAfterHitTime));
+
+            SpawnParticleEffect(hitLocation, crusherLocation);
+
+        }
+    }
+
+
+    public void LoseHealth(float damage)
     {
         //Debug.Log("Damage: " + damage + " to " + gameObject.name);
+
+        if(TryGetComponent(out Torchable torchable))
+        {
+            damage *= 1 + torchable.GetTemperature() * heatModifier;
+        }
+
 
         health -= damage;
 
@@ -59,12 +74,15 @@ public class Crushable : MonoBehaviour
 
     void Crush()
     {
-        Gem[] gems = transform.GetComponentsInChildren<Gem>();
 
-        foreach(Gem gem in gems)
+        foreach(GameObject obj in detatchOnDestroy)
         {
-            gem.transform.parent = transform.parent;
-            gem.AddGrab();
+            obj.transform.parent = null;
+
+            if(obj.TryGetComponent(out AddGrab addGrab))
+            {
+                addGrab.Add();
+            }
         }
 
         Destroy(gameObject);
@@ -77,10 +95,10 @@ public class Crushable : MonoBehaviour
         isInvincible = false;
     }
 
-    void SpawnParticleEffect(Collision other)
+    void SpawnParticleEffect(Vector3 hitLocation, Vector3 crusherLocation)
     {
         //Get hit location
-        Vector3 hitLocation = other.GetContact(0).point;
+        //Vector3 hitLocation = other.GetContact(0).point;
         //Spawn particle
         GameObject particle = Instantiate(ParticleOnHit, hitLocation, Quaternion.identity);
 
@@ -96,7 +114,7 @@ public class Crushable : MonoBehaviour
         //particle.GetComponent<ParticleSystemRenderer>().material = GetComponent<Renderer>().material;
 
         //Rotate the particle effect to the impact direction
-        particle.transform.up = other.transform.position - hitLocation;
+        particle.transform.up = crusherLocation - hitLocation;
         //Destroy after 1 second;
         Destroy(particle, 1);
     }

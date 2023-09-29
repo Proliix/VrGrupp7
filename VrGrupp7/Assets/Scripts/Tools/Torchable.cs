@@ -34,6 +34,8 @@ public class Torchable : MonoBehaviour
 
         material = torchedObject.GetComponent<Renderer>().material;
         original = material.color;
+
+        this.enabled = false;
     }
 
     // Update is called once per frame
@@ -61,8 +63,12 @@ public class Torchable : MonoBehaviour
         hue = Mathf.Lerp(hue, maxH, temp01);
         saturation = Mathf.Lerp(saturation, MaxS, temp01);
         value = Mathf.Lerp(value, MaxV, temp01);
+        float alpha = Mathf.Lerp(original.a, (original.a / 4f), temp01);
 
-        material.color = Color.HSVToRGB(hue, saturation - (temp01* saturationModifier), value * (1 + temp01) * valueModifier);
+        Color newColor = Color.HSVToRGB(hue, saturation - (temp01 * saturationModifier), value * (1 + temp01) * valueModifier);
+        newColor.a = alpha;
+
+        material.color = newColor;
 
         //material.color = Color.Lerp(original, maxTorched, temp01);
 
@@ -79,5 +85,10 @@ public class Torchable : MonoBehaviour
     public void OnTorchExit()
     {
         insideFire = false;
+    }
+
+    public float GetTemperature()
+    {
+        return temp01;
     }
 }

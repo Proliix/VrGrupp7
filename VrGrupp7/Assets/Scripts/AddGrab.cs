@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Gem : MonoBehaviour
+public class AddGrab : MonoBehaviour
 {
-    public void AddGrab()
+    [SerializeField] InteractionLayerMask layerMask;
+
+    public void Add()
     {
         StartCoroutine(IEAddGrab());
     }
@@ -14,6 +16,12 @@ public class Gem : MonoBehaviour
     IEnumerator IEAddGrab()
     {
         yield return 0;
-        gameObject.AddComponent<XRGrabInteractable>();
+
+        if(GetComponent<XRGrabInteractable>() == null)
+        {
+            var grabInteractable = gameObject.AddComponent<XRGrabInteractable>();
+
+            grabInteractable.interactionLayers = layerMask;
+        }
     }
 }
