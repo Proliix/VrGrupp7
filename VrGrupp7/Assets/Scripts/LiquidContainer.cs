@@ -17,21 +17,12 @@ public class LiquidContainer : MonoBehaviour
 
     [SerializeField] bool isPouring;
 
+
     float angle;
     float fillAmount;
     Vector3 wobblePos;
     Material mat;
     LiquidEffect liquid;
-
-    //COLOR MIXING
-    List<Color> sideColors = new List<Color>();
-    List<Color> topColors = new List<Color>();
-    Color mixedSideColor;
-    Color mixedTopColor;
-    Color oldSideColor;
-    Color oldTopColor;
-    float mixedT;
-    float mixSpeed = 0.5f;
 
     PourLiquid pourLiquid;
 
@@ -48,7 +39,6 @@ public class LiquidContainer : MonoBehaviour
             liquid.EmptyLiquid();
         }
 
-        AddColors(liquid.GetTopColor(), liquid.GetSideColor());
     }
 
     // Update is called once per frame
@@ -135,11 +125,6 @@ public class LiquidContainer : MonoBehaviour
     void Empty()
     {
         liquid.EmptyLiquid();
-        //if (mat.GetFloat("_Fill") > 0)
-        //    mat.SetFloat("_Fill", fillAmount - (emptySpeed * 3) * Time.deltaTime);
-        //else
-        //    mat.SetFloat("_Fill", forceEmptyAmount);
-
         RemoveAllAtributes();
     }
 
@@ -148,8 +133,6 @@ public class LiquidContainer : MonoBehaviour
     {
         if (Vector3.Angle(transform.up, Vector3.up) < 20f)
         {
-            //UpdateColor();
-
             if (fillAmount < 0)
                 fillAmount = 0;
 
@@ -161,18 +144,6 @@ public class LiquidContainer : MonoBehaviour
                 liquid.SetLiquid(1);
         }
     }
-
-    void UpdateColor()
-    {
-        if (GetSideColor() == mixedSideColor && GetTopColor() == mixedTopColor)
-            return;
-
-        liquid.SetSideColor(Color.Lerp(oldSideColor, mixedSideColor, mixedT));
-        liquid.SetTopColor(Color.Lerp(oldTopColor, mixedTopColor, mixedT));
-        mixedT += mixSpeed * Time.deltaTime;
-
-    }
-
     void RemoveAllAtributes()
     {
         IAttribute[] attributes = GetComponents<IAttribute>();
@@ -180,70 +151,6 @@ public class LiquidContainer : MonoBehaviour
         {
             Destroy(attributes[i] as Component);
         }
-
-        ResetColors();
-    }
-
-    void ResetColors()
-    {
-        sideColors = new List<Color>();
-        topColors = new List<Color>();
-    }
-
-    public void AddColors(Color newTopColor, Color newSideColor)
-    {
-        bool hasColor = false;
-
-        #region topColor
-        //If color is already mixed in return
-        foreach (var item in topColors)
-        {
-            if (item == newTopColor)
-            {
-                hasColor = true;
-                break;
-            }
-        }
-
-        if (!hasColor)
-        {
-            if (topColors.Count == 0)
-                oldSideColor = newTopColor;
-
-
-            topColors.Add(newTopColor);
-            mixedTopColor = PotionColors.CombineColors(topColors.ToArray());
-            oldTopColor = GetTopColor();
-            mixedT = 0;
-        }
-        #endregion
-
-
-        #region sideColor
-        hasColor = false;
-
-        //check if it already has color
-        foreach (var item in sideColors)
-        {
-            if (item == newSideColor)
-            {
-                hasColor = true;
-                break;
-            }
-        }
-
-        if (!hasColor)
-        {
-            if (sideColors.Count == 0)
-                oldSideColor = newSideColor;
-
-            sideColors.Add(newSideColor);
-            mixedSideColor = PotionColors.CombineColors(sideColors.ToArray());
-            oldSideColor = GetSideColor();
-            mixedT = 0;
-        }
-        #endregion
-
     }
 
     public Color GetSideColor()
