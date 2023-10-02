@@ -18,7 +18,7 @@ public class WantedAttribute
 
 public class JobManager : MonoBehaviour
 {
-    public float turn_in_correct = 0;  // 0= null 1=correct 2=Incorrect
+    public float turn_in_correct = 1;  // 0= null 1=correct 2=Incorrect
     [SerializeField] TextDisplayer displayer;
     [SerializeField] int startBatch = 2;
     [Range(0, 1)]
