@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1902563232189470783}
   - component: {fileID: 1902563232189470782}
   - component: {fileID: 1902563232189470781}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlaskStopper
   m_TagString: Cork
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902563232189470780}
-  m_LocalRotation: {x: 0.00000008146034, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.22, y: 1.1744853, z: 2.7869}
   m_LocalScale: {x: 19.200819, y: 19.81778, z: 19.05431}
   m_ConstrainProportionsScale: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 5
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
