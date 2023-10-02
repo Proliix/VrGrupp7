@@ -18,6 +18,7 @@ public class WantedAttribute
 
 public class JobManager : MonoBehaviour
 {
+    public float turn_in_correct = 0;  // 0= null 1=correct 2=Incorrect
     [SerializeField] TextDisplayer displayer;
     [SerializeField] int startBatch = 2;
     [Range(0, 1)]
@@ -258,13 +259,16 @@ public class JobManager : MonoBehaviour
 
     void TurnInCorrect()
     {
+        turn_in_correct = 1;
         displayer.WriteText("Thank you so much");
         CancelInvoke(nameof(NewBatchEditor));
         Invoke(nameof(NewBatchEditor), 10);
+        turn_in_correct = 0;
     }
 
     void TurnInIncorrect(bool[] isCompleted)
     {
+        turn_in_correct = 2;
         string explination = "This was not what i ordered! I ordered a potion with ";
         for (int i = 0; i < isCompleted.Length; i++)
         {
@@ -280,6 +284,7 @@ public class JobManager : MonoBehaviour
         displayer.WriteText(explination);
         CancelInvoke(nameof(WriteText));
         Invoke(nameof(WriteText), 10);
+        turn_in_correct = 0;
     }
     #endregion
 
