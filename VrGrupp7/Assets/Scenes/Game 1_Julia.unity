@@ -2489,7 +2489,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh211348
+  m_Name: pb_Mesh-993626
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2906,7 +2906,7 @@ MonoBehaviour:
   pointCount: 0
   PourCollisionMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   liquidDispenser: {fileID: 0}
 --- !u!4 &205571331
 Transform:
@@ -20692,7 +20692,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh214428
+  m_Name: pb_Mesh-993642
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22393,7 +22393,7 @@ MonoBehaviour:
   pointCount: 0
   PourCollisionMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   liquidDispenser: {fileID: 0}
 --- !u!4 &896810725
 Transform:
@@ -23467,7 +23467,7 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
@@ -24051,7 +24051,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh212368
+  m_Name: pb_Mesh-994466
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -25082,7 +25082,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh212420
+  m_Name: pb_Mesh295184
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -25641,7 +25641,7 @@ MonoBehaviour:
   pointCount: 0
   PourCollisionMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   liquidDispenser: {fileID: 0}
 --- !u!4 &1245686928
 Transform:
@@ -27671,7 +27671,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh211224
+  m_Name: pb_Mesh-994002
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28099,7 +28099,7 @@ MonoBehaviour:
   pointCount: 0
   PourCollisionMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   liquidDispenser: {fileID: 0}
 --- !u!4 &1487594156
 Transform:
@@ -36561,7 +36561,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh213824
+  m_Name: pb_Mesh-994442
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -37368,6 +37368,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6025993210009070851, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: PourCollisionMask.m_Bits
+      value: 513
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025993210718368484, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: clampMax
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025993210718368484, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: clampMin
+      value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025993210718368484, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: dotDir.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025993210718368484, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: dotDir.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025993210718368484, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: angleDir.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025993210718368484, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: debugAngle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025993210718368484, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: angleForStart
+      value: 160
+      objectReference: {fileID: 0}
     - target: {fileID: 6025993210718368486, guid: 92d4922dccc325a4ba3e00df5596d081,
         type: 3}
       propertyPath: m_InteractionManager

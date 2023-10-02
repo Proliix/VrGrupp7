@@ -1077,7 +1077,7 @@ MonoBehaviour:
   pointCount: 0
   PourCollisionMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   liquidDispenser: {fileID: 0}
 --- !u!1 &4350401288575496019
 GameObject:

@@ -3764,7 +3764,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-890540
+  m_Name: pb_Mesh293762
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9923,6 +9923,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995774271662995759, guid: c4400d150905f0b449a421618f1bc964,
+        type: 3}
+      propertyPath: PourCollisionMask.m_Bits
+      value: 513
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4400d150905f0b449a421618f1bc964, type: 3}
@@ -16412,16 +16417,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FlaskStopper
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902563232189470780, guid: e3cfc61f50715144daa75a8401f5c776,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902563232189470781, guid: e3cfc61f50715144daa75a8401f5c776,
-        type: 3}
-      propertyPath: m_InteractionLayers.m_Bits
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3cfc61f50715144daa75a8401f5c776, type: 3}
