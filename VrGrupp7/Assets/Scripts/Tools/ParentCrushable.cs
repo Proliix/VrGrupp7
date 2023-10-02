@@ -17,7 +17,7 @@ public class ParentCrushable : MonoBehaviour
 
             dictionary.Add(id, crushables[i]);
 
-            Debug.Log("Added " + crushables[i].name);
+            //Debug.Log("Added " + crushables[i].name);
         }
     }
 
@@ -25,7 +25,7 @@ public class ParentCrushable : MonoBehaviour
     {
         Collider myCollider = myCollision.collider;
 
-        Debug.Log("Collided with " + myCollider.name);
+        //Debug.Log("Collided with " + myCollider.name);
 
         int id = myCollider.GetInstanceID();
 

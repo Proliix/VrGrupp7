@@ -11,7 +11,8 @@ public class Crushable : MonoBehaviour
 
     [SerializeField] private GameObject[] detatchOnDestroy;
 
-    public float health;
+    [HideInInspector] public float startHealth;
+    public float currentHealth;
     [SerializeField] private float heatModifier = 3f;
 
     bool isInvincible = false;
@@ -25,12 +26,15 @@ public class Crushable : MonoBehaviour
 
     void Start()
     {
+        startHealth = currentHealth;
         source = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (TryGetComponent(out Crusher crusher))
+        Debug.Log("Crushable Collided with " + other.transform.name);
+
+        if (other.transform.TryGetComponent(out Crusher crusher))
         {
             OnCollision(crusher.GetDamage() ,other.GetContact(0).point, other.collider.bounds.center);
         }
@@ -48,7 +52,7 @@ public class Crushable : MonoBehaviour
 
             StartCoroutine(Invincible(invincibleAfterHitTime));
 
-            SpawnParticleEffect(hitLocation, crusherLocation);
+            SpawnParticleEffect(damage, hitLocation, crusherLocation);
 
         }
     }
@@ -64,9 +68,9 @@ public class Crushable : MonoBehaviour
         }
 
 
-        health -= damage;
+        currentHealth -= damage;
 
-        if(health < 0)
+        if(currentHealth < 0)
         {
             Crush();
         }
@@ -95,12 +99,14 @@ public class Crushable : MonoBehaviour
         isInvincible = false;
     }
 
-    void SpawnParticleEffect(Vector3 hitLocation, Vector3 crusherLocation)
+    void SpawnParticleEffect(float damage, Vector3 hitLocation, Vector3 crusherLocation)
     {
         //Get hit location
         //Vector3 hitLocation = other.GetContact(0).point;
         //Spawn particle
         GameObject particle = Instantiate(ParticleOnHit, hitLocation, Quaternion.identity);
+
+        particle.transform.localScale = Vector3.one * Mathf.Clamp(damage, 0, 1);
 
         //Get Color of our gameobject
         var color = GetComponent<Renderer>().material.color;

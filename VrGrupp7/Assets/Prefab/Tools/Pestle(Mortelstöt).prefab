@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6163866600143352855}
   - component: {fileID: 6163866600143352852}
   - component: {fileID: 6163866600143352854}
+  - component: {fileID: 4270505708497873887}
+  - component: {fileID: 962949151146688664}
   m_Layer: 0
   m_Name: "Pestle(Mortelst\xF6t)"
   m_TagString: Untagged
@@ -151,10 +153,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4270505708497873887}
+        m_TargetAssemblyTypeName: Pestle, Assembly-CSharp
+        m_MethodName: SetTrigger
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4270505708497873887}
+        m_TargetAssemblyTypeName: Pestle, Assembly-CSharp
+        m_MethodName: SetTrigger
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -251,3 +277,29 @@ CapsuleCollider:
   m_Height: 0.040365856
   m_Direction: 1
   m_Center: {x: 0.0000000027939684, y: -0.0001829239, z: -0.0000000027939677}
+--- !u!114 &4270505708497873887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773167759593820245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a618bf290c9f47488548d029e1d68fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grindDamage: 5
+--- !u!114 &962949151146688664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773167759593820245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b8354fe51af6c4ea685e0da9ed1847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharpness: 0.1
