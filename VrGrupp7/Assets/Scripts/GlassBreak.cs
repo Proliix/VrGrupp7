@@ -32,7 +32,7 @@ public class GlassBreak : MonoBehaviour
         for (int i = 0; i < Shards.Length; i++)
         {
             GameObject shard = Instantiate(Shards[i], transform.position, transform.rotation);
-            shard.GetComponentInChildren<Rigidbody>()?.AddExplosionForce(Random.Range(75,300), transform.position, 2f);
+            shard.GetComponentInChildren<Rigidbody>()?.AddExplosionForce(Random.Range(75, 300), transform.position, 2f);
             Destroy(shard, 5);
             if (i == 0)
                 source = SetupAudioSource(shard);
@@ -51,9 +51,11 @@ public class GlassBreak : MonoBehaviour
 
         if (force > breakForce && !isBroken)
         {
-            breakPos = collision.GetContact(0).point;
-            if (breakPos == Vector3.zero || breakPos == null)
-                breakPos = transform.position;
+            //Makes it so it gets force from below when it breaks
+            //breakPos = collision.GetContact(0).point;
+            //if (breakPos == Vector3.zero || breakPos == null)
+            //    breakPos = transform.position;
+
             isBroken = true;
             BreakBottle();
         }
