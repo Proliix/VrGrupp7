@@ -1430,18 +1430,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &228289598 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2005944394704968595, guid: c42222ae5c5a2fa4b9dc8d0dd38715e7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1279893542}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &235184210
 GameObject:
   m_ObjectHideFlags: 0
@@ -13981,7 +13969,7 @@ PrefabInstance:
     - target: {fileID: 8534352317755963465, guid: 572e1c56d28555f4690d19252e01c27d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8534352317755963465, guid: 572e1c56d28555f4690d19252e01c27d,
         type: 3}
@@ -16533,7 +16521,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_InteractionManager
       value: 
-      objectReference: {fileID: 228289598}
+      objectReference: {fileID: 0}
     - target: {fileID: 745800893962266848, guid: 1395727fddd1c8842b73793ddac03a0b,
         type: 3}
       propertyPath: m_RootOrder
@@ -17429,11 +17417,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Blowtorch
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730749979484882503, guid: 3870ada7d0b39bc49a98e000d5e7d365,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3870ada7d0b39bc49a98e000d5e7d365, type: 3}
