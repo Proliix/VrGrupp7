@@ -115,7 +115,8 @@ MonoBehaviour:
   clip_hammerAgainstsrock: {fileID: 0}
   detatchOnDestroy:
   - {fileID: 4110647331925585028}
-  health: 10
+  startHealth: 0
+  currentHealth: 50
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
@@ -254,7 +255,8 @@ MonoBehaviour:
   clip_hammerAgainstsrock: {fileID: 0}
   detatchOnDestroy:
   - {fileID: 3921275288380968451}
-  health: 10
+  startHealth: 0
+  currentHealth: 50
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
@@ -393,7 +395,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip_hammerAgainstsrock: {fileID: 0}
   detatchOnDestroy: []
-  health: 10
+  startHealth: 0
+  currentHealth: 10
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
@@ -546,7 +549,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip_hammerAgainstsrock: {fileID: 0}
   detatchOnDestroy: []
-  health: 10
+  startHealth: 0
+  currentHealth: 10
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
@@ -699,7 +703,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip_hammerAgainstsrock: {fileID: 0}
   detatchOnDestroy: []
-  health: 10
+  startHealth: 0
+  currentHealth: 10
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
@@ -852,7 +857,8 @@ MonoBehaviour:
   clip_hammerAgainstsrock: {fileID: 0}
   detatchOnDestroy:
   - {fileID: 1557539059364656159}
-  health: 10
+  startHealth: 0
+  currentHealth: 50
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}

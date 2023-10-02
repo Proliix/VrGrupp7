@@ -9,14 +9,19 @@ public class Crusher : MonoBehaviour
     [SerializeField] private float sharpness = 1;
     private float damage;
 
+    [SerializeField] private Transform hammerHead;
+
     Vector3 oldPosition;
     private Rigidbody rb;
     private Collider _collider;
 
     void Start()
     {
+        if (hammerHead == null)
+            hammerHead = transform;
+
         rb = GetComponent<Rigidbody>();
-        oldPosition = transform.position;
+        oldPosition = hammerHead.position;
         _collider = GetComponent<Collider>();
     }
 
@@ -26,13 +31,13 @@ public class Crusher : MonoBehaviour
         if (!rb.IsSleeping())
         {
             damage = GetForce();
-            oldPosition = transform.position;
+            oldPosition = hammerHead.position;
         }
     }
 
     float GetForce()
     {
-        return (transform.position - oldPosition).magnitude / Time.deltaTime;
+        return (hammerHead.position - oldPosition).magnitude / Time.deltaTime;
     }
 
     public float GetDamage()
@@ -52,7 +57,9 @@ public class Crusher : MonoBehaviour
 
         if (other.transform.TryGetComponent(out ParentCrushable parentCrushable))
         {
-            parentCrushable.CollidedWithCrusher(other, GetDamage(), _collider.bounds.center);
+            parentCrushable.CollidedWithCrusher(other, GetDamage(), hammerHead.position);
+
+            Debug.Log("Crusher dealt " + GetDamage() + " Damage to " + other.transform.name);
         }
     }
 

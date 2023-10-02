@@ -81,6 +81,8 @@ public class Crushable : MonoBehaviour
 
         foreach(GameObject obj in detatchOnDestroy)
         {
+            if(obj == null) { continue; }
+
             obj.transform.parent = null;
 
             if(obj.TryGetComponent(out AddGrab addGrab))
