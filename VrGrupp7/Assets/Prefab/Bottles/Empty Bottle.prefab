@@ -1097,7 +1097,7 @@ MonoBehaviour:
   - {fileID: 1644427633308395727, guid: 3256bf9f47f2c904098efa1766ed5041, type: 3}
   - {fileID: 6616198463542242980, guid: ffe0756156255ae43b9b435a706f1d4d, type: 3}
   - {fileID: 7047364808518046195, guid: 235494931ab9dd7429c6602402d565b3, type: 3}
-  breakForce: 0.08
+  breakForce: 0.0775
   sounds:
   - {fileID: 8300000, guid: 499ab8db306627f48b9d30261be00080, type: 3}
   - {fileID: 8300000, guid: 939ae1de38dccc74d8cbaceb93fa0063, type: 3}

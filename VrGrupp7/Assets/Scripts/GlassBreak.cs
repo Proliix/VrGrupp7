@@ -8,14 +8,13 @@ public class GlassBreak : MonoBehaviour
     [SerializeField] float breakForce = 2;
     [SerializeField] AudioClip[] sounds;
 
-    Rigidbody rbd;
     LiquidContainer container;
     AudioSource source;
     bool isBroken;
+    Vector3 breakPos = Vector3.zero;
 
     private void Start()
     {
-        rbd = gameObject.GetComponent<Rigidbody>();
         container = gameObject.GetComponent<LiquidContainer>();
     }
 
@@ -33,7 +32,7 @@ public class GlassBreak : MonoBehaviour
         for (int i = 0; i < Shards.Length; i++)
         {
             GameObject shard = Instantiate(Shards[i], transform.position, transform.rotation);
-            shard.GetComponentInChildren<Rigidbody>()?.AddExplosionForce(100, transform.position, 2f);
+            shard.GetComponentInChildren<Rigidbody>()?.AddExplosionForce(Random.Range(75,300), transform.position, 2f);
             Destroy(shard, 5);
             if (i == 0)
                 source = SetupAudioSource(shard);
@@ -52,6 +51,9 @@ public class GlassBreak : MonoBehaviour
 
         if (force > breakForce && !isBroken)
         {
+            breakPos = collision.GetContact(0).point;
+            if (breakPos == Vector3.zero || breakPos == null)
+                breakPos = transform.position;
             isBroken = true;
             BreakBottle();
         }
