@@ -7,15 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Empty
-  m_Shader: {fileID: -6465566751694194690, guid: 0afb25bbda130dd47a9f988568df1429,
+  m_Name: testfield
+  m_Shader: {fileID: -6465566751694194690, guid: ab5a0ef5eed4fcf409851628cc67164e,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 5000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -49,10 +49,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Main_Texture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -66,6 +62,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _fillTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _scanlineTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -84,7 +88,6 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Amplitude: 0.11
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -95,49 +98,52 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Extrafill: 0
-    - _Fill: 0
-    - _FoamWidth: 0
-    - _Foam_Smoothness: 0
-    - _Frequency: 2.43
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Rim_Power: 10
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WobbleX: 0.0005042779
-    - _WobbleZ: -0.0005042779
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _test: 0
-    - _xRot: 0
-    - _zRot: 0
+    - _enableFillTexture: 1
+    - _enableIntersection: 1
+    - _enableRimGlow: 1
+    - _enableRipple: 1
+    - _enableScanLine: 0
+    - _fill: 0.01
+    - _impactRippleAmplitude: 0
+    - _impactRippleMaxRadius: 0.1
+    - _impactRippleSpeed: 0
+    - _intersectionMultiplier: 1
+    - _intersectionOffset: 0.3
+    - _rimGlowNoiseDensity: 4
+    - _rimGlowNoiseSpeed: 1
+    - _rimPulseSpeed: 3
+    - _scanSize: 0.8
+    - _scanSpeed: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BottomColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FloatCap: {r: -0.1, g: 0.11, b: 0, a: 0}
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Rim_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _SideColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Test: {r: 0, g: -0.02, b: 0, a: 0}
-    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Vector3: {r: 0, g: 0, b: 0, a: 0}
-    - _test: {r: 0, g: 0, b: 0, a: 0}
+    - _baseColor: {r: 0, g: 0.6196079, b: 0.9882354, a: 1}
+    - _fillOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _fillTiling: {r: 10, g: 10, b: 0, a: 0}
+    - _impactPoint: {r: 0, g: 0, b: 0, a: 0}
+    - _impactRippleDirection: {r: 0, g: 0, b: 1, a: 0}
+    - _rimColor: {r: 2, g: 0.2916075, b: 0.052356, a: 0}
+    - _rimPower: {r: 1.5, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &7577213989382965667
+--- !u!114 &848084865296613875
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

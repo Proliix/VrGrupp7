@@ -5650,6 +5650,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BottleHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 5649187268423833693, guid: 441f2e81d6495244badac712e8fb6178,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 441f2e81d6495244badac712e8fb6178, type: 3}
 --- !u!4 &1068260059 stripped
