@@ -63,6 +63,14 @@ public class Crusher : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.TryGetComponent(out Crushable crushable))
+        {
+            crushable.OnCollision(GetDamage(), other.ClosestPoint(hammerHead.position), hammerHead.position);
+        }
+    }
+
     public void OnGrab()
     {
 

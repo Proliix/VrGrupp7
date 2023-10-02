@@ -76,7 +76,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693927610988370793}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.03108861, y: 0.03546971, z: 0.030668931}
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 5721388823806225448}
   - component: {fileID: 4206495340024590583}
   - component: {fileID: 8932795466614290328}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1630811600855172310}
-  m_Layer: 0
+  - component: {fileID: 7300346050788092987}
+  m_Layer: 10
   m_Name: HammerHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,13 +362,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7434448499269163793}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1077, z: 0.0384}
+  m_LocalPosition: {x: 0, y: 0.106, z: 0.0384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 210125265399726547}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7300346050788092987
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7434448499269163793}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.03108861, y: 0.03546971, z: 0.030668931}
+  m_Center: {x: 0, y: 0, z: -0.015}
 --- !u!1 &9058508150664488488
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +393,7 @@ GameObject:
   - component: {fileID: 4452854987233001365}
   - component: {fileID: 2891367928634842552}
   - component: {fileID: 7987235593279964201}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
