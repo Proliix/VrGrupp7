@@ -197,6 +197,9 @@ MonoBehaviour:
     type: 3}
   dustSpawnpoint: {fileID: 275029674386455203}
   heldObject: {fileID: 0}
+  grindSound: {fileID: 8300000, guid: 48ec2c9a279e12f42b8f0316e488ceee, type: 3}
+  volumeModifier: 500
+  soundChangeSpeed: 1
 --- !u!54 &7382091417140671353
 Rigidbody:
   m_ObjectHideFlags: 0

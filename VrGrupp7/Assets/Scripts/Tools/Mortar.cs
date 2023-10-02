@@ -19,9 +19,17 @@ public class Mortar : MonoBehaviour
     private Pestle pestle;
     private Crushable crushable;
 
+    //[SerializeField] private AudioClip grindSound;
+    //private AudioSource audioSource;
+    //[SerializeField] private float volumeModifier = 1;
+    //[SerializeField] private float soundChangeSpeed = 1;
+
     // Start is called before the first frame update
     void Start()
     {
+        //audioSource = GetComponent<AudioSource>();
+        //audioSource.clip = grindSound;
+        //audioSource.volume = 0;
         dustOriginalScale = dustPrefab.transform.localScale;
         socket = GetComponentInChildren<XRSocketInteractor>();
 
@@ -31,7 +39,11 @@ public class Mortar : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Pestle pestle))
+        {
             this.pestle = pestle;
+            //StopAllCoroutines();
+            //audioSource.Play();
+        }
 
         if(heldObject == null) { return; }
 
@@ -55,12 +67,34 @@ public class Mortar : MonoBehaviour
 
         float damage = pestle.GetDamage(dustSpawnpoint.position);
 
+        //float targetVolume = Mathf.Clamp01(damage * volumeModifier);
+
+        //audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * soundChangeSpeed);
+
         //Debug.Log(damage);
 
         lerpScale += damage / crushable.startHealth;
         IncreaseDustSize();
         DecreaseCrushableSize();
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out Pestle pestle))
+        {
+            //StartCoroutine(FadeOutSound());
+        }
+    }
+
+    //IEnumerator FadeOutSound()
+    //{
+    //    yield return null;
+    //    audioSource.volume = Mathf.MoveTowards(audioSource.volume, 0, Time.deltaTime * soundChangeSpeed);
+    //    if(audioSource.volume <= 0)
+    //    {
+    //        audioSource.Stop();
+    //    }
+    //}
 
     public void SocketCheck()
     {

@@ -13,11 +13,23 @@ public class Pestle : MonoBehaviour
 
     [SerializeField]float grindDamage = 1f;
 
+    [SerializeField] private AudioClip grindSound;
+    private AudioSource audioSource;
+    [SerializeField] private float volumeModifier = 1;
+    [SerializeField] private float soundChangeSpeed = 1;
+
+    private bool couroutineIsRunning = false;
+    private IEnumerator fadeOutSound;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = grindSound;
+        audioSource.volume = 0;
     }
 
     void Update()
@@ -27,7 +39,31 @@ public class Pestle : MonoBehaviour
             velocity = (transform.position - oldPosition);
             oldPosition = transform.position;
         }
+        else if(!couroutineIsRunning)
+        {
+            fadeOutSound = FadeOutSound();
+            StartCoroutine(fadeOutSound);
+        }
+
     }
+    IEnumerator FadeOutSound()
+    {
+        couroutineIsRunning = true;
+
+        while (couroutineIsRunning)
+        {
+            yield return null;
+            audioSource.volume = Mathf.MoveTowards(audioSource.volume, -0.1f, Time.deltaTime * 5);
+            if (audioSource.volume <= 0)
+            {
+                audioSource.volume = 0;
+                fadeOutSound = null;
+                couroutineIsRunning = false;
+                audioSource.Stop();
+            }
+        }
+    }
+
 
     public void SetTrigger(bool isTrigger)
     {
@@ -67,9 +103,22 @@ public class Pestle : MonoBehaviour
 
     public float GetDamage(Vector3 mortarCenter)
     {
-        float efficiency01 = GetEfficieny(mortarCenter);
+        if (couroutineIsRunning)
+        {
+            StopCoroutine(fadeOutSound);
+            couroutineIsRunning = false;
+        }
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
 
+
+        float efficiency01 = GetEfficieny(mortarCenter);
         float damage = grindDamage * efficiency01 * velocity.magnitude;
+
+        float targetVolume = Mathf.Clamp01(damage * volumeModifier);
+        audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * soundChangeSpeed);
 
         return damage;
     }
