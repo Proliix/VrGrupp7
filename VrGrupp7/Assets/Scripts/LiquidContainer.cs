@@ -166,7 +166,6 @@ public class LiquidContainer : MonoBehaviour
 
     public void SetHasCork(bool newHasCork)
     {
-        Debug.Log("Has cork: " + newHasCork);
         hasCork = newHasCork;
     }
 
