@@ -292,7 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grindDamage: 5
   grindSound: {fileID: 8300000, guid: 48ec2c9a279e12f42b8f0316e488ceee, type: 3}
-  volumeModifier: 500
+  volumeModifier: 20
   soundChangeSpeed: 1
 --- !u!114 &962949151146688664
 MonoBehaviour:
@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sharpness: 0.1
+  hammerHead: {fileID: 0}
 --- !u!82 &3816456176703929372
 AudioSource:
   m_ObjectHideFlags: 0

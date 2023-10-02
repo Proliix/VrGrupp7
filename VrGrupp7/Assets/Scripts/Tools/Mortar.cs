@@ -67,11 +67,17 @@ public class Mortar : MonoBehaviour
 
         float damage = pestle.GetDamage(dustSpawnpoint.position);
 
-        //float targetVolume = Mathf.Clamp01(damage * volumeModifier);
-
-        //audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * soundChangeSpeed);
+        if(crushable == null)
+        {
+           if(!TryGetComponent(out crushable))
+            {
+                return;
+            }
+        }
 
         //Debug.Log(damage);
+
+        crushable.LoseHealth(damage);
 
         lerpScale += damage / crushable.startHealth;
         IncreaseDustSize();

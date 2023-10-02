@@ -21,6 +21,8 @@ public class Pestle : MonoBehaviour
     private bool couroutineIsRunning = false;
     private IEnumerator fadeOutSound;
 
+    private bool dealtDamage = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,12 +41,6 @@ public class Pestle : MonoBehaviour
             velocity = (transform.position - oldPosition);
             oldPosition = transform.position;
         }
-        else if(!couroutineIsRunning)
-        {
-            fadeOutSound = FadeOutSound();
-            StartCoroutine(fadeOutSound);
-        }
-
     }
     IEnumerator FadeOutSound()
     {
@@ -114,6 +110,7 @@ public class Pestle : MonoBehaviour
         }
 
 
+        dealtDamage = true;
         float efficiency01 = GetEfficieny(mortarCenter);
         float damage = grindDamage * efficiency01 * velocity.magnitude;
 
@@ -121,5 +118,19 @@ public class Pestle : MonoBehaviour
         audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * soundChangeSpeed);
 
         return damage;
+    }
+
+    private void LateUpdate()
+    {
+        if (!dealtDamage)
+        {
+            if (!couroutineIsRunning)
+            {
+                fadeOutSound = FadeOutSound();
+                StartCoroutine(fadeOutSound);
+            }
+        }
+
+        dealtDamage = false;
     }
 }
