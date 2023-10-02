@@ -53,7 +53,7 @@ public class Lever : MonoBehaviour
             float dot = Vector3.Dot(dir, dotDir);
 
             if (debugDot)
-                Debug.Log(dot);
+                Debug.Log(dot,this);
 
             if (dot > 0)
             {
@@ -64,7 +64,7 @@ public class Lever : MonoBehaviour
         }
 
         if (debugAngle)
-            Debug.Log(Vector3.Angle(transform.up, angleDir));
+            Debug.Log(Vector3.Angle(transform.up, angleDir),this);
 
 
         if (Vector3.Angle(transform.up, angleDir) > angleForStart)

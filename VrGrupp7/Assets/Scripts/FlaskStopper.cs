@@ -9,13 +9,13 @@ public class FlaskStopper : MonoBehaviour
 
 
     AudioSource audioSorce;
-    Socket_with_tag_check socket;
+    XRSocketInteractor socket;
     LiquidContainer container;
 
     private void Start()
     {
         audioSorce = GetComponent<AudioSource>();
-        socket = GetComponent<Socket_with_tag_check>();
+        socket = GetComponent<XRSocketInteractor>();
         socket.selectEntered.AddListener(AttachCork);
         socket.selectExited.AddListener(RemoveCork);
         container = flaskObj.GetComponent<LiquidContainer>();

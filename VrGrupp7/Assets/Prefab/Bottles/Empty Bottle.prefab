@@ -733,6 +733,7 @@ GameObject:
   - component: {fileID: 3879099533187143116}
   - component: {fileID: 5791496026089385513}
   - component: {fileID: 277637732266371708}
+  - component: {fileID: 882931058}
   m_Layer: 9
   m_Name: Empty Bottle
   m_TagString: Untagged
@@ -1079,6 +1080,27 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 513
   liquidDispenser: {fileID: 0}
+--- !u!114 &882931058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879099533187143111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb44cf66e8726948b2f077be6059a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shards:
+  - {fileID: 6912935043496290235, guid: 78889eca955b1604d88f1b6ea10ea0be, type: 3}
+  - {fileID: 1644427633308395727, guid: 3256bf9f47f2c904098efa1766ed5041, type: 3}
+  - {fileID: 6616198463542242980, guid: ffe0756156255ae43b9b435a706f1d4d, type: 3}
+  - {fileID: 7047364808518046195, guid: 235494931ab9dd7429c6602402d565b3, type: 3}
+  breakForce: 0.08
+  sounds:
+  - {fileID: 8300000, guid: 499ab8db306627f48b9d30261be00080, type: 3}
+  - {fileID: 8300000, guid: 939ae1de38dccc74d8cbaceb93fa0063, type: 3}
 --- !u!1 &4350401288575496019
 GameObject:
   m_ObjectHideFlags: 0
