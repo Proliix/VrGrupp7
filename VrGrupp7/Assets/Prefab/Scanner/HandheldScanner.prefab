@@ -95,6 +95,8 @@ GameObject:
   - component: {fileID: 9172727615822577616}
   - component: {fileID: 9172727615822577621}
   - component: {fileID: 9172727615822577618}
+  - component: {fileID: 849914585}
+  - component: {fileID: 849914584}
   m_Layer: 0
   m_Name: HandheldScanner
   m_TagString: Untagged
@@ -285,6 +287,31 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!65 &849914585
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172727615822577630}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02207421, y: 0.1, z: 0.030620314}
+  m_Center: {x: -0.0028793202, y: -1.3162032e-17, z: -0.0119349435}
+--- !u!114 &849914584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172727615822577630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b180157076fbf429a2e4993364fcd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9172727615853855090
 GameObject:
   m_ObjectHideFlags: 0

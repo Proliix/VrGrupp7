@@ -1925,7 +1925,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &231255130
 PrefabInstance:
@@ -6083,37 +6083,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &849914579 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9172727615822577630, guid: c97e65c54ab32fe4789eb190ef584db1,
-    type: 3}
-  m_PrefabInstance: {fileID: 979760964}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &849914584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849914579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b180157076fbf429a2e4993364fcd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &849914585
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849914579}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.02207421, y: 0.1, z: 0.030620314}
-  m_Center: {x: -0.0028793202, y: -1.3162032e-17, z: -0.0119349435}
 --- !u!43 &854942090
 Mesh:
   m_ObjectHideFlags: 0
