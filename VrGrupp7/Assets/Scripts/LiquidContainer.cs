@@ -23,7 +23,7 @@ public class LiquidContainer : MonoBehaviour
     Vector3 wobblePos;
     Material mat;
     LiquidEffect liquid;
-
+    bool hasCork;
     PourLiquid pourLiquid;
 
     // Start is called before the first frame update
@@ -44,6 +44,14 @@ public class LiquidContainer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (hasCork)
+        {
+            if (isPouring)
+                StopPour();
+
+            return;
+        }
+
         if (liquid == null)
         {
             Debug.LogError("<color=red><b>Error: </b></color>" + gameObject.name + " DOES NOT HAVE A LIQUIDEFFECT. THIS OBJECT WILL NOT WORK. ADD A LIQUID EFFECT TO ITS LIQUID OBJECT", this);
@@ -131,6 +139,9 @@ public class LiquidContainer : MonoBehaviour
 
     public void AddLiquid()
     {
+        if (hasCork)
+            return;
+
         if (Vector3.Angle(transform.up, Vector3.up) < 20f)
         {
             if (fillAmount < 0)
@@ -151,6 +162,12 @@ public class LiquidContainer : MonoBehaviour
         {
             Destroy(attributes[i] as Component);
         }
+    }
+
+    public void SetHasCork(bool newHasCork)
+    {
+        Debug.Log("Has cork: " + newHasCork);
+        hasCork = newHasCork;
     }
 
     public Color GetSideColor()

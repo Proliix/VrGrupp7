@@ -5,71 +5,35 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class FlaskStopper : MonoBehaviour
 {
-    public float distanceToBreak = 0.1f;
-    [SerializeField] GameObject stopperObj;
     [SerializeField] GameObject flaskObj;
 
-    Rigidbody stopperRbd;
-    XRGrabInteractable stopperInteractable;
-    XRGrabInteractable flaskInteractable;
-    Joint joint;
+
     AudioSource audioSorce;
+    Socket_with_tag_check socket;
     LiquidContainer container;
-    bool isAttatched;
 
     private void Start()
     {
         audioSorce = GetComponent<AudioSource>();
-        flaskInteractable = flaskObj.GetComponent<XRGrabInteractable>();
-        //container = flaskObj.GetComponent<LiquidContainer>();
+        socket = GetComponent<Socket_with_tag_check>();
+        socket.selectEntered.AddListener(AttachCork);
+        socket.selectExited.AddListener(RemoveCork);
+        container = flaskObj.GetComponent<LiquidContainer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void RemoveCork(SelectExitEventArgs args)
     {
-        if (isAttatched)
-        {
-            if (flaskInteractable.isSelected && stopperInteractable.isSelected)
-            {
-                float distance = Vector3.Distance(flaskInteractable.gameObject.transform.position, stopperObj.transform.position);
-
-                if (distance > distanceToBreak)
-                {
-                    RemoveCork();
-                }
-            }
-        }
-    }
-
-    void RemoveCork()
-    {
-        Destroy(joint);
+        args.interactableObject.transform.gameObject.GetComponent<Collider>().enabled = true;
         audioSorce.pitch = Random.Range(0.9f, 1.1f);
         audioSorce.Play();
-        isAttatched = false;
+        container.SetHasCork(false);
     }
 
-    void AttachCork(GameObject cork)
+    void AttachCork(SelectEnterEventArgs args)
     {
-        stopperObj = cork;
-        stopperObj.transform.position = gameObject.transform.position;
-        stopperObj.transform.rotation = gameObject.transform.rotation;
-        stopperRbd = stopperObj.GetComponent<Rigidbody>();
-        stopperInteractable = stopperObj.GetComponent<XRGrabInteractable>();
-        joint = flaskObj.AddComponent<FixedJoint>();
-        joint.connectedBody = stopperRbd;
-
-        //ADD FUNCTIONALITY TO STOP FLASK FROM BEING ABLE TO LOOSE LIQUID WHEN CORK IS ATTACHED
-
-        isAttatched = true;
+        args.interactableObject.transform.gameObject.GetComponent<Collider>().enabled = false;
+        container.SetHasCork(true);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Cork") && !isAttatched)
-        {
-            AttachCork(other.gameObject);
-        }
-    }
 
 }

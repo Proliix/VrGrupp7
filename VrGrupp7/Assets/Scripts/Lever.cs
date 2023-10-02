@@ -58,7 +58,7 @@ public class Lever : MonoBehaviour
             if (dot > 0)
             {
                 transform.LookAt(new Vector3(hand.transform.position.x, hand.transform.position.y, transform.position.z));
-                transform.eulerAngles = new Vector3(ClampAngle(transform.rotation.eulerAngles.x, clampMin, clampMax), 0, transform.rotation.eulerAngles.z);
+                transform.eulerAngles = new Vector3(ClampAngle(transform.rotation.eulerAngles.x, clampMin, clampMax), transform.eulerAngles.y, transform.rotation.eulerAngles.z);
             }
 
         }
