@@ -18,7 +18,7 @@ public class WantedAttribute
 
 public class JobManager : MonoBehaviour
 {
-    public float turn_in_correct = 1;  // 0= null 1=correct 2=Incorrect
+    public int turn_in_correct = 0;  // 0= null 1=correct 2=Incorrect
     [SerializeField] TextDisplayer displayer;
     [SerializeField] int startBatch = 2;
     [Range(0, 1)]
@@ -39,6 +39,7 @@ public class JobManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(turn_in_correct + "test");
         allAttributes = GetComponents<IAttribute>();
         GetNewBatch(startBatch);
     }
@@ -263,7 +264,6 @@ public class JobManager : MonoBehaviour
         displayer.WriteText("Thank you so much");
         CancelInvoke(nameof(NewBatchEditor));
         Invoke(nameof(NewBatchEditor), 10);
-        turn_in_correct = 0;
     }
 
     void TurnInIncorrect(bool[] isCompleted)
@@ -284,7 +284,6 @@ public class JobManager : MonoBehaviour
         displayer.WriteText(explination);
         CancelInvoke(nameof(WriteText));
         Invoke(nameof(WriteText), 10);
-        turn_in_correct = 0;
     }
     #endregion
 
