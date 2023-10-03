@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Torchable : MonoBehaviour
 {
+    public UnityEvent onBreak;
+
     [Header("Defaults to this gameobject")]
     [SerializeField] private GameObject torchedObject;
 
@@ -11,6 +14,7 @@ public class Torchable : MonoBehaviour
     [SerializeField] private float heatGainSpeed = 0.5f;
     [SerializeField] private float heatLossSpeed = 0.2f;
     [SerializeField] private float maxTemp = 1.5f;
+    [SerializeField] private float breakTemp = 1.5f;
 
     [Header("Color Change Controls")]
     [SerializeField] private Color maxTorchedColor;
@@ -47,6 +51,9 @@ public class Torchable : MonoBehaviour
             temp01 - Time.deltaTime * heatLossSpeed ;
 
         temp01 = Mathf.Clamp(temp01, 0, maxTemp);
+
+        if (temp01 >= breakTemp)
+            onBreak.Invoke();
 
         if (temp01 <= 0)
         {

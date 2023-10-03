@@ -8,10 +8,10 @@ using UnityEngine;
 [AddComponentMenu("**Attributes**/Transparency")]
 public class Transparency : BaseAttribute
 {
-    private float baseTransparency = 1;
-
-    bool isTransparent = false;
     public Material m_transparent;
+
+    private bool isTransparent = false;
+    private float baseTransparency = 1;
 
     private Material m_current;
     private Material m_old;
