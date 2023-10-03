@@ -26,7 +26,7 @@ public class GlassBreak : MonoBehaviour
         return audioSource;
     }
 
-    void BreakBottle()
+    public void BreakBottle()
     {
         container.SetHasCork(true);
         for (int i = 0; i < Shards.Length; i++)
