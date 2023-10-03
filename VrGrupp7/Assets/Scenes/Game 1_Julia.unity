@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.031163083, g: 0.009459269, b: 0.013044128, a: 1}
+  m_IndirectSpecularColor: {r: 0.031127537, g: 0.0096474625, b: 0.013042794, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -245,7 +245,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -371,6 +371,7 @@ Transform:
   - {fileID: 1634750549}
   - {fileID: 1899631062}
   - {fileID: 349717927}
+  - {fileID: 1266260415}
   m_Father: {fileID: 0}
   m_RootOrder: 72
   m_LocalEulerAnglesHint: {x: -0.001, y: 89.983, z: -0.036}
@@ -536,8 +537,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleForStart: 110
-  clampMin: -100
-  clampMax: 77
+  clampMin: -70
+  clampMax: 110
   dotDir: {x: 1, y: 0, z: 0}
   angleDir: {x: -1, y: 0, z: 0}
   onEnable:
@@ -943,7 +944,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1069,6 +1070,7 @@ Transform:
   - {fileID: 1309802363}
   - {fileID: 51540255}
   - {fileID: 168059696}
+  - {fileID: 1922656115}
   m_Father: {fileID: 0}
   m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: -0.001, y: 89.983, z: -0.036}
@@ -1117,7 +1119,7 @@ PrefabInstance:
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.46
+      value: -1.281
       objectReference: {fileID: 0}
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
@@ -1977,8 +1979,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleForStart: 110
-  clampMin: -100
-  clampMax: 77
+  clampMin: -70
+  clampMax: 110
   dotDir: {x: 1, y: 0, z: 0}
   angleDir: {x: -1, y: 0, z: 0}
   onEnable:
@@ -2494,7 +2496,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2080
+  m_Name: pb_Mesh-391262
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2912,7 +2914,7 @@ MonoBehaviour:
   PourCollisionMask:
     serializedVersion: 2
     m_Bits: 513
-  liquidDispenser: {fileID: 0}
+  liquidDispenser: {fileID: 51540257}
 --- !u!4 &205571331
 Transform:
   m_ObjectHideFlags: 0
@@ -13958,8 +13960,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleForStart: 110
-  clampMin: -100
-  clampMax: 77
+  clampMin: -70
+  clampMax: 110
   dotDir: {x: 1, y: 0, z: 0}
   angleDir: {x: -1, y: 0, z: 0}
   onEnable:
@@ -14981,7 +14983,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -15107,9 +15109,30 @@ Transform:
   - {fileID: 1026867245}
   - {fileID: 160201981}
   - {fileID: 846948079}
+  - {fileID: 614533510}
   m_Father: {fileID: 0}
   m_RootOrder: 73
   m_LocalEulerAnglesHint: {x: -0.001, y: 89.983, z: -0.036}
+--- !u!1 &567836945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 107377724}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &567836949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567836945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b02324a79bc96524aa31194bc913e99b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minY: -3
+  respawnPoint: {x: 0, y: 2, z: 2}
 --- !u!1 &613114630
 GameObject:
   m_ObjectHideFlags: 0
@@ -15193,6 +15216,108 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613114630}
   m_Mesh: {fileID: -7798886848365060159, guid: 559e2ea92c329b940b776129d1e8c3b7, type: 3}
+--- !u!1 &614533509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 614533510}
+  - component: {fileID: 614533512}
+  - component: {fileID: 614533511}
+  m_Layer: 2
+  m_Name: Potion Holder (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &614533510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614533509}
+  m_LocalRotation: {x: 0.0002282287, y: -0.7070047, z: 0.00021616631, w: 0.7072088}
+  m_LocalPosition: {x: 0.0003, y: -0.0489, z: 0.0846}
+  m_LocalScale: {x: 0.35714272, y: 0.35714272, z: 0.3571428}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 551463626}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &614533511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614533509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 1259386371}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 8
+  m_AttachTransform: {fileID: 614533510}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ShowInteractableHoverMeshes: 1
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: 04c10d1137e565543b6abd91fd5ce67e,
+    type: 2}
+  m_InteractableCantHoverMeshMaterial: {fileID: 0}
+  m_SocketActive: 1
+  m_InteractableHoverScale: 1
+  m_RecycleDelayTime: 1
+--- !u!65 &614533512
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614533509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &626706550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20418,7 +20543,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2096
+  m_Name: pb_Mesh-391278
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22138,7 +22263,7 @@ MonoBehaviour:
   PourCollisionMask:
     serializedVersion: 2
     m_Bits: 513
-  liquidDispenser: {fileID: 0}
+  liquidDispenser: {fileID: 160201983}
 --- !u!4 &896810725
 Transform:
   m_ObjectHideFlags: 0
@@ -23631,7 +23756,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2920
+  m_Name: pb_Mesh-392100
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -24295,7 +24420,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -24421,6 +24546,7 @@ Transform:
   - {fileID: 541133038}
   - {fileID: 397268409}
   - {fileID: 1141061704}
+  - {fileID: 1959633676}
   m_Father: {fileID: 0}
   m_RootOrder: 70
   m_LocalEulerAnglesHint: {x: -0.001, y: 89.983, z: -0.036}
@@ -24662,7 +24788,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30572
+  m_Name: pb_Mesh212510
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -25222,7 +25348,7 @@ MonoBehaviour:
   PourCollisionMask:
     serializedVersion: 2
     m_Bits: 513
-  liquidDispenser: {fileID: 0}
+  liquidDispenser: {fileID: 397268411}
 --- !u!4 &1245686928
 Transform:
   m_ObjectHideFlags: 0
@@ -25340,6 +25466,108 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab8628171cbd49743b4f287fbbb77691, type: 3}
+--- !u!1 &1266260414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1266260415}
+  - component: {fileID: 1266260417}
+  - component: {fileID: 1266260416}
+  m_Layer: 2
+  m_Name: Potion Holder (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1266260415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266260414}
+  m_LocalRotation: {x: 0.0002282287, y: -0.7070047, z: 0.00021616631, w: 0.7072088}
+  m_LocalPosition: {x: 0.0001, y: -0.0489, z: 0.0846}
+  m_LocalScale: {x: 0.35714275, y: 0.35714275, z: 0.3571428}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 13627518}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1266260416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266260414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 1259386371}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 8
+  m_AttachTransform: {fileID: 1266260415}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ShowInteractableHoverMeshes: 1
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: 04c10d1137e565543b6abd91fd5ce67e,
+    type: 2}
+  m_InteractableCantHoverMeshMaterial: {fileID: 0}
+  m_SocketActive: 1
+  m_InteractableHoverScale: 1
+  m_RecycleDelayTime: 1
+--- !u!65 &1266260417
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266260414}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1268109012
 GameObject:
   m_ObjectHideFlags: 0
@@ -25916,6 +26144,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1558424677, guid: cbb4a5d1f210cb44dae69785effd7bed, type: 3}
+      propertyPath: mesh
+      value: 
+      objectReference: {fileID: 1055794839}
     - target: {fileID: 2834541879839314896, guid: cbb4a5d1f210cb44dae69785effd7bed,
         type: 3}
       propertyPath: m_RootOrder
@@ -25984,7 +26216,7 @@ PrefabInstance:
     - target: {fileID: 2834541879839314903, guid: cbb4a5d1f210cb44dae69785effd7bed,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1122
+      value: 1125
       objectReference: {fileID: 0}
     - target: {fileID: 2834541879839314907, guid: cbb4a5d1f210cb44dae69785effd7bed,
         type: 3}
@@ -26004,7 +26236,7 @@ PrefabInstance:
     - target: {fileID: 2834541879966428000, guid: cbb4a5d1f210cb44dae69785effd7bed,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 725
+      value: 728
       objectReference: {fileID: 0}
     - target: {fileID: 2834541879966428004, guid: cbb4a5d1f210cb44dae69785effd7bed,
         type: 3}
@@ -27136,7 +27368,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2456
+  m_Name: pb_Mesh-391638
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -27294,6 +27526,108 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1485594934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1485594935}
+  - component: {fileID: 1485594937}
+  - component: {fileID: 1485594936}
+  m_Layer: 2
+  m_Name: Potion Holder (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1485594935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485594934}
+  m_LocalRotation: {x: -0.000017414575, y: 0.99999994, z: -0.0003141178, w: -0.000000005470228}
+  m_LocalPosition: {x: 0, y: -0.0434, z: 0.0942}
+  m_LocalScale: {x: 0.3571427, y: 0.3571427, z: 0.3571428}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1683259725}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0.036, y: 180, z: -0.002}
+--- !u!114 &1485594936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485594934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 1259386371}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 8
+  m_AttachTransform: {fileID: 1485594935}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ShowInteractableHoverMeshes: 1
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: 04c10d1137e565543b6abd91fd5ce67e,
+    type: 2}
+  m_InteractableCantHoverMeshMaterial: {fileID: 0}
+  m_SocketActive: 1
+  m_InteractableHoverScale: 1
+  m_RecycleDelayTime: 1
+--- !u!65 &1485594937
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485594934}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1485965878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27565,7 +27899,7 @@ MonoBehaviour:
   PourCollisionMask:
     serializedVersion: 2
     m_Bits: 513
-  liquidDispenser: {fileID: 0}
+  liquidDispenser: {fileID: 1899631064}
 --- !u!4 &1487594156
 Transform:
   m_ObjectHideFlags: 0
@@ -33825,6 +34159,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 769e05f5328cca84da89f0353c485a72, type: 3}
+--- !u!4 &1683259725 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6064687991655784230, guid: 92d4922dccc325a4ba3e00df5596d081,
+    type: 3}
+  m_PrefabInstance: {fileID: 6025993210392728135}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1720436611
 GameObject:
   m_ObjectHideFlags: 0
@@ -35077,8 +35417,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleForStart: 110
-  clampMin: -100
-  clampMax: 77
+  clampMin: -70
+  clampMax: 110
   dotDir: {x: 1, y: 0, z: 0}
   angleDir: {x: -1, y: 0, z: 0}
   onEnable:
@@ -35215,6 +35555,210 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1922656114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1922656115}
+  - component: {fileID: 1922656117}
+  - component: {fileID: 1922656116}
+  m_Layer: 2
+  m_Name: Potion Holder (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1922656115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922656114}
+  m_LocalRotation: {x: 0.0002282287, y: -0.7070047, z: 0.00021616631, w: 0.7072088}
+  m_LocalPosition: {x: -0.0005, y: -0.0489, z: 0.0846}
+  m_LocalScale: {x: 0.35714278, y: 0.35714278, z: 0.3571428}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 95710853}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1922656116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922656114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 1259386371}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 8
+  m_AttachTransform: {fileID: 1922656115}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ShowInteractableHoverMeshes: 1
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: 04c10d1137e565543b6abd91fd5ce67e,
+    type: 2}
+  m_InteractableCantHoverMeshMaterial: {fileID: 0}
+  m_SocketActive: 1
+  m_InteractableHoverScale: 1
+  m_RecycleDelayTime: 1
+--- !u!65 &1922656117
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922656114}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1959633675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1959633676}
+  - component: {fileID: 1959633678}
+  - component: {fileID: 1959633677}
+  m_Layer: 2
+  m_Name: Potion Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1959633676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959633675}
+  m_LocalRotation: {x: 0.0002282287, y: -0.7070047, z: 0.00021616631, w: 0.7072088}
+  m_LocalPosition: {x: -0.0006591098, y: -0.04893044, z: 0.084642224}
+  m_LocalScale: {x: 0.3571428, y: 0.3571428, z: 0.3571428}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1152947914}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1959633677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959633675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 1259386371}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 8
+  m_AttachTransform: {fileID: 1959633676}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ShowInteractableHoverMeshes: 1
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: 04c10d1137e565543b6abd91fd5ce67e,
+    type: 2}
+  m_InteractableCantHoverMeshMaterial: {fileID: 0}
+  m_SocketActive: 1
+  m_InteractableHoverScale: 1
+  m_RecycleDelayTime: 1
+--- !u!65 &1959633678
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959633675}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1975404741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36057,7 +36601,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2896
+  m_Name: pb_Mesh-392076
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -36441,7 +36985,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3879099533187143107, guid: ca9522feb21fd764eab8e39a9312edd6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ca9522feb21fd764eab8e39a9312edd6, type: 3}
 --- !u!33 &318830841689412737
 MeshFilter:
@@ -36764,6 +37309,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6025993209855301785, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025993210009070851, guid: 92d4922dccc325a4ba3e00df5596d081,
+        type: 3}
+      propertyPath: liquidDispenser
+      value: 
+      objectReference: {fileID: 6025993210392728140}
     - target: {fileID: 6025993210009070851, guid: 92d4922dccc325a4ba3e00df5596d081,
         type: 3}
       propertyPath: PourCollisionMask.m_Bits
@@ -36896,6 +37451,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01567296, y: 0.026977327, z: 0.01}
   m_Center: {x: -0.0010967656, y: 0.0084887175, z: 1.7165714e-14}
+--- !u!114 &6025993210392728140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6025993210718368485, guid: 92d4922dccc325a4ba3e00df5596d081,
+    type: 3}
+  m_PrefabInstance: {fileID: 6025993210392728135}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6025993210392728136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c1daf3ef0c2a94b98f8bdb7f306fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6102010013067658792
 Transform:
   m_ObjectHideFlags: 0

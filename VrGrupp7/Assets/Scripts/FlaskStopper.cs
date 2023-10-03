@@ -23,7 +23,6 @@ public class FlaskStopper : MonoBehaviour
 
     void RemoveCork(SelectExitEventArgs args)
     {
-        args.interactableObject.transform.gameObject.GetComponent<Collider>().enabled = true;
         audioSorce.pitch = Random.Range(0.9f, 1.1f);
         audioSorce.Play();
         container.SetHasCork(false);
@@ -31,7 +30,6 @@ public class FlaskStopper : MonoBehaviour
 
     void AttachCork(SelectEnterEventArgs args)
     {
-        args.interactableObject.transform.gameObject.GetComponent<Collider>().enabled = false;
         container.SetHasCork(true);
     }
 

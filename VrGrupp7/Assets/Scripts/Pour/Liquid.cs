@@ -137,7 +137,7 @@ public class Liquid : MonoBehaviour
         }
 
         Debug.Log(gameObject.name + ": Flow Stopped");
-        pourLiquid.ReturnLiquid();
+        pourLiquid?.ReturnLiquid();
         gameObject.SetActive(false);
         //spline.gameObject.SetActive(false);
         //Destroy(gameObject, 2f);
@@ -171,7 +171,7 @@ public class Liquid : MonoBehaviour
         Vector3[] points = pourLiquid.splineTrajectory;
 
         //If the spline trajectory is the shortest possible, containing only a start point and end point, we process it manually
-        if(points[2] == Vector3.zero)
+        if (points[2] == Vector3.zero)
         {
             Vector3 point = points[0];
             Vector3 myAngle = points[0] - points[1];
@@ -204,7 +204,7 @@ public class Liquid : MonoBehaviour
             if (point == Vector3.zero)
             {
                 //If we stopped on an uneven point (we have i += 2) we register the middle step as a node instead
-                if(points[i- 1] != Vector3.zero)
+                if (points[i - 1] != Vector3.zero)
                 {
                     impactPos = points[i - 1];
                     impactUp = points[i - 2] - points[i - 1];
@@ -270,7 +270,7 @@ public class Liquid : MonoBehaviour
 
         contortAlong.material = newMaterial;
 
-        if(ps_waterSplash != null)
+        if (ps_waterSplash != null)
         {
             float particleColorGradient = 0.2f;
             //Create a light/dark gradient from our gameobject color

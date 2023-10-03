@@ -18,6 +18,9 @@ public class LiquidContainer : MonoBehaviour
     [SerializeField] bool isPouring;
 
 
+    [Header("Debug")]
+    [SerializeField] bool debugAngle;
+
     float angle;
     float fillAmount;
     Vector3 wobblePos;
@@ -118,6 +121,12 @@ public class LiquidContainer : MonoBehaviour
             pourLiquid.Pour(liquid.GetSideColor());
             Debug.Log("LiquidContainer: Starting Pour");
         }
+    }
+
+    public void ForceStopPour()
+    {
+        if (isPouring)
+            StopPour();
     }
 
     void StopPour()

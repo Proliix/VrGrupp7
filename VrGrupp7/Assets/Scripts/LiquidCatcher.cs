@@ -26,7 +26,7 @@ public class LiquidCatcher : MonoBehaviour
     List<Color> topColors = new List<Color>();
 
     float fadeT;
-    float fadeSpeed = 0.75f;
+    float fadeSpeed = 1.25f;
 
     LiquidContainer container;
 

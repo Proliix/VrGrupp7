@@ -13,10 +13,6 @@ public class GlassBreak : MonoBehaviour
     bool isBroken;
     Vector3 breakPos = Vector3.zero;
 
-    private void Start()
-    {
-        container = gameObject.GetComponent<LiquidContainer>();
-    }
 
     AudioSource SetupAudioSource(GameObject obj)
     {
@@ -28,6 +24,7 @@ public class GlassBreak : MonoBehaviour
 
     public void BreakBottle()
     {
+        container = gameObject.GetComponent<LiquidContainer>();
         container.SetHasCork(true);
         for (int i = 0; i < Shards.Length; i++)
         {
@@ -38,6 +35,7 @@ public class GlassBreak : MonoBehaviour
                 source = SetupAudioSource(shard);
         }
 
+        container.ForceStopPour();
         source.pitch = Random.Range(0.9f, 1.2f);
         source.volume = .75f;
         source.PlayOneShot(sounds[Random.Range(0, sounds.Length)]);
@@ -48,14 +46,13 @@ public class GlassBreak : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         float force = collision.impulse.magnitude * Time.fixedDeltaTime;
-
+        Debug.Log(force);
         if (force > breakForce && !isBroken)
         {
             //Makes it so it gets force from below when it breaks
             //breakPos = collision.GetContact(0).point;
             //if (breakPos == Vector3.zero || breakPos == null)
             //    breakPos = transform.position;
-
             isBroken = true;
             BreakBottle();
         }
