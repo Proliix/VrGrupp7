@@ -71,6 +71,9 @@ public class LiquidContainer : MonoBehaviour
             //find angle for it to start to remove liquid
             angle = flowRate.Evaluate(fillAmount);
 
+            if (debugAngle)
+                Debug.Log("Angle: " + Vector3.Angle(transform.up, Vector3.up));
+
             //check if it is tilted enough for it to spill then start to remove liquid and check if the wobble would make it spill
             if (Vector3.Angle(transform.up + wobblePos, Vector3.up) >= angle)
             {

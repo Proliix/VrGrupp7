@@ -20,7 +20,7 @@ public class Hatch : MonoBehaviour
     {
         jobManager = findjobManager.GetComponent<JobManager>();
         
-        Debug.Log(timer);
+        //Debug.Log(timer);
         if (jobManager.turn_in_correct == 0)
         {
             gameObject.transform.Rotate(new Vector3(0,0, -90f) * Time.deltaTime, Space.Self);

@@ -1412,8 +1412,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.000034332275
-      value: 141.64316
+      time: -0.0010986328
+      value: 153.4597
       inSlope: -26.1047
       outSlope: -26.1047
       tangentMode: 0
@@ -1421,8 +1421,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.050951086
     - serializedVersion: 3
-      time: 0.12543865
-      value: 115.40252
+      time: 0.093648
+      value: 115.46988
       inSlope: -208.1672
       outSlope: -208.1672
       tangentMode: 0
@@ -1430,8 +1430,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.9556272
     - serializedVersion: 3
-      time: 0.20367879
-      value: 97.49295
+      time: 0.19458559
+      value: 100.166084
       inSlope: -136.31624
       outSlope: -136.31624
       tangentMode: 0
@@ -1439,8 +1439,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.416248
-      value: 73.69441
+      time: 0.38899684
+      value: 75.8182
       inSlope: -134.35094
       outSlope: -134.35094
       tangentMode: 0
@@ -1448,17 +1448,17 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6068502
-      value: 52.376434
-      inSlope: -137.76619
-      outSlope: -137.76619
+      time: 0.581877
+      value: 62.062866
+      inSlope: -107.16299
+      outSlope: -107.16299
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.2874894
     - serializedVersion: 3
-      time: 0.81500155
-      value: 31.698284
+      time: 0.82297605
+      value: 30.19122
       inSlope: -135.60715
       outSlope: -135.60715
       tangentMode: 0
@@ -1466,8 +1466,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1.0022583
-      value: 6.259351
+      time: 0.99890137
+      value: 10.847898
       inSlope: -34.046253
       outSlope: -34.046253
       tangentMode: 0
@@ -1482,6 +1482,7 @@ MonoBehaviour:
   emptySpeed: 0.1
   bigPourMultiplier: 0.75
   isPouring: 0
+  debugAngle: 0
 --- !u!114 &5791496026089385513
 MonoBehaviour:
   m_ObjectHideFlags: 0
