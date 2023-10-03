@@ -524,7 +524,7 @@ MonoBehaviour:
   minPitch: 0.7
   maxPitch: 1.2
   minVolume: 0.5
-  maxVolume: 1
+  maxVolume: 0.75
   testDelay: 0.01
 --- !u!82 &8522766268988421859
 AudioSource:
@@ -1244,7 +1244,6 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders:
   - {fileID: 3879099533187143106}
-  - {fileID: 0}
   - {fileID: 3879099533187143110}
   m_InteractionLayerMask:
     serializedVersion: 2

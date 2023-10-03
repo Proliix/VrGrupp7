@@ -11,6 +11,7 @@ public class FlaskStopper : MonoBehaviour
     AudioSource audioSorce;
     XRSocketInteractor socket;
     LiquidContainer container;
+    bool canPlaySound = true;
 
     private void Start()
     {
@@ -23,9 +24,19 @@ public class FlaskStopper : MonoBehaviour
 
     void RemoveCork(SelectExitEventArgs args)
     {
-        audioSorce.pitch = Random.Range(0.9f, 1.1f);
-        audioSorce.Play();
         container.SetHasCork(false);
+        if (canPlaySound)
+        {
+            audioSorce.pitch = Random.Range(0.9f, 1.1f);
+            audioSorce.Play();
+            canPlaySound = false;
+            Invoke(nameof(ResetPlaySound),0.25f);
+        }
+    }
+
+    void ResetPlaySound()
+    {
+        canPlaySound = true;
     }
 
     void AttachCork(SelectEnterEventArgs args)
