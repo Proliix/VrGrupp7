@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 619448649045304646}
   - component: {fileID: 7382091417140671353}
   - component: {fileID: 3657086473700803706}
+  - component: {fileID: 7565910540595823050}
   m_Layer: 7
   m_Name: Mortar(Mortel)
   m_TagString: Untagged
@@ -301,6 +302,29 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &7565910540595823050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4289065430983741455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83727050a7becc449ed7ccb17cebfca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBreak:
+    m_PersistentCalls:
+      m_Calls: []
+  torchedObject: {fileID: 0}
+  heatGainSpeed: 0.5
+  heatLossSpeed: 0.2
+  maxTemp: 1.5
+  breakTemp: 1.5
+  maxTorchedColor: {r: 0, g: 0, b: 0, a: 0}
+  saturationModifier: 0.2
+  valueModifier: 1
 --- !u!1 &5093531830147286692
 GameObject:
   m_ObjectHideFlags: 0

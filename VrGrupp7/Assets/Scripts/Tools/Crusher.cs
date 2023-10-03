@@ -6,6 +6,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(Rigidbody))]
 public class Crusher : MonoBehaviour
 {
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField][Range(0, 1)] private float volumeModifier = 1;
+    [SerializeField] [Range(0, 1)] private float maxVolume = 1;
+    private float soundCooldownTime = 0.1f;
+    private bool soundCooldown = false;
+
     [SerializeField] private float sharpness = 1;
     private float damage;
 
@@ -67,7 +73,9 @@ public class Crusher : MonoBehaviour
     {
         if(other.TryGetComponent(out Crushable crushable))
         {
-            crushable.OnCollision(GetDamage(), other.ClosestPoint(hammerHead.position), hammerHead.position);
+            float damage = GetDamage();
+            PlaySound(crushable.clip_soundWhenHit, damage);
+            crushable.OnCollision(damage, other.ClosestPoint(hammerHead.position), hammerHead.position);
         }
     }
 
@@ -79,5 +87,29 @@ public class Crusher : MonoBehaviour
     public void OnRelease()
     {
 
+    }
+
+    void PlaySound(AudioClip clip, float damage)
+    {
+        if(audioSource == null) { return; }
+
+        if (soundCooldown) { return; }
+
+        StartCoroutine(PlaySoundCooldown(soundCooldownTime));
+
+        if (clip == null)
+            clip = audioSource.clip;
+
+        audioSource.volume = Mathf.Clamp(damage * volumeModifier, 0, maxVolume);
+        audioSource.PlayOneShot(clip, damage);
+    }
+
+    IEnumerator PlaySoundCooldown(float time)
+    {
+        soundCooldown = true;
+
+        yield return new WaitForSeconds(time);
+
+        soundCooldown = false;
     }
 }

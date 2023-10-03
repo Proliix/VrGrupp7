@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4270505708497873887}
   - component: {fileID: 962949151146688664}
   - component: {fileID: 3816456176703929372}
+  - component: {fileID: 1705424188389566360}
   m_Layer: 0
   m_Name: "Pestle(Mortelst\xF6t)"
   m_TagString: Untagged
@@ -306,6 +307,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b8354fe51af6c4ea685e0da9ed1847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  volumeModifier: 0.1
+  maxVolume: 0.5
   sharpness: 0.1
   hammerHead: {fileID: 0}
 --- !u!82 &3816456176703929372
@@ -404,3 +408,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1705424188389566360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773167759593820245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83727050a7becc449ed7ccb17cebfca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBreak:
+    m_PersistentCalls:
+      m_Calls: []
+  torchedObject: {fileID: 0}
+  heatGainSpeed: 0.5
+  heatLossSpeed: 0.2
+  maxTemp: 1.5
+  breakTemp: 1.5
+  maxTorchedColor: {r: 0, g: 0, b: 0, a: 0}
+  saturationModifier: 0.2
+  valueModifier: 1

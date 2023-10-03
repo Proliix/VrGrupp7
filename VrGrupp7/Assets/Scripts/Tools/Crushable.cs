@@ -6,8 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(Collider))]
 public class Crushable : MonoBehaviour
 {
-    private AudioSource source;
-    public AudioClip clip_hammerAgainstsrock;
+    public AudioClip clip_soundWhenHit;
 
     [SerializeField] private GameObject[] detatchOnDestroy;
 
@@ -27,7 +26,6 @@ public class Crushable : MonoBehaviour
     void Start()
     {
         startHealth = currentHealth;
-        source = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -46,7 +44,7 @@ public class Crushable : MonoBehaviour
         {
             //float damage = crusher.GetDamage();
 
-            source.PlayOneShot(clip_hammerAgainstsrock, damage);
+            //AudioSource.PlayClipAtPoint(clip_soundWhenHit, transform.position, damage);
 
             LoseHealth(damage);
 
