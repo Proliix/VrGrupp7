@@ -25,7 +25,7 @@ public class LiquidContainer : MonoBehaviour
     float fillAmount;
     Vector3 wobblePos;
     Material mat;
-    LiquidEffect liquid;
+    [SerializeField] LiquidEffect liquid;
     bool hasCork;
     PourLiquid pourLiquid;
 
@@ -206,7 +206,7 @@ public class LiquidContainer : MonoBehaviour
     {
         if (mat == null)
             mat = liquidObject.GetComponent<MeshRenderer>().material;
-
+            
         return Mathf.Clamp01(liquid.GetLiquid());
     }
 }

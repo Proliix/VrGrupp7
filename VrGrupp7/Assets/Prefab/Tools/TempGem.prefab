@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 6373994042583994281}
   - component: {fileID: 8669505834877265265}
   - component: {fileID: 3828637716573685134}
-  - component: {fileID: 5251577190607696145}
   - component: {fileID: 1774217381711963329}
   - component: {fileID: 2612039415441266837}
+  - component: {fileID: 2726502878969507248}
   m_Layer: 0
   m_Name: TempGem
   m_TagString: Untagged
@@ -268,21 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94109b545b8fbd64aa3450c79b7bc043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &5251577190607696145
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8906287809749025286}
-  m_ConnectedBody: {fileID: 0}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
+  layerMask:
+    m_Bits: 0
 --- !u!114 &1774217381711963329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,8 +282,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c01f7e9b910034899969172015b246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip_hammerAgainstsrock: {fileID: 0}
-  health: 10
+  clip_soundWhenHit: {fileID: 0}
+  detatchOnDestroy: []
+  startHealth: 0
+  currentHealth: 0
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
@@ -313,10 +302,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d83727050a7becc449ed7ccb17cebfca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onBreak:
+    m_PersistentCalls:
+      m_Calls: []
   torchedObject: {fileID: 0}
   heatGainSpeed: 0.5
   heatLossSpeed: 0.2
   maxTemp: 1.5
+  breakTemp: 1.5
   maxTorchedColor: {r: 0, g: 1, b: 0.989774, a: 0}
   saturationModifier: 0.2
   valueModifier: 1
+--- !u!114 &2726502878969507248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906287809749025286}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b93fb0a07ecd64c84e9414af473e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 100

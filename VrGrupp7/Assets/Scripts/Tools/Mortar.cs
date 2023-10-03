@@ -18,7 +18,8 @@ public class Mortar : MonoBehaviour
 
     private Pestle pestle;
     private Crushable crushable;
-    
+
+    private const string holderName = "AttributeHolder";
 
     void Start()
     {
@@ -34,41 +35,53 @@ public class Mortar : MonoBehaviour
             this.pestle = pestle;
         }
 
-        if(heldObject == null) { return; }
+        //if(heldObject == null) { return; }
 
-        if      (heldObject.TryGetComponent(out Crushable crushable) && 
-            other.transform.TryGetComponent(out Crusher crusher))
-        {
-            this.crushable = crushable;
-            float damage = crusher.GetDamage();
-            Vector3 crusherLocation = crusher.transform.position;
-            Vector3 hitLocation = dustSpawnpoint.transform.position;
+        //if(heldObject.TryGetComponent(out Crushable crushable))
+        //{
+        //    this.crushable = crushable;
+        //}
 
-            crushable.OnCollision(damage, hitLocation, crusherLocation);
+        //if      (heldObject.TryGetComponent(out Crushable crushable) && 
+        //    other.transform.TryGetComponent(out Crusher crusher))
+        //{
+        //    this.crushable = crushable;
+        //    float damage = crusher.GetDamage();
+        //    Vector3 crusherLocation = crusher.transform.position;
+        //    Vector3 hitLocation = dustSpawnpoint.transform.position;
+
+        //    crushable.OnCollision(damage, hitLocation, crusherLocation);
 
 
-        }
+        //}
     }
 
     private void OnTriggerStay(Collider other)
     {
         if(other.GetComponent<Pestle>() == null) { return; }
+        if(heldObject == null) { return; }
+        if(crushable == null && !heldObject.TryGetComponent(out crushable)) { return; }
 
         float damage = pestle.GetDamage(dustSpawnpoint.position);
-
-        if(crushable == null)
-        {
-           if(!TryGetComponent(out crushable))
-            {
-                return;
-            }
-        }
-
         //Debug.Log(damage);
+
+        float percentageLost = damage / crushable.startHealth;
+
+        foreach (BaseAttribute attribute in heldObject.GetComponents<BaseAttribute>())
+        {
+            if(currentDust.GetComponent(attribute.GetType()) == null)
+            {
+                attribute.AddToOther(currentDust.transform);
+            }
+
+            var dustAttribute = (BaseAttribute)currentDust.GetComponent(attribute.GetType());
+            dustAttribute.enabled = false;
+            dustAttribute.mass += attribute.mass * percentageLost;
+        }
 
         crushable.LoseHealth(damage);
 
-        lerpScale += damage / crushable.startHealth;
+        lerpScale += percentageLost;
         IncreaseDustSize();
         //DecreaseCrushableSize();
     }
@@ -96,6 +109,7 @@ public class Mortar : MonoBehaviour
         }
 
         heldObject = null;
+        crushable = null;
         Debug.Log("Socket Cleared");
     }
 
@@ -112,7 +126,9 @@ public class Mortar : MonoBehaviour
         //currentDust.GetComponent<Collider>().enabled = false;
         currentDust.GetComponent<Rigidbody>().isKinematic = true;
 
-        currentDust.GetComponent<Renderer>().material = heldObject.GetComponent<Renderer>().material;
+        //currentDust.GetComponent<Renderer>().material = heldObject.GetComponent<Renderer>().material;
+        Color color = heldObject.GetComponent<Renderer>().material.color;
+        currentDust.GetComponent<Renderer>().material.SetColor("_Color", color);
 
         lerpScale = 0;
 

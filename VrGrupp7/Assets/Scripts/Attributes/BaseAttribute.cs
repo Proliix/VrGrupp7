@@ -12,26 +12,46 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
     }
 
     public float mass = 0;
+    //How mixed the mass is
+    [Range(0, 1f)] 
+    public float mixed01 = 0;
+
+
+    private void Awake()
+    {
+        if(GetComponent<LiquidContainer>() == null)
+        {
+            enabled = false;
+        }
+
+        if (TryGetComponent(out Shake shake))
+        {
+            shake.onShake.AddListener(Shake);
+        }
+    }
 
     public void AddMass(float addMass)
     {
         mass += addMass;
 
-        UpdateStats();
+        if(enabled)
+            UpdateStats();
     }
     public void AddMass(float otherMass, float volume)
     {
         mass += otherMass * volume;
 
-        UpdateStats();
+        if(enabled)
+            UpdateStats();
     }
 
     public float LoseMass(float volume)
     {
-        float lostMass = (potency*100) * volume;
+        float lostMass = (GetConcentration() * 100) * volume;
         mass -= lostMass;
 
-        UpdateStats();
+        if(enabled)
+            UpdateStats();
 
         return lostMass;
     }
@@ -44,6 +64,21 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
 
     public float GetPotency()
     {
+        float volume = GetVolume();
+
+        if (volume == 0)
+            return 0;
+
+        float potency = ((mass*mixed01) * 0.01f) / volume;
+
+        //if (potency > 1 || potency < 0)
+        //    Debug.Log(transform.name + " has this potency" + potency + " from mass: " + mass + " and vol: " + volume);
+
+        return potency;
+    }
+
+    float GetVolume()
+    {
         float volume = 1;
         if (liquidContainer == null)
         {
@@ -55,15 +90,19 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
         else
             volume = liquidContainer.GetLiquidVolume();
 
+        return volume;
+    }
+
+    float GetConcentration()
+    {
+        float volume = GetVolume();
+
         if (volume == 0)
             return 0;
 
-        float potency = ((mass) * 0.01f) / volume;
+        float concentration = (mass * 0.01f) / volume;
 
-        //if (potency > 1 || potency < 0)
-        //    Debug.Log(transform.name + " has this potency" + potency + " from mass: " + mass + " and vol: " + volume);
-
-        return potency;
+        return concentration;
     }
 
     public void AddToOther(Transform other, float volume)
@@ -77,13 +116,27 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
             otherComponent.OnComponentAdd(this);
         }
 
-        //otherComponent = otherComponent == null ? (BaseAttribute)other.gameObject.AddComponent(type) : otherComponent;
-
-        //otherComponent.addMass(mass, volume);
-
         otherComponent.TransferMass(this, volume);
 
         Debug.Log("Adding " + type.Name + " to " + other.name);
+    }
+
+    public void AddToOther(Transform other)
+    {
+        var type = GetType();
+        BaseAttribute otherComponent = (BaseAttribute)other.GetComponent(type);
+
+        if (otherComponent == null)
+        {
+            otherComponent = (BaseAttribute)other.gameObject.AddComponent(type);
+            otherComponent.OnComponentAdd(this);
+        }
+    }
+
+    private void Shake(float shakeForce)
+    {
+        mixed01 = Mathf.Clamp01(mixed01 += shakeForce);
+        Debug.Log(name + " is " + Mathf.Round(mixed01 * 100) + "% mixed");
     }
 
     public virtual void OnComponentAdd(BaseAttribute originalAttribute)

@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 6163866600143352852}
   - component: {fileID: 6163866600143352854}
   - component: {fileID: 4270505708497873887}
-  - component: {fileID: 962949151146688664}
   - component: {fileID: 3816456176703929372}
   - component: {fileID: 1705424188389566360}
   m_Layer: 0
@@ -295,23 +294,6 @@ MonoBehaviour:
   grindSound: {fileID: 8300000, guid: 48ec2c9a279e12f42b8f0316e488ceee, type: 3}
   volumeModifier: 20
   soundChangeSpeed: 1
---- !u!114 &962949151146688664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773167759593820245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b8354fe51af6c4ea685e0da9ed1847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  volumeModifier: 0.1
-  maxVolume: 0.5
-  sharpness: 0.1
-  hammerHead: {fileID: 0}
 --- !u!82 &3816456176703929372
 AudioSource:
   m_ObjectHideFlags: 0

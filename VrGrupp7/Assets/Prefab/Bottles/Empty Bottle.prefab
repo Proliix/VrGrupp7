@@ -1175,6 +1175,7 @@ GameObject:
   - component: {fileID: 277637732266371708}
   - component: {fileID: 882931058}
   - component: {fileID: 4489511468773373369}
+  - component: {fileID: 6585688181120286941}
   m_Layer: 9
   m_Name: Empty Bottle
   m_TagString: Untagged
@@ -1467,6 +1468,7 @@ MonoBehaviour:
   bigPourMultiplier: 0.75
   isPouring: 0
   debugAngle: 0
+  liquid: {fileID: 1557158366783486318}
 --- !u!114 &5791496026089385513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1562,6 +1564,22 @@ MonoBehaviour:
   maxTorchedColor: {r: 0, g: 0, b: 0, a: 0}
   saturationModifier: 0.2
   valueModifier: 1
+--- !u!114 &6585688181120286941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879099533187143111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925df840458588a499e3df0bdb67659a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimumShakeForce: 0
+  onShake:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4549964381493043938
 GameObject:
   m_ObjectHideFlags: 0
