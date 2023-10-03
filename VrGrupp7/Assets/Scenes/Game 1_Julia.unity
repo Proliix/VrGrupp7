@@ -36925,6 +36925,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3879099533187143109, guid: ca9522feb21fd764eab8e39a9312edd6,
+        type: 3}
+      propertyPath: m_Colliders.Array.data[1]
+      value: 
+      objectReference: {fileID: 3879099533187143107, guid: ca9522feb21fd764eab8e39a9312edd6,
+        type: 3}
     - target: {fileID: 3879099533187143111, guid: ca9522feb21fd764eab8e39a9312edd6,
         type: 3}
       propertyPath: m_Name
@@ -36985,8 +36991,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3879099533187143107, guid: ca9522feb21fd764eab8e39a9312edd6, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca9522feb21fd764eab8e39a9312edd6, type: 3}
 --- !u!33 &318830841689412737
 MeshFilter:

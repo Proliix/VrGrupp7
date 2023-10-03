@@ -379,8 +379,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateMode: 0
-  MaxWobble: 0.03
-  WobbleSpeedMove: 1
+  MaxWobble: 0.015
+  WobbleSpeedMove: 0.5
   fillAmount: 1
   Recovery: 1
   Thickness: 1
@@ -487,7 +487,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   debugAngle: 0
-  isSelected: 1
+  isSelected: 0
 --- !u!114 &6131404090409734694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,7 +1167,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3879099533187143117}
   - component: {fileID: 3879099533187143106}
-  - component: {fileID: 3879099533187143107}
   - component: {fileID: 3879099533187143108}
   - component: {fileID: 3879099533187143109}
   - component: {fileID: 3879099533187143110}
@@ -1214,20 +1213,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.23
   m_Center: {x: 0, y: -0.03, z: 0}
---- !u!136 &3879099533187143107
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3879099533187143111}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.07
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.21, z: 0}
 --- !u!54 &3879099533187143108
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1259,7 +1244,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders:
   - {fileID: 3879099533187143106}
-  - {fileID: 3879099533187143107}
+  - {fileID: 0}
   - {fileID: 3879099533187143110}
   m_InteractionLayerMask:
     serializedVersion: 2
