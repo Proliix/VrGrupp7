@@ -4,6 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - clip_hammerAgainstsrock: {fileID: 8300000, guid: 6af64e4271f974a4d9f911006715b6d1,
+      type: 3}
   - ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
       type: 3}
   executionOrder: 0

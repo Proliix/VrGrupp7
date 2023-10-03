@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9346fc168f694b8e1c6a4bd58582e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dustPrefab: {fileID: 132479707555829711, guid: 1395727fddd1c8842b73793ddac03a0b,
+  dustPrefab: {fileID: 7385408091032421122, guid: 45534842a7a4a2143be79e9fc8775b61,
     type: 3}
   dustSpawnpoint: {fileID: 275029674386455203}
   heldObject: {fileID: 0}
@@ -325,7 +325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5093531830147286692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1449, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 0.2544027, y: 1, z: 0.2544027}
   m_ConstrainProportionsScale: 0
   m_Children: []

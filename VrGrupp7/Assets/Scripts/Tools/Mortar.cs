@@ -18,22 +18,13 @@ public class Mortar : MonoBehaviour
 
     private Pestle pestle;
     private Crushable crushable;
+    
 
-    //[SerializeField] private AudioClip grindSound;
-    //private AudioSource audioSource;
-    //[SerializeField] private float volumeModifier = 1;
-    //[SerializeField] private float soundChangeSpeed = 1;
-
-    // Start is called before the first frame update
     void Start()
     {
-        //audioSource = GetComponent<AudioSource>();
-        //audioSource.clip = grindSound;
-        //audioSource.volume = 0;
         dustOriginalScale = dustPrefab.transform.localScale;
         socket = GetComponentInChildren<XRSocketInteractor>();
 
-        SpawnDust();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,8 +32,6 @@ public class Mortar : MonoBehaviour
         if (other.TryGetComponent(out Pestle pestle))
         {
             this.pestle = pestle;
-            //StopAllCoroutines();
-            //audioSource.Play();
         }
 
         if(heldObject == null) { return; }
@@ -81,26 +70,8 @@ public class Mortar : MonoBehaviour
 
         lerpScale += damage / crushable.startHealth;
         IncreaseDustSize();
-        DecreaseCrushableSize();
+        //DecreaseCrushableSize();
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out Pestle pestle))
-        {
-            //StartCoroutine(FadeOutSound());
-        }
-    }
-
-    //IEnumerator FadeOutSound()
-    //{
-    //    yield return null;
-    //    audioSource.volume = Mathf.MoveTowards(audioSource.volume, 0, Time.deltaTime * soundChangeSpeed);
-    //    if(audioSource.volume <= 0)
-    //    {
-    //        audioSource.Stop();
-    //    }
-    //}
 
     public void SocketCheck()
     {
@@ -112,11 +83,20 @@ public class Mortar : MonoBehaviour
         heldObject = objName.transform.gameObject;
 
         heldObject.transform.localScale = heldObjectOriginalScale;
+
+        SpawnDust();
     }
 
     public void SocketClear()
     {
+        
+        if(crushable.currentHealth <= 0)
+        {
+            ReleaseDust();
+        }
+
         heldObject = null;
+        Debug.Log("Socket Cleared");
     }
 
     void SpawnDust()
@@ -126,15 +106,34 @@ public class Mortar : MonoBehaviour
         currentDust = Instantiate(dustPrefab, dustSpawnpoint);
         currentDust.transform.localScale = Vector3.zero;
 
-        currentDust.GetComponent<Collider>().enabled = false;
+        foreach (Collider col in currentDust.GetComponents<Collider>())
+            col.enabled = false;
+
+        //currentDust.GetComponent<Collider>().enabled = false;
         currentDust.GetComponent<Rigidbody>().isKinematic = true;
 
+        currentDust.GetComponent<Renderer>().material = heldObject.GetComponent<Renderer>().material;
+
         lerpScale = 0;
+
+        if  (heldObject.TryGetComponent(out Torchable heldTorchable) &&
+            currentDust.TryGetComponent(out Torchable dustTorchable))
+        {
+            dustTorchable.maxTorchedColor = heldTorchable.maxTorchedColor;
+        }
     }
 
     void IncreaseDustSize()
     {
-        currentDust.transform.localScale = Vector3.Lerp(Vector3.zero, dustOriginalScale, lerpScale);
+        if (currentDust == null) { return; }
+
+        float xScale = Mathf.Clamp(lerpScale, 0, dustOriginalScale.x);
+        float zScale = Mathf.Clamp(lerpScale, 0, dustOriginalScale.z);
+
+        float yScale = Mathf.Lerp(0, dustOriginalScale.y, lerpScale);
+        Vector3 newScale = new Vector3(xScale, yScale, zScale);
+
+        currentDust.transform.localScale = newScale;
 
         if(lerpScale >= 1)
         {
@@ -155,7 +154,9 @@ public class Mortar : MonoBehaviour
         currentDust.transform.parent = null;
         currentDust.transform.position += (currentDust.transform.up * 0.15f);
 
-        currentDust.GetComponent<Collider>().enabled = true;
+        foreach (Collider col in currentDust.GetComponents<Collider>())
+            col.enabled = true;
+
         currentDust.GetComponent<Rigidbody>().isKinematic = false;
         currentDust.GetComponent<AddGrab>().Add();
 

@@ -17,7 +17,7 @@ public class Torchable : MonoBehaviour
     [SerializeField] private float breakTemp = 1.5f;
 
     [Header("Color Change Controls")]
-    [SerializeField] private Color maxTorchedColor;
+    [SerializeField] public Color maxTorchedColor;
     [SerializeField] private float saturationModifier = 0.2f;
     [SerializeField] private float valueModifier = 1;
 
