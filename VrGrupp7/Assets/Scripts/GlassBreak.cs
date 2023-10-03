@@ -46,7 +46,6 @@ public class GlassBreak : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         float force = collision.impulse.magnitude * Time.fixedDeltaTime;
-        Debug.Log(force);
         if (force > breakForce && !isBroken)
         {
             //Makes it so it gets force from below when it breaks

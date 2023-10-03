@@ -5938,7 +5938,7 @@
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
     "m_ObjectId": "7f2bf1614a7c40fdac67ad5614888667",
     "m_ActiveSubTarget": {
-        "m_Id": "94e474da918543c9819dddbd75b60141"
+        "m_Id": "8d05eb6092ec48d3bdd6cf77807de5de"
     },
     "m_AllowMaterialOverride": false,
     "m_SurfaceType": 1,
@@ -6296,6 +6296,12 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
+    "m_ObjectId": "8d05eb6092ec48d3bdd6cf77807de5de"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "8e376aeb481c4908b812a65192221b7f",
     "m_Id": 2,
@@ -6502,12 +6508,6 @@
         "z": 0.0,
         "w": 0.0
     }
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
-    "m_ObjectId": "94e474da918543c9819dddbd75b60141"
 }
 
 {
@@ -7659,8 +7659,8 @@
     "m_ObjectId": "b490cb25e8544c8aba83f93f3e2d255d",
     "m_Title": "Rim",
     "m_Position": {
-        "x": 1635.500244140625,
-        "y": -833.0000610351563
+        "x": 1592.7998046875,
+        "y": -897.5999755859375
     }
 }
 
@@ -7906,10 +7906,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1819.5001220703125,
-            "y": -774.5000610351563,
-            "width": 127.5,
-            "height": 33.99993896484375
+            "x": 1776.7999267578125,
+            "y": -837.5999755859375,
+            "width": 128.0,
+            "height": 33.5999755859375
         }
     },
     "m_Slots": [
@@ -8317,10 +8317,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1791.0001220703125,
-            "y": -669.5001220703125,
+            "x": 1748.7999267578125,
+            "y": -732.7999877929688,
             "width": 208.0,
-            "height": 325.9998779296875
+            "height": 325.5999755859375
         }
     },
     "m_Slots": [
@@ -9364,10 +9364,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 2030.5001220703125,
-            "y": -774.5000610351563,
+            "x": 1987.9998779296875,
+            "y": -837.5999755859375,
             "width": 208.0001220703125,
-            "height": 301.9999694824219
+            "height": 301.5999755859375
         }
     },
     "m_Slots": [
@@ -9485,10 +9485,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1660.5001220703125,
-            "y": -552.5001220703125,
-            "width": 130.5,
-            "height": 34.0001220703125
+            "x": 1618.39990234375,
+            "y": -616.0,
+            "width": 131.199951171875,
+            "height": 33.5999755859375
         }
     },
     "m_Slots": [

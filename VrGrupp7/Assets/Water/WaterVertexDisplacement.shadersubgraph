@@ -1,5 +1,5 @@
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.GraphData",
     "m_ObjectId": "1d1cc4b3c56349749d59d5a9e0c89418",
     "m_Properties": [
@@ -8,6 +8,12 @@
         }
     ],
     "m_Keywords": [],
+    "m_Dropdowns": [],
+    "m_CategoryData": [
+        {
+            "m_Id": "14832b1592314bbabf77a02cf62f99b3"
+        }
+    ],
     "m_Nodes": [
         {
             "m_Id": "a0a3d480cf664ebc88ea6c8f894d7f16"
@@ -222,10 +228,11 @@
         "serializedMesh": {
             "m_SerializedMesh": "{\"mesh\":{\"instanceID\":0}}",
             "m_Guid": ""
-        }
+        },
+        "preventRotation": false
     },
     "m_Path": "Sub Graphs",
-    "m_ConcretePrecision": 0,
+    "m_GraphPrecision": 0,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": "a0a3d480cf664ebc88ea6c8f894d7f16"
@@ -377,6 +384,18 @@
         "m_SerializableColors": []
     },
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "14832b1592314bbabf77a02cf62f99b3",
+    "m_Name": "",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "3940489a9bc944d5a0b7be38da69b7c5"
+        }
+    ]
 }
 
 {
@@ -606,9 +625,13 @@
         "m_GuidSerialized": "99cb5fa7-9cab-4dbb-bb18-4bd13058eabe"
     },
     "m_Name": "DistortionVertex",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_3940489a9bc944d5a0b7be38da69b7c5",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -692,7 +715,8 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_Space": 0
+    "m_Space": 0,
+    "m_PositionSource": 0
 }
 
 {
