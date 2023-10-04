@@ -18,6 +18,8 @@ public class LiquidCatcher : MonoBehaviour
     Color fadeColorSide;
     Color fadeColorTop;
 
+    PotionColor targetColor;
+
     Color mixedColorTop;
     Color mixedColorSide;
     Color oldSideColor;
@@ -25,6 +27,8 @@ public class LiquidCatcher : MonoBehaviour
     List<Color> sideColors = new List<Color>();
     List<Color> topColors = new List<Color>();
 
+    bool isChangingColor = false;
+    float colorLerp = 0;
     float fadeT;
     float fadeSpeed = 1.25f;
 
@@ -49,23 +53,19 @@ public class LiquidCatcher : MonoBehaviour
         targetAmount = liquid.GetLiquid();
         fillAmount = targetAmount;
 
+        if(TryGetComponent(out Shake shake))
+        {
+            shake.onShake.AddListener(UpdateColorListener);
+        }
+
         //Debug.Log(targetAmount);
         //Debug.Log(mat.GetFloat("_Fill"));
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    //fillAmount = mat.GetFloat("_Fill");
-
-    //    if (fillAmount < targetAmount)
-    //    {
-    //        fillAmount += 0.075f * Time.deltaTime;
-    //        mat.SetFloat("_Fill", fillAmount);
-
-    //        Debug.Log("Setting fill to " + fillAmount);
-    //    }
-    //}
+    void UpdateColorListener(float _)
+    {
+        UpdateColor();
+    }
 
     void ChangeColor()
     {
@@ -142,6 +142,43 @@ public class LiquidCatcher : MonoBehaviour
 
     }
 
+    public void UpdateColor()
+    {
+        targetColor = PotionColors.GetMixedColor(GetComponents<BaseAttribute>());
+
+        
+
+        if (!isChangingColor)
+        {
+            StartCoroutine(LerpColor());
+        }
+    }
+    public IEnumerator LerpColor()
+    {
+        isChangingColor = true;
+        Color sideColor = liquid.GetSideColor();
+        Color topColor = liquid.GetTopColor();
+
+       // Debug.Log("Target side: " + targetColor.GetSideColor() + "Target Top: " + targetColor.GetTopColor());
+
+        while (topColor != targetColor.GetTopColor() || sideColor != targetColor.GetTopColor())
+        {
+            sideColor = Vector4.MoveTowards(sideColor, targetColor.GetSideColor(), Time.deltaTime * fadeSpeed);
+            topColor = Vector4.MoveTowards(topColor, targetColor.GetTopColor(), Time.deltaTime * fadeSpeed);
+
+            //sideColor = Color.Lerp(sideColor, targetColor.GetSideColor(), Time.deltaTime);
+            //topColor = Color.Lerp(topColor, targetColor.GetTopColor(), Time.deltaTime);
+
+            liquid.SetSideColor(sideColor);
+            liquid.SetTopColor(topColor);
+            yield return null;
+
+        }
+        Debug.Log("Target side: " + targetColor.GetSideColor() + "Target Top: " + targetColor.GetTopColor());
+        Debug.Log("Stopped with side: " + sideColor + "Target Top: " + topColor); ;
+        isChangingColor = false;
+    }
+
     void AddAttributes(GameObject fromObject, float volume)
     {
         IAttribute[] attributes = fromObject.GetComponents<IAttribute>();
@@ -159,17 +196,22 @@ public class LiquidCatcher : MonoBehaviour
     {
         CheckOverflow(volume, out volume);
 
-        PotionColor colors = PotionColors.GetColor(attribute);
+        //PotionColor colors = PotionColors.GetColor(attribute);
+        //AddColors(colors.GetTopColor(), colors.GetSideColor());
+        //ChangeColor();
 
-        AddColors(colors.topColor, colors.sideColor);
-        ChangeColor();
+        var baseAttribute = (BaseAttribute)attribute;
+        //float mass = volume * baseAttribute.mass;
 
-        attribute.AddToOther(transform, volume);
+        baseAttribute.DispenserAddToOther(transform, volume);
+        //attribute.AddToOther(transform, volume);
 
         float currentFill = liquid.GetLiquid();
         currentFill = currentFill > 0 ? currentFill : 0;
         currentFill += volume;
         liquid.SetLiquid(currentFill);
+
+        UpdateColor();
     }
 
     public void RecieveLiquid(GameObject fromObject, float volume)
@@ -180,14 +222,16 @@ public class LiquidCatcher : MonoBehaviour
 
         LiquidContainer fromContainer = fromObject.GetComponent<LiquidContainer>();
 
-        AddColors(fromContainer.GetTopColor(), fromContainer.GetSideColor());
-        ChangeColor();
+        //AddColors(fromContainer.GetTopColor(), fromContainer.GetSideColor());
+        //ChangeColor();
         AddAttributes(fromObject, volume);
 
         float currentFill = liquid.GetLiquid();
         currentFill = currentFill > 0 ? currentFill : 0;
         currentFill += volume;
         liquid.SetLiquid(currentFill);
+
+        UpdateColor();
     }
 
     public IEnumerator Couroutine_AddFromDispenser(IAttribute attribute, float liquidLost, float delay)

@@ -64,7 +64,9 @@ public class LiquidDispenser : MonoBehaviour
     {
         isActive = true;
         GetAttribute(type);
-        pourLiquid.Pour(currentColor);
+
+        var color = PotionColors.GetMixedColor((BaseAttribute)currentAttribute);
+        pourLiquid.Pour(color.GetSideColor());
 
         audioSource.PlayOneShot(startSound);
         Invoke(nameof(StartLoopSound), startSound.length - 0.01f);

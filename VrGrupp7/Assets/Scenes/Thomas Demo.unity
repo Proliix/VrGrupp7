@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eeb120171a73974a9d0a27933c513bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 0
+  mass: 100
   mixed01: 0
 --- !u!114 &131281879
 MonoBehaviour:
@@ -779,7 +779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d68520d10616c4ab2846d530f7f663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 0
+  mass: 100
   mixed01: 0
 --- !u!114 &131281880
 MonoBehaviour:
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b93fb0a07ecd64c84e9414af473e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 0
+  mass: 100
   mixed01: 0
 --- !u!114 &131281881
 MonoBehaviour:
@@ -807,7 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd82c898d66e7224cafc73cf844dddcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 0
+  mass: 100
   mixed01: 0
   maxForceRequiredToExplode: 20
   explosion: {fileID: 7851832433244018377, guid: 2799a098789ecb54781506e458cd379a,
@@ -824,7 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fa966ffd07e7b4ebfe3eb2b4f73cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 0
+  mass: 100
   mixed01: 0
   m_transparent: {fileID: 2100000, guid: a896caab547a8e4499b24ca9f0b14d08, type: 2}
 --- !u!65 &131281883
@@ -7041,7 +7041,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-71858
+  m_Name: pb_Mesh-159246
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

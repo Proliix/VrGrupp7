@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(Rigidbody))]
 
 [AddComponentMenu("**Attributes**/CustomGravity")]
 public class CustomGravity : BaseAttribute
@@ -30,6 +30,12 @@ public class CustomGravity : BaseAttribute
     void OnEnable()
     {
         m_rb = GetComponent<Rigidbody>();
+
+        if(m_rb == null)
+        {
+            gameObject.AddComponent<Rigidbody>();
+        }
+
         m_rb.useGravity = false;
 
         SetGravity(GetGravityModifier());
@@ -71,7 +77,7 @@ public class CustomGravity : BaseAttribute
 
     void DisableCustomGravity()
     {
-        if (m_rb != null)
+        if (TryGetComponent(out m_rb))
             m_rb.useGravity = true;
 
         if (TryGetComponent(out XRGrabInteractable grabInteractable))

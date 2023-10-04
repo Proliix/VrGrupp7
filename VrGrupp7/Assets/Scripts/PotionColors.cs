@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class PotionColors
 {
+    public static Color waterSide = new Color(0, 1, 1);
+    public static Color waterTop = new Color(0.5f, 1, 1);
+    private static float waterWeight = 0.1f;
+
     public static Color GravitySide = new Color(1, 0, 0);
     public static Color GravityTop = new Color(1, 0.5037735f, 0.5037735f);
     public static Color BouncySide = new Color(0.3209854f, 1, 0);
@@ -23,6 +27,51 @@ public static class PotionColors
         }
         result /= aColors.Length;
         return result;
+    }
+    public static PotionColor GetMixedColor(BaseAttribute baseAttribute)
+    {
+        Color sideColor = waterSide * waterWeight;
+        Color topColor = waterTop * waterWeight;
+
+        float weight = waterWeight;
+
+        var color = baseAttribute.GetColor();
+        sideColor += color.GetSideColor();
+        topColor += color.GetTopColor();
+        weight += color.GetWeight();
+
+        sideColor /= weight;
+        topColor /= weight;
+
+        sideColor.a = 1;
+        topColor.a = 1;
+
+        return new PotionColor(sideColor, topColor);
+    }
+
+    public static PotionColor GetMixedColor(BaseAttribute[] baseAttributes)
+    {
+        Color sideColor = waterSide * waterWeight;
+        Color topColor = waterTop * waterWeight;
+
+        float weight = waterWeight;
+
+        foreach (var baseAttribute in baseAttributes)
+        {
+            var color = baseAttribute.GetColor();
+            sideColor += color.GetSideColor();
+            topColor += color.GetTopColor();
+            weight += color.GetWeight();
+            Debug.Log(baseAttribute.name + "Color: " + color.GetSideColor());
+        }
+
+        sideColor /= weight;
+        topColor /= weight;
+
+        sideColor.a = 1;
+        topColor.a = 1;
+
+        return new PotionColor(sideColor, topColor);
     }
 
     public static PotionColor GetColor(IAttribute attribute)
@@ -53,12 +102,35 @@ public static class PotionColors
 }
 public class PotionColor
 {
-    readonly public Color sideColor;
-    readonly public Color topColor;
+    private Color sideColor;
+    private Color topColor;
+
+    private float weight = 1f;
 
     public PotionColor(Color sideColor, Color topColor)
     {
         this.sideColor = sideColor;
         this.topColor = topColor;
+        weight = 1f;
+    }
+
+    public void SetWeight(float weight)
+    {
+        this.weight = weight;
+    }
+
+    public float GetWeight()
+    {
+        return weight;
+    }
+
+    public Color GetTopColor()
+    {
+        return topColor * weight;
+    }
+
+    public Color GetSideColor()
+    {
+        return sideColor * weight;
     }
 }

@@ -17,11 +17,15 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
     public float mixed01 = 0;
 
     private float maxPotency = 1;
-
+    private PotionColor color;
 
     private void Awake()
     {
-        if(GetComponent<LiquidContainer>() == null && GetComponent<CanHaveAttributes>() == null)
+        color = PotionColors.GetColor(this);
+
+        Debug.Log(name + " has " + color.GetSideColor() + " color");
+
+        if (GetComponent<LiquidContainer>() == null && GetComponent<CanHaveAttributes>() == null)
         {
             enabled = false;
         }
@@ -34,17 +38,24 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
 
     public void AddMass(float addMass)
     {
-        mass += addMass;
-        mixed01 = mixed01 * (mass * 0.01f);
-
-        if(enabled)
-            UpdateStats();
+        AddMass(addMass, 0f);
     }
-    public void AddMass(float otherMass, float volume)
-    {
-        mass += otherMass * volume;
 
-        if(enabled)
+    public void AddMass(float addMass, float otherMixed)
+    {
+        if(addMass <= 0) { return; }
+
+        float otherMixedMass = addMass * otherMixed;
+
+        float mixedMass = mass * mixed01;
+
+        float combinedMixedMass = mixedMass + otherMixedMass;
+
+        mass += addMass;
+
+        mixed01 = Mathf.Clamp01(combinedMixedMass / mass);
+
+        if (enabled)
             UpdateStats();
     }
 
@@ -65,15 +76,15 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
 
         float lostMass = other.LoseMass(volume);
 
-        float otherMixedMass = lostMass * otherMixed;
+        //float otherMixedMass = lostMass * otherMixed;
 
-        float mixedMass = mass * mixed01;
+        //float mixedMass = mass * mixed01;
 
-        float combinedMixedMass = mixedMass + otherMixedMass;
+        //float combinedMixedMass = mixedMass + otherMixedMass;
 
-        AddMass(lostMass);
+        AddMass(lostMass, otherMixed);
 
-        mixed01 = combinedMixedMass / mass;
+        //mixed01 = Mathf.Clamp01(combinedMixedMass / mass);
     }
 
     public float GetPotency()
@@ -118,6 +129,22 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
 
         return concentration;
     }
+    public void DispenserAddToOther(Transform other, float volume)
+    {
+        var type = GetType();
+        BaseAttribute otherComponent = (BaseAttribute)other.GetComponent(type);
+
+        if (otherComponent == null)
+        {
+            otherComponent = (BaseAttribute)other.gameObject.AddComponent(type);
+            otherComponent.OnComponentAdd(this);
+
+            Debug.Log("Adding " + type.Name + " to " + other.name);
+        }
+
+        otherComponent.AddMass(mass * volume, mixed01);
+    }
+
 
     public void AddToOther(Transform other, float volume)
     {
@@ -128,11 +155,10 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
         {
             otherComponent = (BaseAttribute)other.gameObject.AddComponent(type);
             otherComponent.OnComponentAdd(this);
+            Debug.Log("Adding " + type.Name + " to " + other.name);
         }
 
         otherComponent.TransferMass(this, volume);
-
-        Debug.Log("Adding " + type.Name + " to " + other.name);
     }
 
     public BaseAttribute AddToOther(Transform other)
@@ -200,4 +226,10 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
     public abstract string GetName();
 
     public abstract string GetScanInformation();
+
+    public PotionColor GetColor()
+    {
+        color.SetWeight(mixed01);
+        return color;
+    }
 }
