@@ -29,6 +29,9 @@ public class JobManager : MonoBehaviour
     [SerializeField] Vector3 turnInPos;
     [SerializeField] Vector3 turnInSize;
 
+    [Header("Debug")]
+    [SerializeField] bool AlwaysTurnInCorrect;
+
     //make it so it's not 33.3333333333 and 66.6666666 so there looks like its no room for error
     const float SAFETY_PERCENT = 0.005f;
 
@@ -191,6 +194,9 @@ public class JobManager : MonoBehaviour
 
     string FormatJobString()
     {
+        if (AlwaysTurnInCorrect)
+            return "EVERYTHING WILL BECORRECT. <color=red>DEBUG MODE IS ON<</color>";
+
         string newJobString = "I want a potion that has ";
         for (int i = 0; i < wantedAtributes.Count; i++)
         {
@@ -245,13 +251,15 @@ public class JobManager : MonoBehaviour
             }
         }
 
-
-        for (int i = 0; i < isCompleted.Length; i++)
+        if (!AlwaysTurnInCorrect)
         {
-            if (!isCompleted[i])
+            for (int i = 0; i < isCompleted.Length; i++)
             {
-                TurnInIncorrect(isCompleted);
-                return;
+                if (!isCompleted[i])
+                {
+                    TurnInIncorrect(isCompleted);
+                    return;
+                }
             }
         }
 
