@@ -96,6 +96,15 @@ public class TextDisplayer : MonoBehaviour
         StartCoroutine(IE_WriteText(Text, textSpeed));
     }
 
+    public void ForceWriteText(string Text)
+    {
+        if (isWritingText) { StopAllCoroutines(); }
+
+        isWritingText = true;
+
+        StartCoroutine(IE_WriteText(Text, textSpeed));
+    }
+
     private void UpdateCounterText()
     {
         tmpMessageCounter.text = "<mspace=0.8em>" + (messageIndex + 1) + "/" + messages.Length + "</mspace>";
@@ -109,23 +118,35 @@ public class TextDisplayer : MonoBehaviour
         typeAudio.clip = typeSound;
 
         float offset = 0.2f;
+        char[] charArr = text.ToCharArray();
+        bool skipMarkdown = false;
+        int markdownChars = 0;
 
         while (text.Length > index && !skipText)
         {
-            if (index % 2 == 0)
+            if (charArr[index] == '<')
+                skipMarkdown = true;
+
+            if (!skipMarkdown)
             {
-                typeAudio.pitch = 1 + Random.Range(-offset, offset);
-                typeAudio.volume = (1 - offset) + Random.Range(-offset, offset);
-                //audioSource.PlayOneShot(typeSound);
-                typeAudio.Play();
+                if (index % 2 == 0)
+                {
+                    typeAudio.pitch = 1 + Random.Range(-offset, offset);
+                    typeAudio.volume = (1 - offset) + Random.Range(-offset, offset);
+                    //audioSource.PlayOneShot(typeSound);
+                    typeAudio.Play();
+                }
+
+                yield return new WaitForSeconds(0.1f / textSpeed);
+                //tmpDisplayText.text = text.Substring(0, index);
+                tmpDisplayText.maxVisibleCharacters = index - markdownChars;
+                tmpDisplayText.ForceMeshUpdate();
             }
+            else
+                markdownChars++;
 
-
-            yield return new WaitForSeconds(0.1f / textSpeed);
-
-            //tmpDisplayText.text = text.Substring(0, index);
-            tmpDisplayText.maxVisibleCharacters = index;
-            tmpDisplayText.ForceMeshUpdate();
+            if (charArr[index] == '>')
+                skipMarkdown = false;
 
             index++;
         }

@@ -11,8 +11,14 @@ public class GlassBreak : MonoBehaviour
     LiquidContainer container;
     AudioSource source;
     bool isBroken;
+    bool iFrames = true;
     Vector3 breakPos = Vector3.zero;
 
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.25f);
+        iFrames = false;
+    }
 
     AudioSource SetupAudioSource(GameObject obj)
     {
@@ -45,6 +51,9 @@ public class GlassBreak : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (iFrames)
+            return;
+
         float force = collision.impulse.magnitude * Time.fixedDeltaTime;
         if (force > breakForce && !isBroken)
         {
