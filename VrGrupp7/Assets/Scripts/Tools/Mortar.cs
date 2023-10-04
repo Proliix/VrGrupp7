@@ -69,13 +69,15 @@ public class Mortar : MonoBehaviour
 
         foreach (BaseAttribute attribute in heldObject.GetComponents<BaseAttribute>())
         {
-            if(currentDust.GetComponent(attribute.GetType()) == null)
+            BaseAttribute dustAttribute = (BaseAttribute)currentDust.GetComponent(attribute.GetType());
+
+            if(dustAttribute == null)
             {
-                attribute.AddToOther(currentDust.transform);
+                dustAttribute = attribute.AddToOther(currentDust.transform);
             }
 
-            var dustAttribute = (BaseAttribute)currentDust.GetComponent(attribute.GetType());
-            dustAttribute.enabled = false;
+            //var dustAttribute = (BaseAttribute)currentDust.GetComponent(attribute.GetType());
+
             dustAttribute.mass += attribute.mass * percentageLost;
         }
 
@@ -128,7 +130,7 @@ public class Mortar : MonoBehaviour
 
         //currentDust.GetComponent<Renderer>().material = heldObject.GetComponent<Renderer>().material;
         Color color = heldObject.GetComponent<Renderer>().material.color;
-        currentDust.GetComponent<Renderer>().material.SetColor("_Color", color);
+        currentDust.GetComponentInChildren<Renderer>().material.SetColor("_Color", color);
 
         lerpScale = 0;
 
