@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EasterEgg : MonoBehaviour
 {
+    [SerializeField] AudioSource DoorSource;
     [SerializeField] AudioSource SourceButton;
-    [SerializeField] AudioClip lightClip;
+    [SerializeField] AudioClip denyClip;
+    [SerializeField] AudioClip acceptClip;
 
     Animator anim;
     float timesPressed;
@@ -20,8 +22,13 @@ public class EasterEgg : MonoBehaviour
         timesPressed++;
         if (timesPressed == 5)
         {
+            SourceButton.PlayOneShot(acceptClip);
             anim.SetTrigger("Start");
+            DoorSource.Play();
         }
+        else if (timesPressed < 5)
+            SourceButton.PlayOneShot(denyClip);
+
     }
 
     public void ResetAnim()

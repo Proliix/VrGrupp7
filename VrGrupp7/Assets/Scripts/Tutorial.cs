@@ -11,6 +11,7 @@ public class Tutorial : MonoBehaviour
     public InputActionReference leftStick;
     public InputActionReference rightStick;
 
+    public AudioClip sucessClip;
     public GameObject screen;
     public GameObject bottle;
     public GameObject platform;
@@ -49,6 +50,7 @@ public class Tutorial : MonoBehaviour
         if (movedAmount >= 1)
         {
             boolToChange = true;
+            AudioSource.PlayClipAtPoint(sucessClip, displayer.transform.position);
             displayer.ForceWriteText(textToChangeTo);
             movedAmount = 0;
             fillImage.fillAmount = 0;
@@ -59,6 +61,8 @@ public class Tutorial : MonoBehaviour
     {
         hasBeenGrabbed = true;
         socket.selectExited.RemoveListener(BottleIsGrabbed);
+
+        AudioSource.PlayClipAtPoint(sucessClip, displayer.transform.position);
         platform.SetActive(false);
         displayer.ForceWriteText("Perfect! Now i want you to <size=20><color=red><B>SMASH IT!</B></color></size>");
     }
@@ -91,6 +95,7 @@ public class Tutorial : MonoBehaviour
         {
             if (!completeText)
             {
+                AudioSource.PlayClipAtPoint(sucessClip, displayer.transform.position);
                 displayer.ForceWriteText("Well done! Lets take you to the lab so you make some potions!");
                 completeText = true;
             }
