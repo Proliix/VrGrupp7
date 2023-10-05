@@ -6,12 +6,13 @@ public class Trashcan_on_collision_destroy : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.TryGetComponent(out CanHaveAttributes _))
+        if(other.TryGetComponent(out Respawnable respawnable))
         {
-            Destroy(other.gameObject);
+            respawnable.Respawn();
+            return;
         }
 
-        if(other.TryGetComponent(out LiquidContainer _))
+        if (other.attachedRigidbody != null)
         {
             Destroy(other.gameObject);
         }

@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 3657086473700803706}
   - component: {fileID: 7565910540595823050}
   - component: {fileID: 376777158626643332}
+  - component: {fileID: 3902476718887644239}
   m_Layer: 7
   m_Name: Mortar(Mortel)
   m_TagString: Untagged
@@ -341,6 +342,18 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3902476718887644239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4289065430983741455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b180157076fbf429a2e4993364fcd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5093531830147286692
 GameObject:
   m_ObjectHideFlags: 0

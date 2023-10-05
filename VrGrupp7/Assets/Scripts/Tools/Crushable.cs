@@ -20,6 +20,8 @@ public class Crushable : MonoBehaviour
 
     public GameObject ParticleOnHit;
 
+    [Header("Put this color to match the color of the object, remember to put alpha to 1!")]
+    [SerializeField] private Color baseColor;
     //This value controls on how much the color varies from the base color, 0 means all particles have same color as base;
     public float particleColorGradient = 0.5f;
 
@@ -114,9 +116,14 @@ public class Crushable : MonoBehaviour
 
         particle.transform.localScale = Vector3.one * Mathf.Clamp(damage, 0, 1);
 
+
         //Get Color of our gameobject
         var color = GetComponent<Renderer>().material.color;
 
+        if(baseColor != Color.clear)
+        {
+            color *= baseColor;
+        }
         //Create a light/dark gradient from our gameobject color
         var gradient = new ParticleSystem.MinMaxGradient(color * (1 - particleColorGradient), color * (1 + particleColorGradient));
         var main = particle.GetComponent<ParticleSystem>().main;

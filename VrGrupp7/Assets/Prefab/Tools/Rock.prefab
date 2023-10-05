@@ -153,6 +153,7 @@ MonoBehaviour:
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
+  baseColor: {r: 0.227451, g: 0.2392157, b: 0.25490198, a: 1}
   particleColorGradient: 0.5
 --- !u!114 &3045669797691990170
 MonoBehaviour:
@@ -324,6 +325,7 @@ MonoBehaviour:
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
+  baseColor: {r: 0.23137257, g: 0.32941177, b: 0.3254902, a: 1}
   particleColorGradient: 0.5
 --- !u!114 &8304943980601230481
 MonoBehaviour:
@@ -706,6 +708,7 @@ MonoBehaviour:
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
+  baseColor: {r: 0.23137257, g: 0.32941177, b: 0.3254902, a: 1}
   particleColorGradient: 0.5
 --- !u!114 &8242499168264276778
 MonoBehaviour:
@@ -850,12 +853,13 @@ MonoBehaviour:
   clip_soundWhenCrushed: {fileID: 8300000, guid: f6fe3188a9f06904383c71df2a727233,
     type: 3}
   detatchOnDestroy:
-  - {fileID: 6372467285844394707}
+  - {fileID: 3888697790378246516}
   startHealth: 0
   currentHealth: 50
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
+  baseColor: {r: 0.227451, g: 0.2392157, b: 0.25490198, a: 1}
   particleColorGradient: 0.5
 --- !u!114 &311326588130137722
 MonoBehaviour:
@@ -1027,6 +1031,7 @@ MonoBehaviour:
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
+  baseColor: {r: 0.23137257, g: 0.32941177, b: 0.3254902, a: 1}
   particleColorGradient: 0.5
 --- !u!114 &2022287220789506819
 MonoBehaviour:
@@ -1170,12 +1175,13 @@ MonoBehaviour:
   clip_soundWhenCrushed: {fileID: 8300000, guid: f6fe3188a9f06904383c71df2a727233,
     type: 3}
   detatchOnDestroy:
-  - {fileID: 3888697790378246516}
+  - {fileID: 6372467285844394707}
   startHealth: 0
   currentHealth: 50
   heatModifier: 3
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
+  baseColor: {r: 0.227451, g: 0.2392157, b: 0.25490198, a: 1}
   particleColorGradient: 0.5
 --- !u!114 &8054923337430642314
 MonoBehaviour:
