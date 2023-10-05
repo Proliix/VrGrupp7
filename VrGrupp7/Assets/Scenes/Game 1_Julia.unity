@@ -23876,10 +23876,10 @@ MonoBehaviour:
   minPotency: 0.05
   maxPotency: 0.75
   rewards:
+  - {fileID: 551463622}
   - {fileID: 1152947910}
   - {fileID: 95710849}
   - {fileID: 13627514}
-  - {fileID: 551463622}
   hatch: {fileID: 1768927915}
   turnInPos: {x: 1.86, y: 1.35, z: -1.94}
   turnInSize: {x: 0.25, y: 0.25, z: 0.25}
