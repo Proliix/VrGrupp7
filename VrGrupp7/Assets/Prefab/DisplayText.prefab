@@ -706,7 +706,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6482355905060828599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,6 +800,7 @@ MonoBehaviour:
   typeSound: {fileID: 8300000, guid: 14e120e1df76d4340beef70c8c459acc, type: 3}
   buttonAudio: {fileID: 6680346326694877278}
   buttonSound: {fileID: 8300000, guid: 847d1ee6a18e43d4b984786c2526c3dc, type: 3}
+  isTutorial: 0
   messages: []
 --- !u!82 &6094156208689432873
 AudioSource:
