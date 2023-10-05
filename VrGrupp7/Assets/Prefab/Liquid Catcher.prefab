@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 2834541879839314904}
   - component: {fileID: 2834541879839314898}
   - component: {fileID: 1977519014956129176}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Liquid Catcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,6 +513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   liquidObj: {fileID: 2834541879966428011}
   liquidAddAmount: 0.00075
+  isChangingColor: 0
 --- !u!114 &2834541879839314898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,6 +727,8 @@ MonoBehaviour:
   emptySpeed: 0.1
   bigPourMultiplier: 0.75
   isPouring: 0
+  debugAngle: 0
+  liquid: {fileID: 0}
 --- !u!1 &2834541879966428011
 GameObject:
   m_ObjectHideFlags: 0
