@@ -23,7 +23,7 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
     {
         color = PotionColors.GetColor(this);
 
-        Debug.Log(name + " has " + color.GetSideColor() + " color");
+        //Debug.Log(name + " has " + color.GetSideColor() + " color");
 
         if (GetComponent<LiquidContainer>() == null && GetComponent<CanHaveAttributes>() == null)
         {

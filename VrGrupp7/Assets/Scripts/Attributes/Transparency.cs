@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
 //[RequireComponent(typeof(CanHaveAttributes))]
 
 [AddComponentMenu("**Attributes**/Transparency")]
@@ -13,6 +12,7 @@ public class Transparency : BaseAttribute
     private bool isTransparent = false;
     private float baseTransparency = 1;
 
+    private Renderer renderer;
     private Material m_current;
     private Material m_old;
 
@@ -43,7 +43,22 @@ public class Transparency : BaseAttribute
         //Copy current material if we don't have a copy of it
         if (m_current == null)
         {
-            m_old = GetComponent<Renderer>().material;
+            if(renderer == null && TryGetComponent(out Torchable torchable))
+            {
+                renderer = torchable.torchedObject.GetComponent<Renderer>();
+            }
+
+            if(renderer == null)
+            {
+                renderer = GetComponent<Renderer>();
+            }
+
+            if(renderer == null)
+            {
+                renderer = GetComponentInChildren<Renderer>();
+            }
+
+            m_old = renderer.material;
             m_current = new Material(m_old);
 
             baseTransparency = m_current.color.a;
@@ -70,7 +85,7 @@ public class Transparency : BaseAttribute
         newColor.a = GetTransparency();
         m_current.color = newColor;
 
-        GetComponent<Renderer>().material = m_current;
+        renderer.material = m_current;
 
         Debug.Log("Setting transparency to " + m_current.color.a);
     }
@@ -89,7 +104,7 @@ public class Transparency : BaseAttribute
         if (!isTransparent) { return; }
 
         isTransparent = false;
-        GetComponent<Renderer>().material = m_old;
+        renderer.material = m_old;
         m_current = null;
         m_old = null;
     }
@@ -113,32 +128,4 @@ public class Transparency : BaseAttribute
     {
         return "Transparency";
     }
-
-    //public void AddToOther(Transform other, float volume)
-    //{
-    //    Transparency otherTransparent = other.GetComponent<Transparency>();
-
-    //    if (otherTransparent == null)
-    //    {
-    //        otherTransparent = other.gameObject.AddComponent<Transparency>();
-    //        otherTransparent.m_transparent = m_transparent;
-    //    }
-
-    //    //otherTransparent = otherTransparent == null ? other.gameObject.AddComponent<Transparency>() : otherTransparent;
-
-    //    otherTransparent.AddEffect(potency);
-    //}
-
-    //public void AddEffect(float potency)
-    //{
-    //    this.potency = Mathf.MoveTowards(this.potency, potency, 0.05f * Time.deltaTime);
-    //    ChangeTransparency();
-    //}
-
-    //public float GetPotency()
-    //{
-    //    return potency;
-    //}
-
-
 }

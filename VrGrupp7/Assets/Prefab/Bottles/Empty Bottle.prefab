@@ -1169,6 +1169,7 @@ GameObject:
   - component: {fileID: 3879099533187143106}
   - component: {fileID: 3879099533187143108}
   - component: {fileID: 3879099533187143109}
+  - component: {fileID: 1218803256444596166}
   - component: {fileID: 3879099533187143110}
   - component: {fileID: 3879099533187143116}
   - component: {fileID: 5791496026089385513}
@@ -1367,6 +1368,20 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!136 &1218803256444596166
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879099533187143111}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 0.13934538
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.21344355, z: 0}
 --- !u!65 &3879099533187143110
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1506,7 +1521,7 @@ MonoBehaviour:
   pointCount: 0
   PourCollisionMask:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 1537
   liquidDispenser: {fileID: 0}
 --- !u!114 &882931058
 MonoBehaviour:
@@ -1556,7 +1571,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  torchedObject: {fileID: 4549964381493043938}
+  torchedObject: {fileID: 5191228613870305479}
   heatGainSpeed: 0.5
   heatLossSpeed: 0.2
   maxTemp: 1.5
@@ -1576,7 +1591,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925df840458588a499e3df0bdb67659a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumShakeForce: 0
+  minimumShakePercentage: 2
+  shakeForceModifier: 1
   onShake:
     m_PersistentCalls:
       m_Calls: []

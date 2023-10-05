@@ -97,18 +97,9 @@ public class Liquid : MonoBehaviour
             {
                 length += Time.deltaTime * localAnimSpeed * speedCurveLerp;
                 speedCurveLerp = Mathf.Clamp(speedCurveLerp + speedDelta * Time.deltaTime, 0, maxSpeed);
-
-                //Debug.Log("Scaling");
-
-                //if (ps_waterSplash.isPlaying)
-                //    ps_waterSplash.Stop();
-
             }
             else
             {
-                //if(ps_waterSplash.isStopped)
-                //    ps_waterSplash.Play();
-
                 length = meshLength;
             }
 
@@ -121,26 +112,21 @@ public class Liquid : MonoBehaviour
         float count = 0;
         speedCurveLerp = 0;
 
-        //if (ps_waterSplash.isStopped)
-        //    ps_waterSplash.Play();
-
         while (count < spline.Length)
         {
-
+            //Retracts the splineMesh along the spline
             contortAlong.Contort((count / spline.Length));
 
             count += Time.deltaTime * localAnimSpeed * speedCurveLerp;
             speedCurveLerp = Mathf.Clamp(speedCurveLerp + speedDelta * Time.deltaTime, 0, maxSpeed);
-            //speedCurveLerp += _SpeedDelta * Time.deltaTime;
             yield return null;
 
         }
 
         Debug.Log(gameObject.name + ": Flow Stopped");
+
         pourLiquid?.ReturnLiquid();
         gameObject.SetActive(false);
-        //spline.gameObject.SetActive(false);
-        //Destroy(gameObject, 2f);
     }
     private void ConfigureSpline()
     {

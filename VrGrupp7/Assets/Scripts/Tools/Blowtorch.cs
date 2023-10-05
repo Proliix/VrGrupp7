@@ -47,6 +47,10 @@ public class Blowtorch : MonoBehaviour
 
         for (int i = 0; i < insideTorch.Count; i++)
         {
+            if (insideTorch[i] == null)
+            {
+                continue;
+            }
             insideTorch[i].OnTorchExit();
 
             //Debug.Log("Stopping torch " + insideTorch[i].name);

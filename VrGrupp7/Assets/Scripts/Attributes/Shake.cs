@@ -4,8 +4,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class Shake : MonoBehaviour
 {
-    public float minimumShakePercentage = 5;
+    public float minimumShakePercentage = 2;
     public float shakeForceModifier = 1;
+
     public UnityEvent<float> onShake;
 
     private Rigidbody rb;
@@ -36,7 +37,7 @@ public class Shake : MonoBehaviour
 
             if(shakePercentage > minimumShakePercentage / 100f)
             {
-                Debug.Log("Force: " + shakePercentage);
+                //Debug.Log("Force: " + shakePercentage);
                 onShake.Invoke(shakePercentage);
             }
 

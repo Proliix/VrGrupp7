@@ -21,13 +21,11 @@ public class CanHaveAttributes : MonoBehaviour
         onValueChanged.Invoke();
     }
 
-    private void OnParticleCollision(GameObject other)
+    public void RemoveAllAttributes()
     {
-        LiquidContainer container = other.GetComponentInParent<LiquidContainer>();
-
-        if (container != null)
+        foreach (var attribute in GetComponents<IAttribute>())
         {
-            AddAttributes(other.transform.parent.gameObject, 0.01f);
+            Destroy(attribute as Component);
         }
     }
 }

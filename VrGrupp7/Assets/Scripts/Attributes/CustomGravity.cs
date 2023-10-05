@@ -33,7 +33,12 @@ public class CustomGravity : BaseAttribute
 
         if(m_rb == null)
         {
-            gameObject.AddComponent<Rigidbody>();
+            m_rb = gameObject.AddComponent<Rigidbody>();
+        }
+
+        if(TryGetComponent(out Renderer renderer))
+        {
+            m_rb.mass = renderer.bounds.size.magnitude * 10f;
         }
 
         m_rb.useGravity = false;

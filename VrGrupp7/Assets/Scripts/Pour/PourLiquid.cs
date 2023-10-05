@@ -194,7 +194,7 @@ public class PourLiquid : MonoBehaviour
     {
         LiquidObjectPool.instance.ReturnLiquid(liquid);
         liquid = null;
-
+        if(this == null) { return;}
         CancelInvoke();
 
         pourStrengthLimiter = 1;
@@ -292,7 +292,7 @@ public class PourLiquid : MonoBehaviour
         if (isPouring)
         {
             Debug.Log("PourLiquid Disabled: Stopping pour on " + transform.name);
-            Stop();
+            Stop(); 
         }
     }
 }

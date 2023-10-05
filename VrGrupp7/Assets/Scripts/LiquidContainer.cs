@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class LiquidContainer : MonoBehaviour
 {
@@ -42,6 +43,19 @@ public class LiquidContainer : MonoBehaviour
             liquid.EmptyLiquid();
         }
 
+        if(TryGetComponent(out XRGrabInteractable grabInteractable))
+        {
+            grabInteractable.selectExited.AddListener(CheckForGravity);
+        }
+
+    }
+
+    private void CheckForGravity(SelectExitEventArgs arg0)
+    {
+        if(GetComponent<CustomGravity>() == null)
+        {
+            GetComponent<Rigidbody>().useGravity = true;
+        }
     }
 
     // Update is called once per frame

@@ -9,25 +9,41 @@ public class Explosive : BaseAttribute
 {
 
     Rigidbody m_rb;
-    [Range(0f, 20f)] public float maxForceRequiredToExplode = 20f;
+    [Range(0f, 0.5f)] public float maxForceRequiredToExplode = 0.5f;
+
 
     public GameObject explosion;
 
+    float minimumExplodeThreshold = 0.05f; 
     bool isInvincible = true;
     float invincibleAfterSpawnTime = 0.2f;
 
-    private void OnCollisionEnter(Collision other)
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    if (isInvincible)
+    //        return;
+
+    //    float impactForce = other.impulse.magnitude;
+
+    //    if(impactForce > GetForceRequiredToExplode())
+    //    {
+    //        Explode();
+    //    }
+    //}
+
+    void TryExplode(float force)
     {
-        if (isInvincible)
-            return;
+        //If not held by player, return
+        if (!m_rb.isKinematic) { return; }
 
-        float impactForce = other.impulse.magnitude;
+        Debug.Log("Shakeforce = " + force + " required force: " + GetForceRequiredToExplode());
 
-        if(impactForce > GetForceRequiredToExplode())
+        if(force > GetForceRequiredToExplode())
         {
             Explode();
         }
     }
+
 
     public override void OnComponentAdd(BaseAttribute originalAttribute)
     {
@@ -37,14 +53,27 @@ public class Explosive : BaseAttribute
 
     float GetForceRequiredToExplode()
     {
-        return maxForceRequiredToExplode * (1 - potency);
+        return Mathf.Max(maxForceRequiredToExplode * (1 - potency), minimumExplodeThreshold);
     }
 
     void Explode()
     {
+        if(TryGetComponent(out GlassBreak glassBreak))
+        {
+            glassBreak.BreakBottle();
+        }
+
         GameObject newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
 
-        Destroy(gameObject);
+        if(gameObject.TryGetComponent(out Respawnable respawnable))
+        {
+            respawnable.Respawn();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         Destroy(newExplosion, 1);
     }
 
@@ -81,6 +110,23 @@ public class Explosive : BaseAttribute
     {
         isInvincible = true;
         Invoke(nameof(TurnOffInvincible), invincibleAfterSpawnTime);
+
+        var shake = GetComponent<Shake>();
+
+        if(shake == null)
+        {
+            shake = gameObject.AddComponent<Shake>();
+        }
+
+        m_rb = GetComponent<Rigidbody>();
+
+
+        Invoke(nameof(AddShake), 0.1f);
+    }
+
+    void AddShake(Shake shake)
+    {
+        shake.onShake.AddListener(TryExplode);
     }
 
     private void TurnOffInvincible()

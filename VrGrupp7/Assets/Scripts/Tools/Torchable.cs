@@ -6,9 +6,10 @@ using UnityEngine.Events;
 public class Torchable : MonoBehaviour
 {
     public UnityEvent onBreak;
+    bool isBroke = false;
 
     [Header("Defaults to this gameobject")]
-    [SerializeField] private GameObject torchedObject;
+    [SerializeField] public GameObject torchedObject;
 
     [Header("Heat Controls")]
     [SerializeField] private float heatGainSpeed = 0.5f;
@@ -39,6 +40,7 @@ public class Torchable : MonoBehaviour
         material = torchedObject.GetComponent<Renderer>().material;
         original = material.color;
 
+        //Debug.Log(gameObject.name +  " has Mat: " + material.name);
         this.enabled = false;
     }
 
@@ -52,8 +54,11 @@ public class Torchable : MonoBehaviour
 
         temp01 = Mathf.Clamp(temp01, 0, maxTemp);
 
-        if (temp01 >= breakTemp)
+        if (temp01 >= breakTemp && !isBroke)
+        {
+            isBroke = true;
             onBreak.Invoke();
+        }
 
         if (temp01 <= 0)
         {
@@ -79,7 +84,7 @@ public class Torchable : MonoBehaviour
 
         //material.color = Color.Lerp(original, maxTorched, temp01);
 
-        //Debug.Log(temp01);
+        Debug.Log(material.name + " has temp: " + temp01 + " and color " + material.color + ". Target color: " + newColor);
 
     }
 

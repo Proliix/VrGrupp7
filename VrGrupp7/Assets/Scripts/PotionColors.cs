@@ -62,7 +62,7 @@ public static class PotionColors
             sideColor += color.GetSideColor();
             topColor += color.GetTopColor();
             weight += color.GetWeight();
-            Debug.Log(baseAttribute.name + "Color: " + color.GetSideColor());
+            //Debug.Log(baseAttribute.name + "Color: " + color.GetSideColor());
         }
 
         sideColor /= weight;

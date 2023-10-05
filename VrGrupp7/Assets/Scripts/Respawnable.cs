@@ -32,6 +32,11 @@ public class Respawnable : MonoBehaviour
         if (charController != null)
             charController.enabled = true;
 
+        if(TryGetComponent(out CanHaveAttributes canHaveAttributes))
+        {
+            canHaveAttributes.RemoveAllAttributes();
+        }
+
     }
 
 }

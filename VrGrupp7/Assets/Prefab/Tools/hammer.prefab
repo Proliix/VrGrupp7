@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4958705595775620268}
   - component: {fileID: 5653476794668392781}
   - component: {fileID: 3999530688579817876}
+  - component: {fileID: 9140706287905605335}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Untagged
@@ -243,6 +244,21 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &9140706287905605335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693927610988370793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e656072423478144b3b8953b1bffc41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1075332412277462108
 GameObject:
   m_ObjectHideFlags: 0
