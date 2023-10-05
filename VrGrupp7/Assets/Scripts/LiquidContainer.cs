@@ -43,7 +43,7 @@ public class LiquidContainer : MonoBehaviour
             liquid.EmptyLiquid();
         }
 
-        if(TryGetComponent(out XRGrabInteractable grabInteractable))
+        if (TryGetComponent(out XRGrabInteractable grabInteractable))
         {
             grabInteractable.selectExited.AddListener(CheckForGravity);
         }
@@ -52,7 +52,7 @@ public class LiquidContainer : MonoBehaviour
 
     private void CheckForGravity(SelectExitEventArgs arg0)
     {
-        if(GetComponent<CustomGravity>() == null)
+        if (GetComponent<CustomGravity>() == null)
         {
             GetComponent<Rigidbody>().useGravity = true;
         }
@@ -61,6 +61,7 @@ public class LiquidContainer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (hasCork)
         {
             if (isPouring)
@@ -74,6 +75,9 @@ public class LiquidContainer : MonoBehaviour
             Debug.LogError("<color=red><b>Error: </b></color>" + gameObject.name + " DOES NOT HAVE A LIQUIDEFFECT. THIS OBJECT WILL NOT WORK. ADD A LIQUID EFFECT TO ITS LIQUID OBJECT", this);
             return;
         }
+
+        if (mat == null)
+            return;
 
         fillAmount = liquid.GetLiquid();
 
@@ -221,7 +225,7 @@ public class LiquidContainer : MonoBehaviour
     {
         if (mat == null)
             mat = liquidObject.GetComponent<MeshRenderer>().material;
-            
+
         return Mathf.Clamp01(liquid.GetLiquid());
     }
 }
