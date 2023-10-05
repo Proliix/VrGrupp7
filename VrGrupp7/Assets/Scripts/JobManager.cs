@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 [System.Serializable]
 public class WantedAttribute
@@ -26,6 +27,7 @@ public class JobManager : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] float maxPotency = 0.75f;
     [SerializeField] GameObject[] rewards;
+    [SerializeField] Hatch hatch;
     [Header("Turn in area")]
     [SerializeField] Vector3 turnInPos;
     [SerializeField] Vector3 turnInSize;
@@ -36,6 +38,10 @@ public class JobManager : MonoBehaviour
     //make it so it's not 33.3333333333 and 66.6666666 so there looks like its no room for error
     const float SAFETY_PERCENT = 0.005f;
 
+    XRGrabInteractable interactable;
+    Rigidbody rbody;
+    bool hasStarted;
+    bool[] isCompleted;
     int correctAmmount = 0;
 
     IAttribute[] allAttributes;
@@ -236,18 +242,35 @@ public class JobManager : MonoBehaviour
 
     public void TurnIn()
     {
-        bool[] isCompleted = new bool[wantedAtributes.Count];
+        if (hasStarted)
+            return;
+
+        isCompleted = new bool[wantedAtributes.Count];
         Collider[] hitColliders = Physics.OverlapBox(turnInPos, turnInSize);
         LiquidContainer container = null;
+        rbody = null;
+        interactable = null;
 
         for (int i = 0; i < hitColliders.Length; i++)
         {
+
+            if (hitColliders[i].gameObject.TryGetComponent(out interactable) == true)
+                if (interactable.isSelected)
+                    break;
+
             if (hitColliders[i].gameObject.TryGetComponent(out container) == true)
                 break;
+
         }
 
         if (container == null)
             return;
+
+        if (container.TryGetComponent(out rbody) == true)
+            rbody.isKinematic = true;
+
+        hasStarted = true;
+        interactable.enabled = false;
 
         IAttribute[] containerAttributes = container.GetComponents<IAttribute>();
 
@@ -262,19 +285,21 @@ public class JobManager : MonoBehaviour
             }
         }
 
+        bool isCorrect = true;
+
         if (!AlwaysTurnInCorrect)
         {
             for (int i = 0; i < isCompleted.Length; i++)
             {
                 if (!isCompleted[i])
                 {
-                    TurnInIncorrect(isCompleted);
-                    return;
+                    isCorrect = false;
+                    break;
                 }
             }
         }
 
-        TurnInCorrect();
+        hatch.StartSequence(container.gameObject, isCorrect);
     }
 
     void EnableReward()
@@ -288,18 +313,29 @@ public class JobManager : MonoBehaviour
 
     }
 
-    void TurnInCorrect()
+    public void ResetTurnIn()
+    {
+        hasStarted = false;
+    }
+
+    public void TurnInCorrect()
     {
         EnableReward();
-        turn_in_correct = 1;
         displayer.WriteText("Thank you so much");
         CancelInvoke(nameof(GetNewBatch));
         Invoke(nameof(GetNewBatch), 10);
+
     }
 
-    void TurnInIncorrect(bool[] isCompleted)
+    public void TurnInIncorrect()
     {
-        turn_in_correct = 2;
+        if (interactable != null)
+            interactable.enabled = true;
+      
+        if (rbody != null)
+            rbody.isKinematic = false;
+
+
         string explination = "This was not what i ordered! I ordered a potion with ";
         for (int i = 0; i < isCompleted.Length; i++)
         {
