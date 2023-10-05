@@ -1,4 +1,4 @@
-Hello! Welcome to you new job!
+Hello! Welcome to you new job! Press next for more info
 On the screen to the left you will get an order for a specific potion.
 The potion does not have to be exactly the potency specified.
 To create potions you will need to extract gems from the stones on the table behind you.
