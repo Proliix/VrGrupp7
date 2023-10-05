@@ -10,14 +10,22 @@ public class grab_gameobject_to_hatch : MonoBehaviour
     JobManager jobManager;
     public GameObject findjobManager;
 
+//___________________________
+    public GameObject gameobject_hatch;
+//___________________________
+
     public GameObject target_of_submitted_object;
     public GameObject target_wrong_throw_it_out;
+//___________________________
     Color color0 = Color.red;
     Color color1 = Color.green;
+    Color color2 = Color.yellow;
     public Light lt;
+//___________________________
     bool is_object_under_hatch = true;
 
     float conveyor_belt_speed = 0.01f;
+//___________________________
     void Start()
     {
         hatch = findHatch.GetComponent<Hatch>();
@@ -34,7 +42,23 @@ public class grab_gameobject_to_hatch : MonoBehaviour
             
             if (Vector3.Distance(other.gameObject.transform.position, target_of_submitted_object.transform.position) < 0.1f)
             {
-                    Destroy(other.gameObject);
+                Destroy(other.gameObject);
+                hatch.rotate = true;
+                jobManager.turn_in_correct = 0;
+                Debug.Log(jobManager.turn_in_correct);
+                
+                if (hatch.rotate == true)
+                {
+                Debug.Log(hatch.rotationAngle);
+                hatch.rotationAngle += hatch.rotationSpeed;
+                gameobject_hatch.transform.Rotate(new Vector3(0,0, -hatch.rotationAngle) * Time.deltaTime, Space.Self);   
+                }
+
+                if(hatch.rotationAngle > 190.0f && jobManager.turn_in_correct == 0)
+                {
+                hatch.rotate = false;
+                }
+                lt.color = (color2);
             }
         }
         if (hatch.rotate == false && jobManager.turn_in_correct == 2)//is NOT correct

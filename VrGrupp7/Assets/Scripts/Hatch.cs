@@ -7,9 +7,9 @@ public class Hatch : MonoBehaviour
 {
     JobManager jobManager;
     public GameObject findjobManager;
-    float rotationSpeed = 1f;
+    public float rotationSpeed = 1f;
 
-    float rotationAngle;
+    public float rotationAngle;
     public bool rotate = true;
 
     float timer;
@@ -33,8 +33,9 @@ public class Hatch : MonoBehaviour
                 gameObject.transform.Rotate(new Vector3(0, 0, -rotationAngle) * Time.deltaTime, Space.Self);
             }
 
-            if (rotationAngle > 190.0f)
+            if (rotationAngle > 190.0f && jobManager.turn_in_correct == 1 || jobManager.turn_in_correct == 2)
             {
+                Debug.Log("I WANT IT TO BE FALSE");
                 rotate = false;
             }
         }
