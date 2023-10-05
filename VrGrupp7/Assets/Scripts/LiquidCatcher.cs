@@ -54,7 +54,7 @@ public class LiquidCatcher : MonoBehaviour
         targetAmount = liquid.GetLiquid();
         fillAmount = targetAmount;
 
-        if(TryGetComponent(out Shake shake))
+        if (TryGetComponent(out Shake shake))
         {
             shake.onShake.AddListener(UpdateColorListener);
         }
@@ -147,7 +147,7 @@ public class LiquidCatcher : MonoBehaviour
     {
         targetColor = PotionColors.GetMixedColor(GetComponents<BaseAttribute>());
 
-        
+
 
         if (!isChangingColor)
         {
@@ -160,7 +160,7 @@ public class LiquidCatcher : MonoBehaviour
         Color sideColor = liquid.GetSideColor();
         Color topColor = liquid.GetTopColor();
 
-       // Debug.Log("Target side: " + targetColor.GetSideColor() + "Target Top: " + targetColor.GetTopColor());
+        // Debug.Log("Target side: " + targetColor.GetSideColor() + "Target Top: " + targetColor.GetTopColor());
 
         while (topColor != targetColor.GetTopColor() || sideColor != targetColor.GetTopColor())
         {
@@ -200,11 +200,13 @@ public class LiquidCatcher : MonoBehaviour
         //PotionColor colors = PotionColors.GetColor(attribute);
         //AddColors(colors.GetTopColor(), colors.GetSideColor());
         //ChangeColor();
+        if (attribute != null)
+        {
+            var baseAttribute = (BaseAttribute)attribute;
+            //float mass = volume * baseAttribute.mass;
 
-        var baseAttribute = (BaseAttribute)attribute;
-        //float mass = volume * baseAttribute.mass;
-
-        baseAttribute.DispenserAddToOther(transform, volume);
+            baseAttribute.DispenserAddToOther(transform, volume);
+        }
         //attribute.AddToOther(transform, volume);
 
         float currentFill = liquid.GetLiquid();

@@ -9,7 +9,8 @@ public enum PotionType
     Bouncy,
     Cloning,
     Transparancy,
-    Explosive
+    Explosive,
+    Water
 }
 
 [RequireComponent(typeof(Lever))]
@@ -65,8 +66,8 @@ public class LiquidDispenser : MonoBehaviour
         isActive = true;
         GetAttribute(type);
 
-        var color = PotionColors.GetMixedColor((BaseAttribute)currentAttribute);
-        pourLiquid.Pour(color.GetSideColor());
+        var color = currentAttribute != null ? PotionColors.GetMixedColor((BaseAttribute)currentAttribute).GetSideColor() : PotionColors.waterSide;
+        pourLiquid.Pour(color);
 
         audioSource.PlayOneShot(startSound);
         Invoke(nameof(StartLoopSound), startSound.length - 0.01f);
@@ -149,7 +150,10 @@ public class LiquidDispenser : MonoBehaviour
                 //container.AddColors(PotionColors.ExplosiveTop, PotionColors.ExplosiveSide);
                 currentAttribute = explosive;
                 break;
-
+            case PotionType.Water:
+                currentColor = PotionColors.waterSide;
+                currentAttribute = null;
+                break;
             default:
                 Debug.LogError("BECAME DEFAULT CASE");
                 break;

@@ -1,7 +1,8 @@
 Hello! Welcome to you new job! Press next for more info
 On the screen to the left you will get an order for a specific potion.
 The potion does not have to be exactly the potency specified.
-To create potions you will need to extract gems from the stones on the table behind you.
+To create potions you will need to extract gems from stones.
 Extract the gems by using the hammer and blowtorch. Then using the mortar and pestle to crush the gems.
-Add the dust and water to a bottle and then mix it by shaking.
+Add the dust to a bottle. Then put some water in it. You can get water at the table in the far right corner.
+Now shake the bottle to mix it.
 Use the scanner on the table to see the contents of a potion.
