@@ -26,7 +26,7 @@ public class HandheldScanner : MonoBehaviour
 
         string output = "Effects:\n";
 
-        if (effects == null)
+        if (effects.Length == 0)
         {
             output = "This Object doesn't have any effects";
             return output;
@@ -107,6 +107,8 @@ public class HandheldScanner : MonoBehaviour
 
     private bool CheckIfScannable(Transform transform)
     {
-        return transform.TryGetComponent<IScannable>(out _);
+        return transform.TryGetComponent<IScannable>(out _)
+            || transform.TryGetComponent<LiquidContainer>(out _)
+            || transform.TryGetComponent<CanHaveAttributes>(out _);
     }
 }

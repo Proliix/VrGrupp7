@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip_soundWhenHit: {fileID: 8300000, guid: 910185855260c984ea6f34e387cce50a, type: 3}
+  clip_soundWhenCrushed: {fileID: 8300000, guid: f6fe3188a9f06904383c71df2a727233,
+    type: 3}
   detatchOnDestroy:
   - {fileID: 6519721278190824510}
   startHealth: 0
@@ -296,6 +298,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip_soundWhenHit: {fileID: 8300000, guid: 3e0976de9fc2b8742891f40ba3c8e76a, type: 3}
+  clip_soundWhenCrushed: {fileID: 8300000, guid: 499ab8db306627f48b9d30261be00080,
+    type: 3}
   detatchOnDestroy: []
   startHealth: 0
   currentHealth: 10
@@ -674,6 +678,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip_soundWhenHit: {fileID: 8300000, guid: 3e0976de9fc2b8742891f40ba3c8e76a, type: 3}
+  clip_soundWhenCrushed: {fileID: 8300000, guid: 499ab8db306627f48b9d30261be00080,
+    type: 3}
   detatchOnDestroy: []
   startHealth: 0
   currentHealth: 10
@@ -807,6 +813,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip_soundWhenHit: {fileID: 8300000, guid: 910185855260c984ea6f34e387cce50a, type: 3}
+  clip_soundWhenCrushed: {fileID: 8300000, guid: f6fe3188a9f06904383c71df2a727233,
+    type: 3}
   detatchOnDestroy:
   - {fileID: 6372467285844394707}
   startHealth: 0
@@ -990,6 +998,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip_soundWhenHit: {fileID: 8300000, guid: 3e0976de9fc2b8742891f40ba3c8e76a, type: 3}
+  clip_soundWhenCrushed: {fileID: 8300000, guid: 499ab8db306627f48b9d30261be00080,
+    type: 3}
   detatchOnDestroy: []
   startHealth: 0
   currentHealth: 10
@@ -1122,6 +1132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip_soundWhenHit: {fileID: 8300000, guid: 910185855260c984ea6f34e387cce50a, type: 3}
+  clip_soundWhenCrushed: {fileID: 8300000, guid: f6fe3188a9f06904383c71df2a727233,
+    type: 3}
   detatchOnDestroy:
   - {fileID: 3888697790378246516}
   startHealth: 0

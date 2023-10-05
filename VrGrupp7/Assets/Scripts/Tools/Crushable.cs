@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Crushable : MonoBehaviour
 {
     public AudioClip clip_soundWhenHit;
+    public AudioClip clip_soundWhenCrushed;
 
     [SerializeField] private GameObject[] detatchOnDestroy;
 
@@ -87,6 +88,11 @@ public class Crushable : MonoBehaviour
             {
                 addGrab.Add();
             }
+        }
+
+        if(clip_soundWhenCrushed != null)
+        {
+            AudioSource.PlayClipAtPoint(clip_soundWhenCrushed, transform.position, 0.5f);
         }
 
         Destroy(gameObject);
