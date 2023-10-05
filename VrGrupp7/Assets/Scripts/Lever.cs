@@ -15,10 +15,10 @@ public class Lever : MonoBehaviour
     [SerializeField] Vector3 angleDir = Vector3.left;
     public UnityEvent onEnable;
     public UnityEvent onDisable;
+    [SerializeField] bool resetPos = true;
 
     [SerializeField] bool debugAngle;
     [SerializeField] bool debugDot;
-
     Vector3 startPos;
     Quaternion startRot;
     bool isActive;
@@ -53,7 +53,7 @@ public class Lever : MonoBehaviour
             float dot = Vector3.Dot(dir, dotDir);
 
             if (debugDot)
-                Debug.Log(dot,this);
+                Debug.Log(dot, this);
 
             if (dot > 0)
             {
@@ -64,7 +64,7 @@ public class Lever : MonoBehaviour
         }
 
         if (debugAngle)
-            Debug.Log(Vector3.Angle(transform.up, angleDir),this);
+            Debug.Log(Vector3.Angle(transform.up, angleDir), this);
 
 
         if (Vector3.Angle(transform.up, angleDir) > angleForStart)
@@ -91,8 +91,11 @@ public class Lever : MonoBehaviour
 
     void ResetPos(SelectExitEventArgs args)
     {
-        isGrabbed = false;
-        transform.position = startPos;
-        transform.rotation = startRot;
+        if (resetPos)
+        {
+            isGrabbed = false;
+            transform.position = startPos;
+            transform.rotation = startRot;
+        }
     }
 }
