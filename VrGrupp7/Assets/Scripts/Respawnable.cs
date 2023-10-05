@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Respawnable : MonoBehaviour
 {
@@ -21,6 +22,13 @@ public class Respawnable : MonoBehaviour
 
     public void Respawn()
     {
+        XRGrabInteractable grabInteractable;
+
+        if (TryGetComponent(out grabInteractable))
+        {
+            grabInteractable.enabled = false;
+        }
+
         Debug.Log("Respawned " + gameObject.name, this);
 
         if (charController != null)
@@ -37,6 +45,10 @@ public class Respawnable : MonoBehaviour
             canHaveAttributes.RemoveAllAttributes();
         }
 
+        if (TryGetComponent(out grabInteractable))
+        {
+            grabInteractable.enabled = true;
+        }
     }
 
 }

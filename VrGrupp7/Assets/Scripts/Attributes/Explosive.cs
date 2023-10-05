@@ -18,6 +18,8 @@ public class Explosive : BaseAttribute
     bool isInvincible = true;
     float invincibleAfterSpawnTime = 0.2f;
 
+    Shake shake;
+
     //private void OnCollisionEnter(Collision other)
     //{
     //    if (isInvincible)
@@ -111,21 +113,16 @@ public class Explosive : BaseAttribute
         isInvincible = true;
         Invoke(nameof(TurnOffInvincible), invincibleAfterSpawnTime);
 
-        var shake = GetComponent<Shake>();
+        shake = GetComponent<Shake>();
 
         if(shake == null)
         {
             shake = gameObject.AddComponent<Shake>();
+            shake.onShake = new UnityEngine.Events.UnityEvent<float>();
         }
 
         m_rb = GetComponent<Rigidbody>();
 
-
-        Invoke(nameof(AddShake), 0.1f);
-    }
-
-    void AddShake(Shake shake)
-    {
         shake.onShake.AddListener(TryExplode);
     }
 

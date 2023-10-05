@@ -6,10 +6,7 @@ using UnityEngine;
 [AddComponentMenu("**Attributes**/Duplicator")]
 public class Duplicator : BaseAttribute
 {
-    //public float potency;
-    float cloneSpeed = 0.3f;
-    bool isDuping = false;
-
+    float massRequired = 50;
 
     //public void AddToOther(Transform other, float volume)
     //{
@@ -33,20 +30,47 @@ public class Duplicator : BaseAttribute
 
     public override void UpdateStats()
     {
-        if (potency >= 1 && !isDuping)
+        float max = Mathf.Max(mixed01, potency);
+
+        if (mass > massRequired && max > 0.9f)
         {
-            isDuping = true;
             Duplicate();
         }
     }
 
     void Duplicate()
     {
-        GameObject DupedObj = Instantiate(gameObject, transform.position + Vector3.up * 0.25f, transform.rotation);
+        mixed01 = 0;
+        TryUpdateColor();
 
-        Destroy(DupedObj.GetComponent<Duplicator>());
+        float height = 0.25f;
+
+        if (TryGetComponent(out Renderer renderer))
+        {
+            height = renderer.bounds.size.y;
+        }
+
+        GameObject DupedObj = Instantiate(gameObject, transform.position + Vector3.up * height, transform.rotation);
+
+        var clonedDuplicator = DupedObj.GetComponent<Duplicator>();
+
+        clonedDuplicator.mixed01 = 0;
+
+        //if(TryGetComponent(out Shake shake))
+        //{
+        //    shake.onShake = new UnityEngine.Events.UnityEvent<float>();
+        //}
+
+        if(clonedDuplicator.TryGetComponent(out Rigidbody rigidbody))
+        {
+            rigidbody.isKinematic = false;
+
+            rigidbody.useGravity = clonedDuplicator.GetComponent<CustomGravity>() == null;
+        }
+        
+
+        Destroy(clonedDuplicator, 0.1f);
         Destroy(this);
-
     }
 
     public override string GetScanInformation()

@@ -27,7 +27,7 @@ public class LiquidCatcher : MonoBehaviour
     List<Color> sideColors = new List<Color>();
     List<Color> topColors = new List<Color>();
 
-    bool isChangingColor = false;
+    public bool isChangingColor = false;
     float colorLerp = 0;
     float fadeT;
     float fadeSpeed = 1.25f;
@@ -37,6 +37,7 @@ public class LiquidCatcher : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         container = GetComponent<LiquidContainer>();
 
         if (liquidObj == null)
@@ -58,8 +59,8 @@ public class LiquidCatcher : MonoBehaviour
             shake.onShake.AddListener(UpdateColorListener);
         }
 
-        //Debug.Log(targetAmount);
-        //Debug.Log(mat.GetFloat("_Fill"));
+        isChangingColor = false;
+        UpdateColor();
     }
 
     void UpdateColorListener(float _)

@@ -11,11 +11,11 @@ public class CanHaveAttributes : MonoBehaviour
 
     public void AddAttributes(GameObject other, float volume)
     {
-        IAttribute[] attributes = other.GetComponents<IAttribute>();
+        IAttribute[] otherAttributes = other.GetComponents<IAttribute>();
 
-        for (int i = 0; i < attributes.Length; i++)
+        for (int i = 0; i < otherAttributes.Length; i++)
         {
-            attributes[i].AddToOther(transform, volume);
+            otherAttributes[i].AddToOther(this.transform, volume);
         }
 
         onValueChanged.Invoke();

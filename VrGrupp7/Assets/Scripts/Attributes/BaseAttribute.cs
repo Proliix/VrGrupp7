@@ -59,6 +59,25 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
             UpdateStats();
     }
 
+    public void LoseMassAndMix(float lostMass)
+    {
+        if (lostMass <= 0) { return; }
+
+        if(lostMass > mass)
+        {
+            lostMass = mass;
+        }
+
+        mixed01 = Mathf.Clamp01(mixed01 - lostMass * 0.01f);
+
+        mass -= lostMass;
+
+        if (enabled)
+            UpdateStats();
+
+
+    }
+
     public float LoseMass(float volume)
     {
         float lostMass = (GetConcentration() * 100) * volume;
@@ -231,5 +250,13 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
     {
         color.SetWeight(mixed01);
         return color;
+    }
+
+    public void TryUpdateColor()
+    {
+        if (TryGetComponent(out LiquidCatcher liquidCatcher))
+        {
+            liquidCatcher.UpdateColor();
+        }
     }
 }
