@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 5449681904166442385}
   - component: {fileID: 4130239497245680191}
   - component: {fileID: 8783754292604034783}
+  - component: {fileID: 8304943980601230481}
   m_Layer: 6
   m_Name: gem2
   m_TagString: Untagged
@@ -258,6 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     m_Bits: 3
+  setColliderToTriggerOnSelect: 0
 --- !u!114 &4130239497245680191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +303,19 @@ MonoBehaviour:
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
   particleColorGradient: 0.5
+--- !u!114 &8304943980601230481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888697790378246516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e72ccd2669abf4c808749804c2c278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attributeMass: 100
 --- !u!1 &4813077405249667345
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +537,7 @@ GameObject:
   - component: {fileID: 1499145999029849269}
   - component: {fileID: 1102496697982500865}
   - component: {fileID: 1770715057417125115}
+  - component: {fileID: 8242499168264276778}
   m_Layer: 6
   m_Name: gem1
   m_TagString: Untagged
@@ -621,6 +637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     m_Bits: 3
+  setColliderToTriggerOnSelect: 0
 --- !u!114 &1102496697982500865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,6 +681,19 @@ MonoBehaviour:
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
   particleColorGradient: 0.5
+--- !u!114 &8242499168264276778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6372467285844394707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e72ccd2669abf4c808749804c2c278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attributeMass: 100
 --- !u!1 &6463719879701232521
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,6 +853,7 @@ GameObject:
   - component: {fileID: 1213490170787340970}
   - component: {fileID: 9218738599832913885}
   - component: {fileID: 3087922131300589269}
+  - component: {fileID: 2022287220789506819}
   m_Layer: 6
   m_Name: gem3
   m_TagString: Untagged
@@ -922,6 +953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     m_Bits: 3
+  setColliderToTriggerOnSelect: 0
 --- !u!114 &9218738599832913885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,6 +997,19 @@ MonoBehaviour:
   ParticleOnHit: {fileID: 499061354792018405, guid: 3117f87bd7f5a344abd47bc02c495314,
     type: 3}
   particleColorGradient: 0.5
+--- !u!114 &2022287220789506819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6519721278190824510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e72ccd2669abf4c808749804c2c278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attributeMass: 100
 --- !u!1 &9148789184982928094
 GameObject:
   m_ObjectHideFlags: 0
