@@ -20,11 +20,12 @@ public class JobManager : MonoBehaviour
 {
     public int turn_in_correct = 0;  // 0= null 1=correct 2=Incorrect
     [SerializeField] TextDisplayer displayer;
-    [SerializeField] int startBatch = 2;
+    [SerializeField] int startBatch = 1;
     [Range(0, 1)]
     [SerializeField] float minPotency = 0.05f;
     [Range(0, 1)]
     [SerializeField] float maxPotency = 0.75f;
+    [SerializeField] GameObject[] rewards;
     [Header("Turn in area")]
     [SerializeField] Vector3 turnInPos;
     [SerializeField] Vector3 turnInSize;
@@ -35,6 +36,8 @@ public class JobManager : MonoBehaviour
     //make it so it's not 33.3333333333 and 66.6666666 so there looks like its no room for error
     const float SAFETY_PERCENT = 0.005f;
 
+    int correctAmmount = 0;
+
     IAttribute[] allAttributes;
     [HideInInspector] public List<WantedAttribute> wantedAtributes;
 
@@ -42,18 +45,22 @@ public class JobManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(turn_in_correct + "test");
+        for (int i = 0; i < rewards.Length; i++)
+        {
+            rewards[i].SetActive(false);
+        }
+
         allAttributes = GetComponents<IAttribute>();
-        GetNewBatch(startBatch);
+        CreateNewBatch(startBatch);
     }
 
     [ContextMenu("Get New Attributes")]
-    void NewBatchEditor()
+    void GetNewBatch()
     {
-        GetNewBatch(startBatch);
+        CreateNewBatch(startBatch + correctAmmount);
     }
 
-    void GetNewBatch(int amount)
+    void CreateNewBatch(int amount)
     {
         wantedAtributes = new List<WantedAttribute>();
 
@@ -116,7 +123,7 @@ public class JobManager : MonoBehaviour
             float margin = Random.Range(2, 5 + 1);
             newWanted.marginOfError = margin;
             float potency = Random.Range(minPotency, fullPotency > 0 ? ConvertPotencyToMaxValue(fullPotency) : maxPotency);
-            newWanted.potency = Mathf.Floor(Mathf.Round(potency * 100.0f)) * 0.01f;
+            newWanted.potency = Mathf.RoundToInt(potency * 100.0f) * 0.01f;
             wantedAtributes.Add(newWanted);
         }
         else
@@ -200,10 +207,13 @@ public class JobManager : MonoBehaviour
         string newJobString = "I want a potion that has ";
         for (int i = 0; i < wantedAtributes.Count; i++)
         {
-            if (i == wantedAtributes.Count - 1)
-                newJobString += " and ";
-            else if (i != 0)
-                newJobString += ", ";
+            if (wantedAtributes.Count > 1)
+            {
+                if (i == wantedAtributes.Count - 1)
+                    newJobString += " and ";
+                else if (i != 0)
+                    newJobString += ", ";
+            }
 
             if (!CheckForException(wantedAtributes[i].Attribute))
             {
@@ -211,8 +221,9 @@ public class JobManager : MonoBehaviour
             }
             else
             {
-                if (i == wantedAtributes.Count - 1)
-                    newJobString += " is ";
+                if (wantedAtributes.Count > 1)
+                    if (i == wantedAtributes.Count - 1)
+                        newJobString += " is ";
 
                 newJobString += FormatExceptionString(wantedAtributes[i].Attribute);
             }
@@ -266,12 +277,24 @@ public class JobManager : MonoBehaviour
         TurnInCorrect();
     }
 
+    void EnableReward()
+    {
+        if (correctAmmount > rewards.Length)
+            return;
+
+        correctAmmount++;
+
+        rewards[correctAmmount - 1].SetActive(true);
+
+    }
+
     void TurnInCorrect()
     {
+        EnableReward();
         turn_in_correct = 1;
         displayer.WriteText("Thank you so much");
-        CancelInvoke(nameof(NewBatchEditor));
-        Invoke(nameof(NewBatchEditor), 10);
+        CancelInvoke(nameof(GetNewBatch));
+        Invoke(nameof(GetNewBatch), 10);
     }
 
     void TurnInIncorrect(bool[] isCompleted)

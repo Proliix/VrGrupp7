@@ -37,12 +37,12 @@ public class Tutorial : MonoBehaviour
         headTransform = Camera.main.transform;
     }
 
-    private void CheckActionAxis(InputActionReference input, ref bool boolToChange, Vector2 minValues, Vector2 maxValues, string textToChangeTo)
+    private void CheckActionAxis(InputActionReference input, ref bool boolToChange, Vector2 minValues, Vector2 maxValues, string textToChangeTo, float speed = 0.33f)
     {
         Vector2 value = input.action.ReadValue<Vector2>();
         if (value.x > maxValues.x || value.x < minValues.x || value.y > maxValues.y || value.y < minValues.y)
         {
-            movedAmount += 0.33f * Time.deltaTime;
+            movedAmount += speed * Time.deltaTime;
             fillImage.fillAmount = movedAmount;
         }
 
@@ -61,10 +61,9 @@ public class Tutorial : MonoBehaviour
     {
         hasBeenGrabbed = true;
         socket.selectExited.RemoveListener(BottleIsGrabbed);
-
         AudioSource.PlayClipAtPoint(sucessClip, displayer.transform.position);
         platform.SetActive(false);
-        displayer.ForceWriteText("Perfect! Now i want you to <size=20><color=red><B>SMASH IT!</B></color></size>");
+        displayer.ForceWriteText("Perfect! Now i want you to <size=20><color=red>SMASH IT!</color></size>");
     }
 
     private void Update()
@@ -80,7 +79,7 @@ public class Tutorial : MonoBehaviour
 
         if (!snapComplete)
         {
-            CheckActionAxis(rightStick, ref snapComplete, new Vector2(-0.1f, -0.1f), new Vector2(0.1f, 20f), "Great! Now use the buttons on the back of the controller to grab the bottle");
+            CheckActionAxis(rightStick, ref snapComplete, new Vector2(-0.1f, -0.1f), new Vector2(0.1f, 20f), "Great! Now use the buttons on the back of the controller to grab the bottle", 0.5f);
             return;
         }
         else if (platform.activeSelf == false && !hasBeenGrabbed)
@@ -98,6 +97,7 @@ public class Tutorial : MonoBehaviour
                 AudioSource.PlayClipAtPoint(sucessClip, displayer.transform.position);
                 displayer.ForceWriteText("Well done! Lets take you to the lab so you make some potions!");
                 completeText = true;
+                StartCoroutine(LoadMainAsync());
             }
 
 
@@ -109,11 +109,25 @@ public class Tutorial : MonoBehaviour
             {
 
                 loading = true;
-                SceneManager.LoadScene(1);
             }
 
         }
 
+    }
+
+    IEnumerator LoadMainAsync()
+    {
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+        asyncLoad.allowSceneActivation = false;
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+            if (asyncLoad.progress >= 0.9f && loading)
+                break;
+        }
+        asyncLoad.allowSceneActivation = true;
     }
 
 }
