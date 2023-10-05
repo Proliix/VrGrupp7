@@ -105,7 +105,7 @@ public class Mortar : MonoBehaviour
     public void SocketClear()
     {
         
-        if(crushable.currentHealth <= 0)
+        if(crushable != null && crushable.currentHealth <= 0)
         {
             ReleaseDust();
         }
