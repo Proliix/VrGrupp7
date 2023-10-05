@@ -1,9 +1,7 @@
-Hello! Welcome to our Playtest!
-Congratulations!!! You managed to press the button!
-Try using the dispensers to the right and make some potions!
-You can mix the potion by using another dispenser!
-You can also mix the liquids inside of the cube shaped beaker.
-Can you figure out what the different liquids do?
-Use the scanner on the table to see the contents of a beaker.
-Press the giant button to your right to reset the level.
-Don't forget to give us feedback :)
+Hello! Welcome to you new job!
+On the screen to the left you will get an order for a specific potion.
+The dispensers to the right will give you diferent kinds of liquid.
+You Should mix the liquid inside the bottles to make the desired potion.
+Some potions need a little extra that you can get from the Gems from the stones on the table behind you.
+To extract the stones use the blowtorch and hammer to remove the rock.
+Use the scanner on the table to see the contents of a potion.
