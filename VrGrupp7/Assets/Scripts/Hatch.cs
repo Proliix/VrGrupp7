@@ -20,19 +20,22 @@ public class Hatch : MonoBehaviour
 
     void Update()
     {
-        jobManager = findjobManager.GetComponent<JobManager>();
-        
+        if (jobManager == null)
+            jobManager = findjobManager.GetComponent<JobManager>();
+
+
+
         if (jobManager.turn_in_correct == 1 || jobManager.turn_in_correct == 2)
         {
             if (rotate == true)
             {
-            rotationAngle += rotationSpeed;
-            gameObject.transform.Rotate(new Vector3(0,0, -rotationAngle) * Time.deltaTime, Space.Self);   
+                rotationAngle += rotationSpeed;
+                gameObject.transform.Rotate(new Vector3(0, 0, -rotationAngle) * Time.deltaTime, Space.Self);
             }
 
-            if(rotationAngle > 190.0f)
+            if (rotationAngle > 190.0f)
             {
-            rotate = false;
+                rotate = false;
             }
         }
     }
