@@ -2385,7 +2385,7 @@ PrefabInstance:
     - target: {fileID: 210125265399726547, guid: bd8e2487cae864c4ea859c97e791d2fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.3754569
+      value: 1.381
       objectReference: {fileID: 0}
     - target: {fileID: 210125265399726547, guid: bd8e2487cae864c4ea859c97e791d2fb,
         type: 3}
@@ -3998,21 +3998,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6025993210009070851, guid: 92d4922dccc325a4ba3e00df5596d081,
-        type: 3}
-      propertyPath: liquidDispenser
-      value: 
-      objectReference: {fileID: 887266225}
-    - target: {fileID: 6025993210009070851, guid: 92d4922dccc325a4ba3e00df5596d081,
-        type: 3}
-      propertyPath: PourCollisionMask.m_Bits
-      value: 513
-      objectReference: {fileID: 0}
-    - target: {fileID: 6025993210718368485, guid: 92d4922dccc325a4ba3e00df5596d081,
-        type: 3}
-      propertyPath: type
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 6064687991655784230, guid: 92d4922dccc325a4ba3e00df5596d081,
         type: 3}
       propertyPath: m_RootOrder
@@ -4075,18 +4060,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92d4922dccc325a4ba3e00df5596d081, type: 3}
---- !u!114 &887266225 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6025993210718368485, guid: 92d4922dccc325a4ba3e00df5596d081,
-    type: 3}
-  m_PrefabInstance: {fileID: 887266224}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c1daf3ef0c2a94b98f8bdb7f306fdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &893438434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9159,21 +9132,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6025993210009070851, guid: 92d4922dccc325a4ba3e00df5596d081,
-        type: 3}
-      propertyPath: liquidDispenser
-      value: 
-      objectReference: {fileID: 1976312002}
-    - target: {fileID: 6025993210009070851, guid: 92d4922dccc325a4ba3e00df5596d081,
-        type: 3}
-      propertyPath: PourCollisionMask.m_Bits
-      value: 513
-      objectReference: {fileID: 0}
-    - target: {fileID: 6025993210718368485, guid: 92d4922dccc325a4ba3e00df5596d081,
-        type: 3}
-      propertyPath: type
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6064687991655784230, guid: 92d4922dccc325a4ba3e00df5596d081,
         type: 3}
       propertyPath: m_RootOrder
@@ -15843,18 +15801,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936063055}
   m_CullTransparentMesh: 1
---- !u!114 &1976312002 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6025993210718368485, guid: 92d4922dccc325a4ba3e00df5596d081,
-    type: 3}
-  m_PrefabInstance: {fileID: 1664682254}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c1daf3ef0c2a94b98f8bdb7f306fdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2049102226
 PrefabInstance:
   m_ObjectHideFlags: 0

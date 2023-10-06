@@ -53,6 +53,16 @@ public class PourLiquid : MonoBehaviour
         splineTrajectory = new Vector3[LinePoints];
         currentTrajectory = new Vector3[LinePoints];
 
+
+        if(transform.parent != null)
+        {
+            var dispenser = transform.parent.GetComponentInChildren<LiquidDispenser>();
+
+            if(dispenser != null)
+            {
+                liquidDispenser = dispenser;
+            }
+        }
     }
 
     IEnumerator Couroutine_StartFlow(Color color)
