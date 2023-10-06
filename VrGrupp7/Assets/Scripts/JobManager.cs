@@ -66,6 +66,18 @@ public class JobManager : MonoBehaviour
         CreateNewBatch(startBatch + correctAmmount);
     }
 
+    public void EpicCheat()
+    {
+        if (correctAmmount > 10)
+            return;
+
+        for (int i = 0; i < 6; i++)
+        {
+            EnableReward();
+        }
+    }
+
+
     void CreateNewBatch(int amount)
     {
         wantedAtributes = new List<WantedAttribute>();
@@ -304,7 +316,7 @@ public class JobManager : MonoBehaviour
 
     void EnableReward()
     {
-        if (correctAmmount > rewards.Length)
+        if (correctAmmount >= rewards.Length)
             return;
 
         correctAmmount++;
@@ -331,7 +343,7 @@ public class JobManager : MonoBehaviour
     {
         if (interactable != null)
             interactable.enabled = true;
-      
+
         if (rbody != null)
             rbody.isKinematic = false;
 
