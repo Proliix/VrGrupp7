@@ -7,7 +7,7 @@ public class PourLiquid : MonoBehaviour
 {
     private Liquid liquid;
 
-    public LinkedList<Vector3[]> linkedList = new LinkedList<Vector3[]>();
+    public LinkedList<Vector3[]> trajectories = new LinkedList<Vector3[]>();
     public Vector3[] splineTrajectory;
     public Vector3[] currentTrajectory;
 
@@ -24,6 +24,9 @@ public class PourLiquid : MonoBehaviour
     private float maxPourStrength = 2;
     private float PourStrength = 2f;
 
+    //This can be used to allow liquid to pour through objects;
+    [SerializeField] private LayerMask PourCollisionMask;
+
     [Header("Display Controls")]
     [SerializeField]
     [Range(10, 100)]
@@ -34,31 +37,24 @@ public class PourLiquid : MonoBehaviour
 
     public int pointCount;
 
-    float pourStrengthLimiter = 1;
-
-    float liquidLost = 0;
-
-    //This can be used to allow liquid to pour through objects;
-    [SerializeField] private LayerMask PourCollisionMask;
-
-    bool isPouring;
-
+    private float pourStrengthLimiter = 1;
+    private float liquidLost = 0;
+    private bool isPouring;
     private IEnumerator couroutine_Flowing;
 
+    [Header("If used as dispenser")]
     [SerializeField] private LiquidDispenser liquidDispenser;
 
     private void Awake()
     {
-
         splineTrajectory = new Vector3[LinePoints];
         currentTrajectory = new Vector3[LinePoints];
 
-
-        if(transform.parent != null)
+        if (transform.parent != null)
         {
             var dispenser = transform.parent.GetComponentInChildren<LiquidDispenser>();
 
-            if(dispenser != null)
+            if (dispenser != null)
             {
                 liquidDispenser = dispenser;
             }
@@ -68,19 +64,16 @@ public class PourLiquid : MonoBehaviour
     IEnumerator Couroutine_StartFlow(Color color)
     {
         //Wait for a liquid from the object pool
-        while(liquid == null)
+        while (liquid == null)
         {
             liquid = LiquidObjectPool.instance.GetLiquid();
 
-             
+
             if (liquid == null)
                 yield return new WaitForSeconds(TimeBetweenPoints);
             else
                 Debug.Log(transform.name + " took " + liquid.transform.name + " from object pool");
         }
-
-
-        //Debug.Log("PourLiquid: " + liquid.transform.name + "Starting Flow");
 
         //set the liquids pourLiquid reference to this script
         liquid.pourLiquid = this;
@@ -101,24 +94,21 @@ public class PourLiquid : MonoBehaviour
             RecordPositions();
 
             //Sometimes is called after we cancel the couroutine
-            if(liquid != null)
+            if (liquid != null)
                 liquid.UpdateSpline();
         }
-
-
     }
-
 
     void RecordPositions()
     {
         DrawProjection();
 
         Vector3[] copy = (Vector3[])currentTrajectory.Clone();
-        linkedList.AddFirst(copy);
+        trajectories.AddFirst(copy);
 
-        for (int i = 0; i < linkedList.Count && i < LinePoints; i++)
+        for (int i = 0; i < trajectories.Count && i < LinePoints; i++)
         {
-            Vector3[] nthTrajectory = linkedList.ElementAt(i);
+            Vector3[] nthTrajectory = trajectories.ElementAt(i);
             if (nthTrajectory == null)
             {
                 return;
@@ -128,9 +118,9 @@ public class PourLiquid : MonoBehaviour
             splineTrajectory[i] = point;
         }
 
-        if (linkedList.Count > LinePoints)
+        if (trajectories.Count > LinePoints)
         {
-            linkedList.RemoveLast();
+            trajectories.RemoveLast();
         }
     }
 
@@ -158,10 +148,8 @@ public class PourLiquid : MonoBehaviour
 
             if (collided && hit.collider.gameObject != gameObject)
             {
-
                 currentTrajectory[i] = hit.point;
                 i++;
-
                 pointCount = i;
 
                 TryTransferLiquid(hit.collider.gameObject, time);
@@ -174,7 +162,6 @@ public class PourLiquid : MonoBehaviour
                 }
 
                 //DrawDebugLines(currentTrajectory, Color.white, TimeBetweenPoints * 5);
-
                 return;
             }
         }
@@ -191,7 +178,6 @@ public class PourLiquid : MonoBehaviour
     {
         isPouring = false;
         StopCoroutine(couroutine_Flowing);
-        
 
         if (liquid == null)
             return;
@@ -204,7 +190,7 @@ public class PourLiquid : MonoBehaviour
     {
         LiquidObjectPool.instance.ReturnLiquid(liquid);
         liquid = null;
-        if(this == null) { return;}
+        if (this == null) { return; }
         CancelInvoke();
 
         pourStrengthLimiter = 1;
@@ -226,7 +212,7 @@ public class PourLiquid : MonoBehaviour
     {
         pourStrengthLimiter -= Time.deltaTime;
         //Magic numbers
-        PourStrength = Mathf.Clamp((tilt - 1) * pourStrengthGain, 0.1f, maxPourStrength - Mathf.Clamp01(pourStrengthLimiter)* (maxPourStrength / 3));
+        PourStrength = Mathf.Clamp((tilt - 1) * pourStrengthGain, 0.1f, maxPourStrength - Mathf.Clamp01(pourStrengthLimiter) * (maxPourStrength / 3));
     }
 
     public void UpdateLiquidLost(float lost)
@@ -237,8 +223,8 @@ public class PourLiquid : MonoBehaviour
     void TryTransferLiquid(GameObject hitObject, float delay)
     {
         LiquidCatcher liquidCatcher = hitObject.GetComponent<LiquidCatcher>();
-        
-        if(liquidCatcher != null && liquidDispenser != null)
+
+        if (liquidCatcher != null && liquidDispenser != null)
         {
             if (liquidCatcher.GetVolume() < 1)
             {
@@ -248,7 +234,7 @@ public class PourLiquid : MonoBehaviour
                 return;
             }
         }
-        else if(liquidCatcher != null)
+        else if (liquidCatcher != null)
         {
             if (liquidCatcher.GetVolume() < 1)
             {
@@ -258,7 +244,7 @@ public class PourLiquid : MonoBehaviour
                 return;
             }
         }
-        else if(hitObject.TryGetComponent(out CanHaveAttributes canHaveAttributes))
+        else if (hitObject.TryGetComponent(out CanHaveAttributes canHaveAttributes))
         {
             StartCoroutine(Couroutine_TransferAttributes(canHaveAttributes, liquidLost, delay));
             Invoke(nameof(PlayParticle), delay);
@@ -302,7 +288,7 @@ public class PourLiquid : MonoBehaviour
         if (isPouring)
         {
             Debug.Log("PourLiquid Disabled: Stopping pour on " + transform.name);
-            Stop(); 
+            Stop();
         }
     }
 }

@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Torchable : MonoBehaviour
 {
     public UnityEvent onBreak;
-    bool isBroke = false;
+    private bool isBroken = false;
 
     [Header("Defaults to this gameobject")]
     [SerializeField] public GameObject torchedObject;
@@ -47,16 +45,15 @@ public class Torchable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        temp01 = insideFire ? 
-            temp01 + Time.deltaTime * heatGainSpeed : 
-            temp01 - Time.deltaTime * heatLossSpeed ;
+        temp01 = insideFire ?
+            temp01 + Time.deltaTime * heatGainSpeed :
+            temp01 - Time.deltaTime * heatLossSpeed;
 
         temp01 = Mathf.Clamp(temp01, 0, maxTemp);
 
-        if (temp01 >= breakTemp && !isBroke)
+        if (temp01 >= breakTemp && !isBroken)
         {
-            isBroke = true;
+            isBroken = true;
             onBreak.Invoke();
         }
 
@@ -67,10 +64,8 @@ public class Torchable : MonoBehaviour
             this.enabled = false;
         }
 
-        Color.RGBToHSV(maxTorchedColor, out float maxH, out float MaxS, out float MaxV);
-
-
         Color.RGBToHSV(original, out float hue, out float saturation, out float value);
+        Color.RGBToHSV(maxTorchedColor, out float maxH, out float MaxS, out float MaxV);
 
         hue = Mathf.Lerp(hue, maxH, temp01);
         saturation = Mathf.Lerp(saturation, MaxS, temp01);
@@ -81,11 +76,7 @@ public class Torchable : MonoBehaviour
         newColor.a = alpha;
 
         material.color = newColor;
-
-        //material.color = Color.Lerp(original, maxTorched, temp01);
-
-        Debug.Log(material.name + " has temp: " + temp01 + " and color " + material.color + ". Target color: " + newColor);
-
+        //Debug.Log(material.name + " has temp: " + temp01 + " and color " + material.color + ". Target color: " + newColor);
     }
 
     public void OnTorchEnter()
@@ -98,7 +89,6 @@ public class Torchable : MonoBehaviour
     {
         insideFire = false;
     }
-
     public float GetTemperature()
     {
         return temp01;

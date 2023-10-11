@@ -6,20 +6,20 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(Rigidbody))]
 public class Crusher : MonoBehaviour
 {
+    [Header("Crusher settings")]
+    [SerializeField] private Transform hammerHead;
+    [SerializeField] private float sharpness = 1;
+    private float damage;
+
+    [Header("Sound Controls")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField][Range(0, 1)] private float volumeModifier = 1;
     [SerializeField] [Range(0, 1)] private float maxVolume = 1;
     private float soundCooldownTime = 0.1f;
     private bool soundCooldown = false;
 
-    [SerializeField] private float sharpness = 1;
-    private float damage;
-
-    [SerializeField] private Transform hammerHead;
-
-    Vector3 oldPosition;
+    private Vector3 oldPosition;
     private Rigidbody rb;
-    private Collider _collider;
 
     void Start()
     {
@@ -28,10 +28,8 @@ public class Crusher : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         oldPosition = hammerHead.position;
-        _collider = GetComponent<Collider>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!rb.IsSleeping())
@@ -59,13 +57,10 @@ public class Crusher : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("Crusher Collided with " + other.transform.name);
-
         if (other.transform.TryGetComponent(out ParentCrushable parentCrushable))
         {
             parentCrushable.CollidedWithCrusher(other, GetDamage(), hammerHead.position);
-
-            Debug.Log("Crusher dealt " + GetDamage() + " Damage to " + other.transform.name);
+            //Debug.Log("Crusher dealt " + GetDamage() + " Damage to " + other.transform.name);
         }
     }
 
@@ -79,17 +74,7 @@ public class Crusher : MonoBehaviour
         }
     }
 
-    public void OnGrab()
-    {
-
-    }
-
-    public void OnRelease()
-    {
-
-    }
-
-    void PlaySound(AudioClip clip, float damage)
+    private void PlaySound(AudioClip clip, float damage)
     {
         if(audioSource == null) { return; }
 
@@ -104,7 +89,7 @@ public class Crusher : MonoBehaviour
         audioSource.PlayOneShot(clip, damage);
     }
 
-    IEnumerator PlaySoundCooldown(float time)
+    private IEnumerator PlaySoundCooldown(float time)
     {
         soundCooldown = true;
 

@@ -5,25 +5,23 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Pestle : MonoBehaviour
 {
-    Rigidbody rb;
-    Collider _collider;
-
-    Vector3 oldPosition;
-    Vector3 velocity;
-
     [SerializeField]float grindDamage = 1f;
+    private bool dealtDamage = false;
 
-    [SerializeField] private AudioClip grindSound;
     private AudioSource audioSource;
+    [SerializeField] private AudioClip grindSound;
     [SerializeField] private float volumeModifier = 1;
     [SerializeField] private float soundChangeSpeed = 1;
 
     private bool couroutineIsRunning = false;
     private IEnumerator fadeOutSound;
 
-    private bool dealtDamage = false;
+    private Rigidbody rb;
+    private Collider _collider;
 
-    // Start is called before the first frame update
+    private Vector3 oldPosition;
+    private Vector3 velocity;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -66,7 +64,7 @@ public class Pestle : MonoBehaviour
         _collider.isTrigger = isTrigger;
     }
 
-    private float GetEfficieny(Vector3 mortarCenter)
+    private float GetEfficiency(Vector3 mortarCenter)
     {
         if (this.velocity == Vector3.zero)
             return 0;
@@ -75,16 +73,8 @@ public class Pestle : MonoBehaviour
         Vector2 mortarLocation = new Vector2(mortarCenter.x, mortarCenter.z);
 
         Vector2 velocity = new Vector2(this.velocity.x, this.velocity.z);
-
         Vector2 direction = pestleLocation - mortarLocation;
         Vector2 normal = Vector2.Perpendicular(direction);
-
-        //Debug.Log("Direction: " + direction);
-        //Debug.Log("Normal: " + normal);
-        //Debug.Log("Velocity: " + velocity);
-
-        //Debug.DrawLine(mortarCenter, mortarCenter + new Vector3(direction.x, 0, direction.y), Color.red);
-        //Debug.DrawLine(transform.position, transform.position + new Vector3(normal.x, 0, normal.y), Color.blue);
 
         float angle = Vector2.Angle(normal, velocity);
 
@@ -93,7 +83,6 @@ public class Pestle : MonoBehaviour
 
         float efficiency01 = 1 - angle / 90f;
 
-        //Debug.Log("efficiency01: " + efficiency01);
         return efficiency01;
     }
 
@@ -109,9 +98,8 @@ public class Pestle : MonoBehaviour
             audioSource.Play();
         }
 
-
         dealtDamage = true;
-        float efficiency01 = GetEfficieny(mortarCenter);
+        float efficiency01 = GetEfficiency(mortarCenter);
         float damage = grindDamage * efficiency01 * velocity.magnitude;
 
         float targetVolume = Mathf.Clamp01(damage * volumeModifier);

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Blowtorch : MonoBehaviour
 {
-
     [SerializeField] ParticleSystem fire;
-    List<Torchable> insideTorch = new List<Torchable>();
+    private List<Torchable> insideTorch = new List<Torchable>();
 
-    bool isActive = false;
+    private bool isActive = false;
 
     [SerializeField] AudioClip start;
     [SerializeField] AudioClip loop;
@@ -29,12 +28,9 @@ public class Blowtorch : MonoBehaviour
         audioSource.clip = loop;
         audioSource.PlayDelayed(start.length - 0.5f);
 
-
         for (int i = 0; i < insideTorch.Count; i++)
         {
             insideTorch[i].OnTorchEnter();
-
-            //Debug.Log("Starting torch " + insideTorch[i].name);
         }
     }
 
@@ -52,8 +48,6 @@ public class Blowtorch : MonoBehaviour
                 continue;
             }
             insideTorch[i].OnTorchExit();
-
-            //Debug.Log("Stopping torch " + insideTorch[i].name);
         }
     }
 
@@ -65,9 +59,8 @@ public class Blowtorch : MonoBehaviour
             if (!insideTorch.Contains(torchable))
                 insideTorch.Add(torchable);
 
-            if(isActive)
+            if (isActive)
                 torchable.OnTorchEnter();
-
         }
     }
 

@@ -15,20 +15,20 @@ public class Liquid : MonoBehaviour
 
     [SerializeField] float speedDelta;
     [SerializeField] float animationSpeed;
-    private float localAnimSpeed;
+    [SerializeField] private float maxSpeed = 10f;
 
     private Vector3 targetScale;
+    private float localAnimSpeed;
     private float speedCurveLerp;
     private float length;
 
     private Vector3 startScale;
     private float meshLength;
-    [SerializeField] private float maxSpeed = 10f;
     private bool flowWater = true;
 
     public ParticleSystem ps_waterSplash;
-    Vector3 impactPos;
-    Vector3 impactUp;
+    private Vector3 impactPos;
+    private Vector3 impactUp;
 
     public void StartFlow(Color color)
     {
@@ -66,15 +66,12 @@ public class Liquid : MonoBehaviour
         length = 0;
 
         gameObject.SetActive(true);
-        //spline.gameObject.SetActive(true);
     }
 
     public void UpdateScale()
     {
         //Scale the mesh to the length of the spline
         float scaleFactor = spline.Length * (1f / meshLength);
-
-        //Debug.Log("Update Scale");
 
         Vector3 localScale = scale;
         localScale.x = scale.x * scaleFactor;
@@ -86,7 +83,6 @@ public class Liquid : MonoBehaviour
 
     IEnumerator Coroutine_WaterFlow()
     {
-        //Debug.Log(gameObject.name + ": Flow Started");
         while (flowWater)
         {
             //Moves the mesh along the spline by scaling it, targetScale updates depending on the length of the spline
@@ -109,15 +105,15 @@ public class Liquid : MonoBehaviour
             yield return null;
         }
 
-        float count = 0;
+        float contortLength = 0;
         speedCurveLerp = 0;
 
-        while (count < spline.Length)
+        while (contortLength < spline.Length)
         {
             //Retracts the splineMesh along the spline
-            contortAlong.Contort((count / spline.Length));
+            contortAlong.Contort((contortLength / spline.Length));
 
-            count += Time.deltaTime * localAnimSpeed * speedCurveLerp;
+            contortLength += Time.deltaTime * localAnimSpeed * speedCurveLerp;
             speedCurveLerp = Mathf.Clamp(speedCurveLerp + speedDelta * Time.deltaTime, 0, maxSpeed);
             yield return null;
 
@@ -130,11 +126,6 @@ public class Liquid : MonoBehaviour
     }
     private void ConfigureSpline()
     {
-        //Debug.Log("ConfigureSpline");
-        //LineRenderer line = TrajectoryProjector.instance.GetComponent<LineRenderer>();
-
-        Vector3[] points = pourLiquid.splineTrajectory;
-
         Vector3 targetDirection = (pourLiquid.transform.up);
         transform.forward = new Vector3(targetDirection.x, 0, targetDirection.z).normalized;
 
@@ -149,10 +140,7 @@ public class Liquid : MonoBehaviour
 
     public void UpdateSpline()
     {
-        if (!flowWater)
-        {
-            return;
-        }
+        if (!flowWater) { return; }
 
         Vector3[] points = pourLiquid.splineTrajectory;
 
@@ -228,13 +216,11 @@ public class Liquid : MonoBehaviour
             Vector3 normal = Quaternion.Euler(myAngle) * myAngle;
             Vector3 direction = point - (normal / 2f);
 
-
             spline.nodes[nodeCount].Position = transform.InverseTransformPoint(point);
             spline.nodes[nodeCount].Direction = transform.InverseTransformPoint(direction);
         }
 
         RemoveUnusedSplines(nodeCount);
-
         UpdateScale();
     }
 
@@ -243,8 +229,6 @@ public class Liquid : MonoBehaviour
         for (int i = spline.nodes.Count - 1; i > nodeCount - 1; i--)
         {
             spline.RemoveNode(spline.nodes[i]);
-            //Debug.Log("points: " + line.positionCount);
-            //Debug.Log("Removing node: " + i);
         }
     }
 
@@ -264,7 +248,6 @@ public class Liquid : MonoBehaviour
             var main = ps_waterSplash.main;
             //Set particle color to gradient;
             main.startColor = gradient;
-
         }
     }
 }

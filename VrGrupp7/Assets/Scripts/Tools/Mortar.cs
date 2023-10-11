@@ -19,8 +19,6 @@ public class Mortar : MonoBehaviour
     private Pestle pestle;
     private Crushable crushable;
 
-    private const string holderName = "AttributeHolder";
-
     void Start()
     {
         dustOriginalScale = dustPrefab.transform.localScale;
@@ -34,26 +32,6 @@ public class Mortar : MonoBehaviour
         {
             this.pestle = pestle;
         }
-
-        //if(heldObject == null) { return; }
-
-        //if(heldObject.TryGetComponent(out Crushable crushable))
-        //{
-        //    this.crushable = crushable;
-        //}
-
-        //if      (heldObject.TryGetComponent(out Crushable crushable) && 
-        //    other.transform.TryGetComponent(out Crusher crusher))
-        //{
-        //    this.crushable = crushable;
-        //    float damage = crusher.GetDamage();
-        //    Vector3 crusherLocation = crusher.transform.position;
-        //    Vector3 hitLocation = dustSpawnpoint.transform.position;
-
-        //    crushable.OnCollision(damage, hitLocation, crusherLocation);
-
-
-        //}
     }
 
     private void OnTriggerStay(Collider other)
@@ -63,20 +41,15 @@ public class Mortar : MonoBehaviour
         if(crushable == null && !heldObject.TryGetComponent(out crushable)) { return; }
 
         float damage = pestle.GetDamage(dustSpawnpoint.position);
-        //Debug.Log(damage);
-
         float percentageLost = damage / crushable.startHealth;
 
         foreach (BaseAttribute attribute in heldObject.GetComponents<BaseAttribute>())
         {
             BaseAttribute dustAttribute = (BaseAttribute)currentDust.GetComponent(attribute.GetType());
-
             if(dustAttribute == null)
             {
                 dustAttribute = attribute.AddToOther(currentDust.transform);
             }
-
-            //var dustAttribute = (BaseAttribute)currentDust.GetComponent(attribute.GetType());
 
             dustAttribute.mass += attribute.mass * percentageLost;
         }
@@ -85,18 +58,12 @@ public class Mortar : MonoBehaviour
 
         lerpScale += percentageLost;
         IncreaseDustSize();
-        //DecreaseCrushableSize();
     }
 
     public void SocketCheck()
     {
-
         IXRSelectInteractable objName = socket.GetOldestInteractableSelected();
-
-        //Debug.Log(objName.transform.name + " in socket of " + transform.name);
-
         heldObject = objName.transform.gameObject;
-
         heldObject.transform.localScale = heldObjectOriginalScale;
 
         SpawnDust();
@@ -104,7 +71,6 @@ public class Mortar : MonoBehaviour
 
     public void SocketClear()
     {
-        
         if(crushable != null && crushable.currentHealth <= 0)
         {
             ReleaseDust();
@@ -125,10 +91,8 @@ public class Mortar : MonoBehaviour
         foreach (Collider col in currentDust.GetComponents<Collider>())
             col.enabled = false;
 
-        //currentDust.GetComponent<Collider>().enabled = false;
         currentDust.GetComponent<Rigidbody>().isKinematic = true;
 
-        //currentDust.GetComponent<Renderer>().material = heldObject.GetComponent<Renderer>().material;
         Color color = heldObject.GetComponent<Renderer>().material.color;
         currentDust.GetComponentInChildren<Renderer>().material.SetColor("_Color", color);
 
@@ -160,13 +124,6 @@ public class Mortar : MonoBehaviour
         }
     }
 
-    void DecreaseCrushableSize()
-    {
-        if(heldObject == null) { return; }
-
-        heldObject.transform.localScale = Vector3.Lerp(Vector3.zero, heldObjectOriginalScale, 1 - (lerpScale/2));
-    }
-
     void ReleaseDust()
     {
         currentDust.transform.parent = null;
@@ -177,7 +134,6 @@ public class Mortar : MonoBehaviour
 
         currentDust.GetComponent<Rigidbody>().isKinematic = false;
         currentDust.GetComponent<AddGrab>().Add();
-
         currentDust = null;
     }
 }
