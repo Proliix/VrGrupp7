@@ -7,31 +7,33 @@ using UnityEngine;
 [AddComponentMenu("**Attributes**/Explosive")]
 public class Explosive : BaseAttribute
 {
-
-    Rigidbody m_rb;
-    [Range(0f, 0.5f)] public float maxForceRequiredToExplode = 0.5f;
-
-
+    [Range(0f, 0.5f)][SerializeField] 
+    private float maxForceRequiredToExplode = 0.5f;
     public GameObject explosion;
 
-    float minimumExplodeThreshold = 0.05f; 
-    bool isInvincible = true;
-    float invincibleAfterSpawnTime = 0.2f;
+    private Rigidbody m_rb;
+    private float minimumExplodeThreshold = 0.05f;
+    private float invincibleAfterSpawnTime = 0.2f;
+    private bool isInvincible = true;
 
-    Shake shake;
+    private Shake shake;
 
-    //private void OnCollisionEnter(Collision other)
-    //{
-    //    if (isInvincible)
-    //        return;
+    private void OnEnable()
+    {
+        isInvincible = true;
+        Invoke(nameof(TurnOffInvincible), invincibleAfterSpawnTime);
 
-    //    float impactForce = other.impulse.magnitude;
+        shake = GetComponent<Shake>();
 
-    //    if(impactForce > GetForceRequiredToExplode())
-    //    {
-    //        Explode();
-    //    }
-    //}
+        if (shake == null)
+        {
+            shake = gameObject.AddComponent<Shake>();
+            shake.onShake = new UnityEngine.Events.UnityEvent<float>();
+        }
+
+        m_rb = GetComponent<Rigidbody>();
+        shake.onShake.AddListener(TryExplode);
+    }
 
     void TryExplode(float force)
     {
@@ -106,24 +108,6 @@ public class Explosive : BaseAttribute
     public override string GetName()
     {
         return "Explosive";
-    }
-
-    private void OnEnable()
-    {
-        isInvincible = true;
-        Invoke(nameof(TurnOffInvincible), invincibleAfterSpawnTime);
-
-        shake = GetComponent<Shake>();
-
-        if(shake == null)
-        {
-            shake = gameObject.AddComponent<Shake>();
-            shake.onShake = new UnityEngine.Events.UnityEvent<float>();
-        }
-
-        m_rb = GetComponent<Rigidbody>();
-
-        shake.onShake.AddListener(TryExplode);
     }
 
     private void TurnOffInvincible()

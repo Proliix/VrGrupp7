@@ -6,10 +6,7 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
 {
     private LiquidContainer liquidContainer;
 
-    public float potency
-    {
-        get { return GetPotency(); }
-    }
+    public float potency { get { return GetPotency(); } }
 
     public float mass = 0;
     //How mixed the mass is
@@ -22,8 +19,6 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
     private void Awake()
     {
         color = PotionColors.GetColor(this);
-
-        //Debug.Log(name + " has " + color.GetSideColor() + " color");
 
         if (GetComponent<LiquidContainer>() == null && GetComponent<CanHaveAttributes>() == null)
         {
@@ -46,9 +41,7 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
         if(addMass <= 0) { return; }
 
         float otherMixedMass = addMass * otherMixed;
-
         float mixedMass = mass * mixed01;
-
         float combinedMixedMass = mixedMass + otherMixedMass;
 
         mass += addMass;
@@ -92,18 +85,9 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
     public void TransferMass(BaseAttribute other, float volume)
     {
         float otherMixed = other.mixed01;
-
         float lostMass = other.LoseMass(volume);
 
-        //float otherMixedMass = lostMass * otherMixed;
-
-        //float mixedMass = mass * mixed01;
-
-        //float combinedMixedMass = mixedMass + otherMixedMass;
-
         AddMass(lostMass, otherMixed);
-
-        //mixed01 = Mathf.Clamp01(combinedMixedMass / mass);
     }
 
     public float GetPotency()
@@ -225,8 +209,7 @@ public abstract class BaseAttribute : MonoBehaviour, IScannable, IAttribute
 
         mixed01 = Mathf.Clamp01(newMixedvalue);
 
-        //mixed01 = Mathf.Clamp01(mixed01 += shakeForce);
-        Debug.Log(name + " is " + Mathf.Round(mixed01 * 100) + "% mixed");
+        //Debug.Log(name + " is " + Mathf.Round(mixed01 * 100) + "% mixed");
 
         if(enabled)
             UpdateStats();

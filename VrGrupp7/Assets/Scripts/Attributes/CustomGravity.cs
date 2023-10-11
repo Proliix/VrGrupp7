@@ -58,6 +58,9 @@ public class CustomGravity : BaseAttribute
 
     void FixedUpdate()
     {
+        if (m_rb.useGravity == true)
+            m_rb.useGravity = false;
+
         Vector3 gravity = globalGravity * GetGravityModifier() * Vector3.up;
         m_rb.AddForce(gravity, ForceMode.Acceleration);
     }
